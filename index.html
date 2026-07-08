@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JAPAN DIABOLO ASSOCIATION</title>
-<link rel="stylesheet" href="css/style.css?v=58">
+<!-- 共通CSS。css/style.cssを編集したら、全HTMLの ?v= 数字を上げてキャッシュを避ける。 -->
+<link rel="stylesheet" href="css/style.css?v=59">
 </head>
 <body>
 
@@ -74,6 +75,10 @@
   </header>
 
   <!-- ===== HERO ===== -->
+  <!--
+    トップの大きなスライド。1つの .hero-slide が1枚分です。
+    画像を同名ファイルで差し替えた時は、src末尾の ?v= 数字も上げるとブラウザキャッシュを避けられます。
+  -->
   <section class="hero" id="top">
     <div class="hero-slideshow" id="heroSlideshow">
 
@@ -148,6 +153,7 @@
   </section>
 
   <!-- ===== MARQUEE STRIP (UPDATES) ===== -->
+  <!-- 表示文は marquee-updates.txt から読み込まれます。ここにあるspanは読み込み失敗時の予備表示です。 -->
   <div class="marquee">
     <div class="marquee-track" id="marqueeTrack">
       <span>大阪国際ディアボロ競技会2026 開催要項公開</span>
@@ -163,6 +169,7 @@
   </div>
 
   <!-- ===== NEWS ===== -->
+  <!-- PICK UPカード。リンク先、画像、タグ、見出しを1セットで編集します。 -->
   <section class="section" id="news">
     <div class="section-head">
       <h2>PICK UP</h2>
@@ -212,6 +219,7 @@
   </section>
 
   <!-- ===== CHAMPIONS ===== -->
+  <!-- トップのCHAMPIONSカルーセル。ここは2026年度の代表カードを手書きし、JSが表示順シャッフルと自動スクロールを担当します。 -->
   <section class="section" id="athletes">
     <div class="section-head">
       <h2>CHAMPIONS</h2>
@@ -324,6 +332,10 @@
   </section>
 
   <!-- ===== UPDATES ===== -->
+  <!--
+    トップ下部の更新カード。1つの .rule-item が1件分です。
+    一覧ページも更新する場合は external/news/index.html にも同じ内容を追加してください。
+  -->
   <section class="section" id="updates">
     <div class="section-head">
       <h2>UPDATES</h2>
@@ -364,6 +376,7 @@
   </section>
 
   <!-- ===== ABOUT / FOOTER ===== -->
+  <!-- フッターは下層ページにもコピーされています。リンクを変える時は external/*/index.html 側も同じように更新してください。 -->
   <footer class="site-footer" id="about">
     <div class="footer-top">
       <div class="footer-cols">
@@ -395,8 +408,10 @@
     </div>
   </footer>
 
+  <!-- 下層ページでは "../../" などに変える。js/main.jsのサイト内検索が相対パス解決に使います。 -->
   <script>const SITE_ROOT = "";</script>
 
-  <script src="js/main.js?v=34"></script>
+  <!-- 共通JS。js/main.jsを編集したら、全HTMLの ?v= 数字を上げてキャッシュを避ける。 -->
+  <script src="js/main.js?v=35"></script>
 </body>
 </html>

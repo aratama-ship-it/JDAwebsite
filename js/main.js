@@ -1,3 +1,6 @@
+// 共通JS。トップページだけでなく下層ページも読み込むため、特定ページ用の処理は
+// getElementByIdなどで対象要素が存在する時だけ動かす構成にしている。
+
 // マーキー（更新情報の流れるバー）：項目数や画面幅が変わっても継ぎ目なくループするよう、
 // 元の項目セットを画面幅以上になるまで複製してから、その複製ブロックをもう一度繰り返して
 // ちょうど2分割のトラックを作る（CSSのtranslateX(-50%)で前半→後半が完全に一致し、途切れず巻き戻る）
@@ -243,6 +246,8 @@ if (cfFileInput) {
 }
 
 // サイト内検索
+// 新しいページを追加した場合は、このSEARCH_INDEXに title / keywords / path を1行追加する。
+// 下層ページ側では各HTMLの SITE_ROOT = "../../" により、ここに書いたルート基準のpathを補正している。
 const SEARCH_INDEX = [
   { title: 'トップ', keywords: 'トップ ホーム top index', path: 'index.html#top' },
   { title: '協会について', keywords: '協会について about 沿革 目的 本協会', path: 'external/about/index.html' },

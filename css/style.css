@@ -2,6 +2,7 @@
 /* 全ページ共通のリセットCSSと、配色・フォントなどのCSS変数(:root)を定義 */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* 色やフォントの基準値。サイト全体の色味を変える時は、まずここを変更する。 */
 :root {
   --bg: #ffffff;
   --bg-soft: #f6f6f7;
