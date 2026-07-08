@@ -5,7 +5,7 @@
 `https://www.diabolo.jp`(日本ディアボロ協会の公式サイト)のリデザイン案として作成した静的HTMLモックです。
 デザインの参照元は `https://www.redbull.com/jp-ja/`(ダーク基調 → 現在は白基調に変更済み、後述)。
 
-トップページ + 9つのサブページからなる完パケのフォルダで、`index.html` を起点にすべて相対パスでリンクしています。
+トップページ + 10個のサブページからなる完パケのフォルダで、`index.html` を起点にすべて相対パスでリンクしています。
 
 ## 動かし方(重要)
 
@@ -23,6 +23,8 @@ python3 -m http.server 8000
 ```
 diabolo-redesign-mock/
 ├── index.html                  トップページ
+├── performer.html              旧パフォーマー派遣URL互換の転送ページ
+├── workshop.html               旧ワークショップURL互換の転送ページ
 ├── TOP_PAGE_DESIGN_MEMO.md      トップページのデザイン改善メモ
 ├── css/style.css                共通スタイル(全ページで読み込み)
 ├── js/main.js                   共通スクリプト(全ページで読み込み)
@@ -38,6 +40,7 @@ diabolo-redesign-mock/
     ├── access/                  事務所・店舗へのアクセス(Googleカレンダー・マップ埋め込み)
     ├── certification/           ディアボロ検定(検定技リストはアコーダション、動画はモーダル再生)
     ├── contact/                 お問い合わせ(FormSubmit連携フォーム、二段階確認モーダル)
+    ├── dispatch/                派遣業務(パフォーマー派遣・ワークショップ講師派遣を統合)
     ├── news/                    更新情報(diabolo.jpの実際の更新履歴25件)
     ├── otp2/                    TAR UMT OTP TOURNAMENT 2.0 大会情報
     ├── records/                 記録一覧(男女別の各部門テーブル)
@@ -59,15 +62,17 @@ diabolo-redesign-mock/
 `css/style.css` と `js/main.js` は、編集してもブラウザにキャッシュされて反映されないことが何度かあった。
 **全ページの `<link>` / `<script>` タグに `?v=N` を付けてあるので、CSSかJSを編集したら必ずバージョン番号を上げること。**
 
-- 現在のCSSバージョン: `style.css?v=56`(共通CSSを読むページは同じ値で揃える)
-- 現在のJSバージョン: `main.js?v=33`(共通JSを読むページは同じ値で揃える)
+- 現在のCSSバージョン: `style.css?v=58`(共通CSSを読むページは同じ値で揃える)
+- 現在のJSバージョン: `main.js?v=34`(共通JSを読むページは同じ値で揃える)
 - トップページ内リンク(`#news`/`#athletes`/`#updates`)は、固定ヘッダーで見出しが隠れないよう `scroll-margin-top` を設定済み。PCは96px、700px以下は88px。
 - トップページのスマホCHAMPIONSカードは、`#athletes` 配下に限定してオーバーレイを強め、選手名・部門名の文字サイズ/行間/影を調整済み。歴代チャンピオン一覧ページのカードには影響しないようスコープしている。
 - トップページPICK UP直前の `midd` 帯は、デスクトップで少し軽く見えるよう `.section-divider` の高さを135px→112px、画像固定高さを560px→500px、上方向のずらしを10px→8pxに調整済み。スマホ幅(700px以下)の非表示は維持。
 - UPDATESカードは、`.rule-item:has(.update-text)` で更新情報系のカードだけを白背景・薄い境界線・軽い影・浮くhoverに調整済み。採点規則ページのPDFリストなど、`.update-text` を持たない `.rule-item` には基本的に影響しない。
-- トップページのヒーローは、各スライドに `hero-slide--oidc` / `hero-slide--tar` / `hero-slide--regu` / `hero-slide--access` を付与し、CSS変数でテキスト位置・最大幅・画像の `object-position`・グラデーションをスライドごとに微調整済み。700px以下ではスマホ向けの画像位置に切り替える。
+- OIDCのトップ画像(`images/pickup/oidc.webp`)は2人構図の新画像に差し替え済み。右側人物の紐が二重に見える箇所を修正済み。同名ファイル更新のため、`index.html` のヒーロー/PICK UPカード参照には `?v=3` を付けて画像キャッシュを回避している。
+- トップページのヒーローは、スライドごとの文字位置・画像位置調整を撤回し、全スライド共通の左下配置と共通グラデーションに戻した。`hero-slide--*` クラスは使わない。
 - スマホヘッダーはロゴ横に短縮表記 `JDA` を表示し、768px以上では従来通り `JAPAN DIABOLO ASSOCIATION` を表示する。480px以下ではヘッダー左右余白とアクション間隔を少し詰めている。
-- トップページのセクション見出し内 `.section-jp` は、赤いピル型ラベルにして日本語サブテキストの見え方を統一済み。700px以下では少し小さくする。
+- トップページのセクション見出し下にあった日本語サブテキスト(`ピックアップ`/`日本チャンピオン`/`更新情報`)は不要との判断で削除済み。共通CSS側の `.section-jp` スタイルも削除。
+- 旧サイトの `performer.html` / `workshop.html` は、`external/dispatch/index.html` の「派遣業務」ページへ統合済み。全共通ページのフッター「協会について」列は「派遣業務」1リンクに整理し、お問い合わせフォーム側の種別も「派遣業務」へ一本化した。新しい導線は `?subject=dispatch`、旧導線互換として `?subject=workshop` / `?subject=performer` も「派遣業務」を自動選択する。ルート直下の `performer.html` / `workshop.html` は旧URL互換用の転送ページとして残す。
 - CHAMPIONSカルーセル下部の進捗バー(`.carousel-progress`)の幅を160px→260pxに拡大(560px以下のスマホ用の100px幅は変更なし)。
 - サイト共通のコンテンツ幅をさらに8%拡大(`1700px`→`1836px`)。
 - サイト共通のコンテンツ幅をさらに`1600px`→`1700px`に拡大(「もう少しだけ拡大してほしい」の要望)。
@@ -81,7 +86,7 @@ diabolo-redesign-mock/
   - カーソルが`#athletes`セクション(カード・矢印・進捗バーを含む全体)の上にある間は`paused`フラグで自動再生を止める(`mouseenter`/`mouseleave`)。
   - 矢印クリック・進捗バーのドラッグは、自動再生用の`offset`(px)を直接書き換える方式に統一(以前の「0〜maxIndexの段階的index」方式は廃止)。クリック時のみ`transition: transform 0.4s ease`を一時的に付けて滑らかにスナップさせ、自動再生中とドラッグ中は`transition: none`で逐次描画する。
 - **モバイルヘッダーのデザイン改善(4点レビュー対応)**:
-  1. SNSアイコンをヘッダーから外し、ハンバーガーメニュー内(`.main-nav-sns`、全9ページの`<nav id="mainNav">`内に複製マークアップを追加)に移動。`max-width:1023px`で`.header-actions .sns-links`を非表示、`.main-nav.open .main-nav-sns`のみ表示。
+  1. SNSアイコンをヘッダーから外し、ハンバーガーメニュー内(`.main-nav-sns`、当時の既存ページの`<nav id="mainNav">`内に複製マークアップを追加)に移動。`max-width:1023px`で`.header-actions .sns-links`を非表示、`.main-nav.open .main-nav-sns`のみ表示。
   2. モバイル検索欄の幅をSNS分の余白を気にせず拡大(`max-width:1023px`で180px、`max-width:480px`で150px。旧480px時130px固定だった)。
   3. 「大会情報」ドロップダウンを`max-width:1023px`でクリック開閉対応。`js/main.js`が`.nav-trigger`クリックで親`.nav-item`に`is-open`をトグルし、CSSの`.nav-item.has-dropdown.is-open .dropdown-panel`で表示。**ハマったポイント**: `.nav-item`が`display:flex`なので、`.dropdown-panel`を`position:static`にしただけだと横並びの兄弧要素になってしまう。`@media(max-width:1023px){.nav-item.has-dropdown{display:block;}}`で縦積みに修正した。
   4. PICK UP/CHAMPIONS/UPDATESの余白・密度を`max-width:700px`でコンパクト化(`.section`のpadding、`.card-grid`/`.athlete-grid`のgap、`.card-body`/`.rule-item`のpadding等を縮小)。
@@ -91,7 +96,7 @@ diabolo-redesign-mock/
 - **重要**: `images/diaicon.png`(赤いグロス調の元画像)は実体が存在しない(おそらく作業中に削除された)。`css/style.css`内の2箇所(マーキー区切りアイコン、`.page-title`の背景装飾)で参照していたため404になっていたバグを修正し、両方とも実在する`images/diaicon-white.png`に差し替えた。`.page-title`側は背景が薄いグレーで白アイコンのままだと見えなくなるため、`filter: brightness(0.35)`を追加してグレー寄りに暗くし、視認できるようにしている。今後 `diaicon.png` という名前のファイルを画像参照に使う場合は、まずファイルの実在を確認すること。
 - `.page-title`のpaddingは`140px 32px 56px`(元)→`116px 32px 88px`(下が空きすぎたとの指摘)→`116px 32px 64px`(現在)と調整。
 - サブページ共通の`.page-title`(協会について/検定/歴代チャンピオン一覧などのページ見出し帯)から赤バッジ(`.hero-tag`)を非表示にし、代わりに控えめな背景(赤の淡いradial-gradient2つ + `images/diaicon.png`を左上・右下に`opacity:0.06`で薄く配置、画像生成は行わずCSSのみで実装)を追加した。
-- ヘッダーの「大会情報」ドロップダウン最下部に「歴代チャンピオン一覧」(`external/champions/index.html`へのリンク)を全9ページに追加済み。HTMLの変更のみでCSS/JSのバージョンアップは不要だった。
+- ヘッダーの「大会情報」ドロップダウン最下部に「歴代チャンピオン一覧」(`external/champions/index.html`へのリンク)を既存の共通ヘッダーページに追加済み。HTMLの変更のみでCSS/JSのバージョンアップは不要だった。
 - スマホ幅(700px以下)のヒーロー高さを1.5倍(260px→390px)に変更し、ヒーロー内の赤いボタン(`.hero-actions`)を非表示にした。デスクトップ幅(662px・ボタン表示あり)には影響しない。
 - フッター最下部のコピーライト(`.footer-bottom`)は`justify-content: space-between`(子要素が1つだけなので実質左寄せになっていた)から`center`に変更し、全ページ共通で中央寄せにした。
 - `.section-divider`の下部を白背景(PICK UP)へ自然に溶け込ませるため、`::after`で`linear-gradient(to bottom, rgba(255,255,255,0) 40%, #ffffff 100%)`のオーバーレイを重ねている(`pointer-events:none`でクリックを妨げない)。
@@ -127,7 +132,7 @@ diabolo-redesign-mock/
 - `external/champions/data/champions.json`は`AJDC_全日本ディアボロ選手権_選手別成績一覧.csv`(プロジェクトルート)から順位=1の行を年度別・部門別に抽出して生成したもの(チャレンジクラスは元データが部分的に壊れているため除外)。データは2012〜2026年・全121件で、2024〜2026年の28件は実写真、2023年以前は `images/poker/cardback.webp` の仮画像を表示する。CSVが更新された場合はchampions.jsonの再生成が必要(現状は自動連携ではなく一度生成したJSONを置いているだけ)。
 - CHAMPIONS POKERは `external/champions-poker/`(独自のindex.html・css/style.css・js/main.js)に完全分離して移植済み。トップページ(index.html)・本体のcss/style.css・js/main.jsからは関連コードを全て削除した。本体のCHAMPIONSセクション(カルーセル10枚・シャッフル機能)とは無関係で、現状トップページからのリンクは設置していない(直接 `external/champions-poker/index.html` を開く運用)。
 - ヘッダー検索を展開すると `.sns-links` が幅ゼロに折りたたまれ `.header-actions` の幅が変化し、`justify-content: space-between` の再配分で `.main-nav` が右にずれるバグがあった。`.sns-links.is-hidden` は幅を保持したまま `opacity:0` で見た目だけ隠す方式に修正済み(検索入力欄自体は `position: absolute` でレイアウト幅に影響しない)。
-- 全9ページ(index.html含む)の`<script src=".../js/main.js">`に`?v=N`のクエリを統一して付与済み(以前はサブページがクエリなしでキャッシュ対策が不揃いだった)。`external/champions-poker/`は独自の`js/main.js`(別ファイル、現在`?v=1`)を持つため対象外。今後JSを編集したら、index.htmlだけでなく全ページのこのクエリ番号を揃えて上げること。
+- 共通JSを読むページ(index.html含む)の`<script src=".../js/main.js">`に`?v=N`のクエリを統一して付与済み(以前はサブページがクエリなしでキャッシュ対策が不揃いだった)。`external/champions-poker/`は独自の`js/main.js`(別ファイル、現在`?v=1`)を持つため対象外。今後JSを編集したら、index.htmlだけでなく全ページのこのクエリ番号を揃えて上げること。
 - 作業履歴: この時点では `main.js?v=28` まで更新済み。
 - モバイルのハンバーガーメニュー展開は、以前`js/main.js`内でJSが直接`mainNav.style.xxx`を書き換えて見た目を作っていたが、CSSクラス(`.main-nav.open`)で見た目を管理する方式にリファクタ済み。JS側は`mainNav.classList.toggle('open')`のみを行う。見た目を調整したい場合は`css/style.css`の`.main-nav.open`を編集すればよい。
 - トップページCHAMPIONSセクション(`#championsTrack`)の10枚は、架空の選手名(final_athlete_1〜10.jpg)から2026年度の実際の現役チャンピオン10名(`images/champions/2026/26champ*.png`、`external/champions/data/champions.json`の2026年度データと同じ人物・部門・並び順)に更新済み。

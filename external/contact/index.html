@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>お問い合わせ | JAPAN DIABOLO ASSOCIATION</title>
-<link rel="stylesheet" href="../../css/style.css?v=56">
+<link rel="stylesheet" href="../../css/style.css?v=58">
 </head>
 <body>
 
@@ -125,6 +125,7 @@
           <select id="cf-subject" name="subject">
             <option>大会について</option>
             <option>検定について</option>
+            <option value="派遣業務">派遣業務</option>
             <option>取材・メディア掲載</option>
             <option>その他</option>
           </select>
@@ -158,6 +159,7 @@
           <h5>協会について</h5>
           <a href="../about/index.html">概要</a>
           <a href="index.html">お問い合わせ</a>
+          <a href="../dispatch/index.html">派遣業務</a>
         </div>
         <div class="footer-col">
           <h5>競技・大会</h5>
@@ -195,7 +197,7 @@
 
   <script>const SITE_ROOT = "../../";</script>
 
-  <script src="../../js/main.js?v=33"></script>
+  <script src="../../js/main.js?v=34"></script>
   <script>
     // Googleカレンダーの下端をフォームの下端に揃える(2カラム表示の時だけ)。
     // フォームの高さはブラウザ幅やフォント読み込みで微妙に変わるため、固定値ではなく
@@ -231,6 +233,17 @@
     const confirmSummary = document.getElementById('confirmSummary');
     const confirmCancel = document.getElementById('confirmCancel');
     const confirmSend = document.getElementById('confirmSend');
+    const subjectSelect = document.getElementById('cf-subject');
+
+    const subjectParamMap = {
+      dispatch: '派遣業務',
+      workshop: '派遣業務',
+      performer: '派遣業務'
+    };
+    const initialSubject = new URLSearchParams(window.location.search).get('subject');
+    if (subjectParamMap[initialSubject]) {
+      subjectSelect.value = subjectParamMap[initialSubject];
+    }
 
     function summaryRow(label, value) {
       return `<dt>${label}</dt><dd>${value || '（未入力）'}</dd>`;

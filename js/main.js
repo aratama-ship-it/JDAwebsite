@@ -258,6 +258,7 @@ const SEARCH_INDEX = [
   { title: '事務所・店舗へのアクセス', keywords: 'アクセス access 事務所 店舗 地図 営業時間', path: 'external/access/index.html' },
   { title: '更新情報', keywords: '更新情報 news updates', path: 'external/news/index.html' },
   { title: 'お問い合わせ', keywords: 'お問い合わせ contact フォーム', path: 'external/contact/index.html' },
+  { title: '派遣業務', keywords: '派遣業務 パフォーマー派遣 ワークショップ 講師派遣 技術指導 イベント出演', path: 'external/dispatch/index.html' },
   { title: 'オンラインショップ', keywords: 'オンラインショップ ショップ shop store', path: 'https://diabolo.shop-pro.jp' },
 ];
 
