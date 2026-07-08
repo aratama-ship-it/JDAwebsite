@@ -59,8 +59,11 @@ diabolo-redesign-mock/
 `css/style.css` と `js/main.js` は、編集してもブラウザにキャッシュされて反映されないことが何度かあった。
 **全ページの `<link>` / `<script>` タグに `?v=N` を付けてあるので、CSSかJSを編集したら必ずバージョン番号を上げること。**
 
-- 現在のCSSバージョン: `style.css?v=50`(共通CSSを読むページは同じ値で揃える)
+- 現在のCSSバージョン: `style.css?v=53`(共通CSSを読むページは同じ値で揃える)
 - 現在のJSバージョン: `main.js?v=33`(共通JSを読むページは同じ値で揃える)
+- トップページ内リンク(`#news`/`#athletes`/`#updates`)は、固定ヘッダーで見出しが隠れないよう `scroll-margin-top` を設定済み。PCは96px、700px以下は88px。
+- トップページのスマホCHAMPIONSカードは、`#athletes` 配下に限定してオーバーレイを強め、選手名・部門名の文字サイズ/行間/影を調整済み。歴代チャンピオン一覧ページのカードには影響しないようスコープしている。
+- トップページPICK UP直前の `midd` 帯は、デスクトップで少し軽く見えるよう `.section-divider` の高さを135px→112px、画像固定高さを560px→500px、上方向のずらしを10px→8pxに調整済み。スマホ幅(700px以下)の非表示は維持。
 - CHAMPIONSカルーセル下部の進捗バー(`.carousel-progress`)の幅を160px→260pxに拡大(560px以下のスマホ用の100px幅は変更なし)。
 - サイト共通のコンテンツ幅をさらに8%拡大(`1700px`→`1836px`)。
 - サイト共通のコンテンツ幅をさらに`1600px`→`1700px`に拡大(「もう少しだけ拡大してほしい」の要望)。
@@ -88,8 +91,8 @@ diabolo-redesign-mock/
 - スマホ幅(700px以下)のヒーロー高さを1.5倍(260px→390px)に変更し、ヒーロー内の赤いボタン(`.hero-actions`)を非表示にした。デスクトップ幅(662px・ボタン表示あり)には影響しない。
 - フッター最下部のコピーライト(`.footer-bottom`)は`justify-content: space-between`(子要素が1つだけなので実質左寄せになっていた)から`center`に変更し、全ページ共通で中央寄せにした。
 - `.section-divider`の下部を白背景(PICK UP)へ自然に溶け込ませるため、`::after`で`linear-gradient(to bottom, rgba(255,255,255,0) 40%, #ffffff 100%)`のオーバーレイを重ねている(`pointer-events:none`でクリックを妨げない)。
-- `.section-divider img`の位置を10pxだけ上にずらすため、`transform: translate(-50%, calc(-50% - 10px))`にしている。
-- `.section-divider img`の固定高さはさらに拡大の要望で440px→560pxに変更(セクション自体の高さ135pxは不変)。
+- `.section-divider img`の位置は現在8pxだけ上にずらし、`transform: translate(-50%, calc(-50% - 8px))`にしている。
+- `.section-divider`はトップページ改善で軽量化し、現在はセクション高さ112px、画像固定高さ500px(以前は135px/560px)。
 - `external/champions/index.html`の年度見出し(`.champions-year-head h2`)は、長い正式名称を表示するようになったため太字すぎる見た目(グローバルなh1-h4の`font-weight:900`継承)を`font-weight:700`に軽量化、フォントサイズも`clamp(18px,2.2vw,24px)`に縮小済み。
 - 「※ 2023年度以前は選手の写真が現在準備中のため、カード画像は仮置きの状態です。」の注記は、ページ先頭の固定テキストではなく、実写真が無い最初の年度(2023年度)の直前に動的挿入するようにした(`firstPlaceholderIndex`で`item.image`を持たない最初のグループを検出)。2024〜2026年度は実写真があるため、注記はその後ろに表示される。
 - `.section-divider img`の固定高さはさらに拡大の要望で320px→440pxに変更(セクション自体の高さ135pxは不変)。
