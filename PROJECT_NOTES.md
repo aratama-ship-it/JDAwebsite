@@ -26,12 +26,12 @@ diabolo-redesign-mock/
 ├── css/style.css                共通スタイル(全ページで読み込み)
 ├── js/main.js                   共通スクリプト(全ページで読み込み)
 ├── images/
-│   ├── logo/                    ロゴ・仕切りバナー(midd.png)
-│   ├── hero/                    ヒーロー/CTA用の写真
-│   ├── pickup/                  PICK UPカード用(oidc.png, tar.png, regu.png, howtogo.png)
-│   ├── champions/               CHAMPIONSカルーセル用の選手写真(1〜10)
-│   ├── events/                  大会バナー(現在未使用、将来のイベント欄用に保持)
+│   ├── logo/                    ロゴ・仕切りバナー(midd.webp)
+│   ├── pickup/                  PICK UPカード用(oidc.webp, tar.webp, regu.webp, howtogo.webp)
+│   ├── champions/               CHAMPIONS/歴代チャンピオン用の選手写真(WebP)
+│   ├── poker/                   CHAMPIONS POKER用の画像・カード裏面
 │   └── image-specs.txt          各画像の推奨サイズ・形式まとめ
+├── archive/unused-assets/       現行サイト未参照の旧素材・元素材(削除せず保管)
 └── external/                    サブページ・外部ミラー
     ├── about/                   協会について(本協会の目的・沿革)
     ├── access/                  事務所・店舗へのアクセス(Googleカレンダー・マップ埋め込み)
@@ -65,7 +65,7 @@ diabolo-redesign-mock/
 - サイト共通のコンテンツ幅をさらに`1600px`→`1700px`に拡大(「もう少しだけ拡大してほしい」の要望)。
 - 画像の解像度見直し:
   - チャンピオン写真・`cardback`のWebPは長辺800px→900pxに再生成(コンテナが広がった分、表示サイズに対する余裕=ヘッドルームを確保するため)。
-  - `images/pickup/*.png`(ヒーロー全幅+PICK UPカードで共用)と`images/logo/midd.png`は、表示に必要な解像度自体は既に適正(ヒーローが全幅・retina対応のため大きい解像度が必要)だったので**寸法は変更せず**、PNG→WebP(quality 85)でファイルサイズだけ圧縮(oidc: 1337KB→74KB、tar: 2520KB→232KB、regu: 1732KB→67KB、howtogo: 2262KB→199KB、midd: 1512KB→66KB)。`index.html`の参照を`.webp`に更新済み。元のPNGはこれまでの方針通り削除せず残している。
+  - `images/pickup/*.png`(ヒーロー全幅+PICK UPカードで共用)と`images/logo/midd.png`は、表示に必要な解像度自体は既に適正(ヒーローが全幅・retina対応のため大きい解像度が必要)だったので**寸法は変更せず**、PNG→WebP(quality 85)でファイルサイズだけ圧縮(oidc: 1337KB→74KB、tar: 2520KB→232KB、regu: 1732KB→67KB、howtogo: 2262KB→199KB、midd: 1512KB→66KB)。`index.html`の参照を`.webp`に更新済み。元PNG/PSDは削除せず `archive/unused-assets/` に退避済み。
 - サイト共通のコンテンツ幅(`.header-inner`/`.section`/`.footer-top`/`.footer-bottom`/`.page-title-inner`/`.cert-section-wide`等、計7箇所)を`max-width: 1400px`→`1600px`に拡大。理由: ヒーロー/マーキー/midd帯は全幅(full-bleed)なのに対し、ヘッダーやPICK UP/CHAMPIONS等のコンテンツは1400pxで止まっていたため、MacBook等の大きい画面でその差が目立って「崩れて見える」との指摘があった。1600pxまで広げることでPICK UPのカード・CHAMPIONSカルーセルの画像も自動的に大きくなる(画像サイズそのものは変更していない、コンテナが広がった分表示が拡大される)。これより広い画面への最適化は想定していない。
 - お問い合わせページ(`external/contact/index.html`)の連絡先リストから「メール: info@diabolo.jp」の項目を削除済み(SNSのみの表示に)。
 - **CHAMPIONSカルーセルは方針変更により、スクロール連動をやめて「回転寿司」式の常時自動再生に変更済み**(過去のスクロール連動・スナップ実装は完全に置き換えた)。
@@ -79,7 +79,7 @@ diabolo-redesign-mock/
   4. PICK UP/CHAMPIONS/UPDATESの余白・密度を`max-width:700px`でコンパクト化(`.section`のpadding、`.card-grid`/`.athlete-grid`のgap、`.card-body`/`.rule-item`のpadding等を縮小)。
   この一連の変更でハンバーガー/ドロップダウンのブレークポイントは`1023px`(既存の`.hamburger`表示切替と合わせた)、余白密度の変更は`700px`(スマホ向け)を使い分けている。
 - **CSS変数のリネーム**: `css/style.css`の`:root`で`--black`(実際は白`#ffffff`)・`--white`(実際は黒系`#15151a`)という名前と実際の色が逆になっていた問題を修正。`--black`→`--bg`、`--black-soft`→`--bg-soft`、`--white`→`--text`、`--off-white`→`--text-muted`に役割名でリネーム済み(色の値そのものは変更なし、62箇所の`var(...)`参照も全て追従済み)。`--gray`/`--gray-dark`/`--red`/`--red-bright`は名前と実際の色が一致しているため変更していない。`css/style.css`以外(js/main.js・HTML)でこれらの変数名を直接参照している箇所は無かった。
-- チャンピオン写真(`images/champions/2024・2025・2026/*.png`、各2〜9.5MB)と`images/poker/cardback.png`(2.7MB)をWebPに変換・圧縮済み(長辺800pxにリサイズ、quality=78)。合計84.6MB→1.7MBに削減。`index.html`・`external/champions/data/champions.json`・`external/champions-poker/js/main.js`・`external/champions/index.html`内の参照を`.webp`に更新し、チャンピオンカードの`<img>`に`loading="lazy"`を追加した(トップのCHAMPIONSカルーセル10枚、歴代チャンピオン一覧の121枚)。元のPNGファイルはユーザーの許可なく削除しない方針のため、参照されないまま各フォルダに残っている(容量整理が必要な場合は明示的な削除指示を待つこと)。
+- チャンピオン写真(`images/champions/2024・2025・2026/*.png`、各2〜9.5MB)と`images/poker/cardback.png`(2.7MB)をWebPに変換・圧縮済み(長辺800pxにリサイズ、quality=78)。合計84.6MB→1.7MBに削減。`index.html`・`external/champions/data/champions.json`・`external/champions-poker/js/main.js`・`external/champions/index.html`内の参照を`.webp`に更新し、チャンピオンカードの`<img>`に`loading="lazy"`を追加した(トップのCHAMPIONSカルーセル10枚、歴代チャンピオン一覧の121枚)。元PNGは削除せず `archive/unused-assets/images/champions/` と `archive/unused-assets/images/poker/` に退避済み。
 - **重要**: `images/diaicon.png`(赤いグロス調の元画像)は実体が存在しない(おそらく作業中に削除された)。`css/style.css`内の2箇所(マーキー区切りアイコン、`.page-title`の背景装飾)で参照していたため404になっていたバグを修正し、両方とも実在する`images/diaicon-white.png`に差し替えた。`.page-title`側は背景が薄いグレーで白アイコンのままだと見えなくなるため、`filter: brightness(0.35)`を追加してグレー寄りに暗くし、視認できるようにしている。今後 `diaicon.png` という名前のファイルを画像参照に使う場合は、まずファイルの実在を確認すること。
 - `.page-title`のpaddingは`140px 32px 56px`(元)→`116px 32px 88px`(下が空きすぎたとの指摘)→`116px 32px 64px`(現在)と調整。
 - サブページ共通の`.page-title`(協会について/検定/歴代チャンピオン一覧などのページ見出し帯)から赤バッジ(`.hero-tag`)を非表示にし、代わりに控えめな背景(赤の淡いradial-gradient2つ + `images/diaicon.png`を左上・右下に`opacity:0.06`で薄く配置、画像生成は行わずCSSのみで実装)を追加した。
@@ -132,14 +132,15 @@ diabolo-redesign-mock/
 - **AJDC/OIDC/TIDCの既存ミラーは当面修復対象外**。この3つの特設サイトは後日別途新規に作り直す方針のため、現時点では `external/AJDC/`・`external/OIDC/`・`external/TIDC/` 内の古いHTML、外部依存、欠損アセットを直さなくてよい。トップや共通ナビからのリンク先としては残すが、デザイン統一・ローカル完全ミラー化・TIDCの不足ファイル補完は後続タスクに回す。
 - **共同編集メモ**: Codex、Claude Codeなど複数のAI/エディタで触る前提。作業前後に `git status --short` を確認し、他ツールやユーザーの変更を勝手に戻さないこと。作業判断に迷う場合は、この `PROJECT_NOTES.md` と `AGENTS.md` を先に読む。
 - **Git管理**: このフォルダはGit管理対象にする。`.gitignore` ではOS/エディタ/一時ファイルのみを除外し、HTML/CSS/JS/画像素材は基本的に追跡対象。画像の元PNG/PSDは重いが、削除指示があるまで残す方針。
+- **未使用・旧素材の保管場所**: 現行サイトから参照されていない画像や元PNG/PSDは削除せず `archive/unused-assets/` に退避する。再利用する場合は元のパスへ戻すか、参照パスを更新する。内容は `archive/unused-assets/README.md` を参照。
 - **細かい整備予定(一つずつ確認して進める)**:
   - 済: `js/main.js` の検索インデックス内のオンラインショップ表記を現行ナビに合わせて統一した(`main.js?v=33`)。
   - 済: 歴代チャンピオン周りのコメント/ノートに残っていた古い実写真範囲の記述を、現在の実データ(2024〜2026年度は実写真あり、2023年度以前は仮画像)に合わせて修正した。
   - 済: `images/image-specs.txt` の `final_athlete_1.jpg` など旧ダミー画像前提の記述を、現在の `images/champions/<年度>/*.webp` 運用に合わせて修正した。
   - 済: `PROJECT_NOTES.md` 内に複数残っていた「現在のJSバージョン」記述を、最新値と作業履歴が区別できる形に整理した。
-- ルートに `diabolo_banner_*.png` や `middold.png` `middordd.png` など、ユーザーが置いたままの未使用画像ファイルが残っている(おそらく `midd.png` 採用前の試作)。削除指示はまだ受けていないのでそのままにしている。
+- ルートにあった `midd.png` / `middold.png` などの旧素材は削除せず `archive/unused-assets/root/` に退避済み。
 - フッターの「プライバシーポリシー」「利用規約」はリンク先未定のため削除済み(コンテンツができたら追加)。
-- `images/events/` 配下の大会バナー画像は現在どこからも参照されていない(将来イベント一覧セクションを復活させる場合用)。
+- 旧 `images/events/` 配下の大会バナー画像は現在どこからも参照されていないため、将来イベント一覧セクションを復活させる場合用として `archive/unused-assets/images/events/` に退避済み。
 
 ## 連絡先・外部サービスの紐付け
 

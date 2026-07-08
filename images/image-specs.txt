@@ -15,7 +15,7 @@ JDA公式サイト モック - 画像仕様まとめ
 ファイルサイズ目安：50KB以下
 備考　　：円形にクロップされるため、中心にロゴマークを配置すること
 
-[final_logo_full.jpg]　※現在未使用（将来のフッター等での再利用を想定）
+[archive/unused-assets/images/logo/final_logo_full.jpg]　※現在未使用（将来のフッター等での再利用を想定）
 用途　　：横長のフルロゴ（協会名＋エンブレム）
 推奨形式：PNG（背景透過）推奨。白背景パネルに載せる場合はJPEGでも可
 推奨サイズ：横長 960×180px 程度（アスペクト比 16:3 前後）
@@ -62,10 +62,10 @@ JDA公式サイト モック - 画像仕様まとめ
 備考　　：2024〜2026年度は実写真あり。2023年度以前は images/poker/cardback.webp を仮画像として表示
 
 ------------------------------------------------------------
-■ events/ 大会バナー　※現在未使用（イベントセクション復活時に使用想定）
+■ events/ 大会バナー　※現在未使用（archive/unused-assets に保管）
 ------------------------------------------------------------
 
-[final_event_osaka.jpg / final_event_ajdc.jpg / final_event_tidc.jpg]
+[archive/unused-assets/images/events/final_event_osaka.jpg / final_event_ajdc.jpg / final_event_tidc.jpg]
 用途　　：大会ごとのバナー画像（4:3で表示想定）
 推奨形式：PNG（ロゴ・文字主体のバナーの場合、文字がにじまないようPNG推奨）
 推奨サイズ：1200×900px（4:3）
