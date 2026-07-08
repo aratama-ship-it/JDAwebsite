@@ -23,6 +23,7 @@ python3 -m http.server 8000
 ```
 diabolo-redesign-mock/
 ├── index.html                  トップページ
+├── TOP_PAGE_DESIGN_MEMO.md      トップページのデザイン改善メモ
 ├── css/style.css                共通スタイル(全ページで読み込み)
 ├── js/main.js                   共通スクリプト(全ページで読み込み)
 ├── images/
