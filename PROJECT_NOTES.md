@@ -58,7 +58,8 @@ diabolo-redesign-mock/
 `css/style.css` と `js/main.js` は、編集してもブラウザにキャッシュされて反映されないことが何度かあった。
 **全ページの `<link>` / `<script>` タグに `?v=N` を付けてあるので、CSSかJSを編集したら必ずバージョン番号を上げること。**
 
-- 現在のCSSバージョン: `style.css?v=50`(9ページ全て同じ値で揃える)
+- 現在のCSSバージョン: `style.css?v=50`(共通CSSを読むページは同じ値で揃える)
+- 現在のJSバージョン: `main.js?v=33`(共通JSを読むページは同じ値で揃える)
 - CHAMPIONSカルーセル下部の進捗バー(`.carousel-progress`)の幅を160px→260pxに拡大(560px以下のスマホ用の100px幅は変更なし)。
 - サイト共通のコンテンツ幅をさらに8%拡大(`1700px`→`1836px`)。
 - サイト共通のコンテンツ幅をさらに`1600px`→`1700px`に拡大(「もう少しだけ拡大してほしい」の要望)。
@@ -67,7 +68,6 @@ diabolo-redesign-mock/
   - `images/pickup/*.png`(ヒーロー全幅+PICK UPカードで共用)と`images/logo/midd.png`は、表示に必要な解像度自体は既に適正(ヒーローが全幅・retina対応のため大きい解像度が必要)だったので**寸法は変更せず**、PNG→WebP(quality 85)でファイルサイズだけ圧縮(oidc: 1337KB→74KB、tar: 2520KB→232KB、regu: 1732KB→67KB、howtogo: 2262KB→199KB、midd: 1512KB→66KB)。`index.html`の参照を`.webp`に更新済み。元のPNGはこれまでの方針通り削除せず残している。
 - サイト共通のコンテンツ幅(`.header-inner`/`.section`/`.footer-top`/`.footer-bottom`/`.page-title-inner`/`.cert-section-wide`等、計7箇所)を`max-width: 1400px`→`1600px`に拡大。理由: ヒーロー/マーキー/midd帯は全幅(full-bleed)なのに対し、ヘッダーやPICK UP/CHAMPIONS等のコンテンツは1400pxで止まっていたため、MacBook等の大きい画面でその差が目立って「崩れて見える」との指摘があった。1600pxまで広げることでPICK UPのカード・CHAMPIONSカルーセルの画像も自動的に大きくなる(画像サイズそのものは変更していない、コンテナが広がった分表示が拡大される)。これより広い画面への最適化は想定していない。
 - お問い合わせページ(`external/contact/index.html`)の連絡先リストから「メール: info@diabolo.jp」の項目を削除済み(SNSのみの表示に)。
-- 現在のJSバージョン: `main.js?v=33`
 - **CHAMPIONSカルーセルは方針変更により、スクロール連動をやめて「回転寿司」式の常時自動再生に変更済み**(過去のスクロール連動・スナップ実装は完全に置き換えた)。
   - シャッフル済みの10枚をもう一度複製して20枚のトラックを作り(マーキーと同じ「ちょうど半分の位置でtranslateXを巻き戻す」手法)、`requestAnimationFrame`で時間経過に応じて`SPEED = 22px/秒`で一方向に流れ続ける。継ぎ目が見えないのは複製のおかげ。
   - カーソルが`#athletes`セクション(カード・矢印・進捗バーを含む全体)の上にある間は`paused`フラグで自動再生を止める(`mouseenter`/`mouseleave`)。
@@ -96,7 +96,7 @@ diabolo-redesign-mock/
 - `.section-divider img`は当初`width:100%; height:100%; object-fit:cover;`(コンテナいっぱいに伸縮)にしたが、これだとウィンドウ幅が狭くなるほど表示スケールも縮んでロゴが小さくなりすぎる問題があった。`position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:auto; height:320px;`に変更し、画像をウィンドウ幅に依存しない固定の高さ(320px、拡大気味)で中央配置するようにした。コンテナ(`.section-divider`, 高さ135px固定)の`overflow:hidden`で上下左右が自動的にクロップされる。
 - ヒーローのスライド切り替えドット(`.hero-dots`)は左寄せ(`left:32px`)から中央寄せ(`left:50%; transform:translateX(-50%)`)に変更。テキスト(`.hero-slide-content`)は左寄せを維持したまま、`padding-bottom`を56px→32pxにして下にずらした。
 - `.hero-tag`(「大会」「案内」等のヒーロー内バッジ)はPCでも非表示にした。ただし`.hero-tag`クラスは`.page-title`(サブページの見出し帯、例: CERTIFICATION)でも再利用されているため、グローバルに`display:none`にはせず`.hero .hero-tag`に限定して非表示にしている。
-- 現在のJSバージョン: `main.js?v=27`
+- 作業履歴: この時点では `main.js?v=27` まで更新済み。
 - スマホ幅(700px以下)では`midd.png`の帯(`.section-divider`)を`display:none`で非表示にしている。
 - ハンバーガーメニュー展開時、背景が旧ダーク基調時代の`rgba(10,10,10,0.98)`(黒)のままで、文字色は白ベース化後の暗い色を継承していたため「黒地に黒文字で読めない」バグがあった。背景を`#ffffff`に変更して修正済み(`js/main.js`のhamburgerクリック処理)。閉じる時は`removeAttribute('style')`でインラインスタイルを完全にクリアするようにした。
 - スマホ幅(700px以下)では、ヒーロー(`.hero`)の高さをデスクトップの662pxの半分程度の`260px`に、ヒーローの赤いタグ(`.hero-tag`、「大会」「案内」等の表示)を`display:none`で非表示にしている。**CSSの注意点**: `.hero-tag`の非表示メディアクエリは`.hero-tag`の基本定義(`display: inline-block`)より後ろに置くこと。同じ詳細度の場合は記述順で後勝ちになるため、先に置くと無条件定義に上書きされて効かなくなるバグがあった。
@@ -106,7 +106,7 @@ diabolo-redesign-mock/
 - マーキーのアイコンと文字の間隔は2回の拡大を経て、`.marquee-track span`のpadding: 31.5px、`::after`のmargin-left: 63px(対称性は維持)。
 - マーキーの区切りは★文字から、`images/diaicon.png`(赤いグロス調のディアボロイラスト)を元に作った白いシルエット版 `images/diaicon-white.png`に変更。`.marquee-track span`のpaddingは14px→21px、`::after`のmargin-leftは28px→42px(いずれも1.5倍)にして、アイコン周りの空白を拡大した。
 - `diaicon-white.png`は単純なアルファしきい値だと中央の軸部分がガタつく(元写真の反射ハイライトが薄いせいでノイズが残る)ため、モルフォロジー的クロージング(`ImageFilter.MaxFilter`→`MinFilter`)とガウスブラー+再しきい値で輪郭を滑らかにし、砂時計型のシンプルな1色シルエットに整形済み。再生成する場合は同じ手順(`images/diaicon.png`のアルファ→閾値40→クロージング(9px)→ブラー(2px)→再閾値127)を踏むこと。
-- 現在のJSバージョン: `main.js?v=26`
+- 作業履歴: この時点では `main.js?v=26` まで更新済み。
 - `midd.png`のパララックス処理(`updateDividerParallax`)は削除済み。「スクロールでの移動はなく固定にしてほしい」という指示により、`js/main.js`からscroll連動のtransform処理ブロックを丸ごと削除し、画像は常に静止表示。
 - ヒーロー下の帯(マーキー)の表示内容は `marquee-updates.txt`(プロジェクトルート、index.htmlと同階層)から読み込む。1行1項目、`#`で始まる行と空行は無視。Claudeを使わずメモ帳等で編集→保存→ブラウザ再読み込みだけで帯の内容を更新できる(非エンジニアでも管理できるようにするための要望で対応)。`fetch`でファイルを読みに行くため、ローカルで確認する際も`python3 -m http.server`経由で開く必要がある(file://だとfetchがブロックされ、その場合はindex.html内にある既定の4項目にフォールバックする)。本番サーバーにアップロードする際は`marquee-updates.txt`も一緒に配置すること。
 - マーキー(`#marqueeTrack`)は元々HTML側で項目セットを手動で2回コピーして無限ループを実現していたが、項目を増減すると複製がズレて途切れる恐れがあった。`js/main.js`の`setupMarquee()`で、元の項目セット(index.htmlには1セット=4項目のみ記述)を画面幅を覆うまで動的に複製し、その複製ブロックをさらに2倍にしてから`translateX(-50%)`アニメーションを適用する方式に変更。画面リサイズ時も再計算されるため、項目数や画面幅に関わらず途切れずループする。
@@ -120,7 +120,7 @@ diabolo-redesign-mock/
 - CHAMPIONS POKERは `external/champions-poker/`(独自のindex.html・css/style.css・js/main.js)に完全分離して移植済み。トップページ(index.html)・本体のcss/style.css・js/main.jsからは関連コードを全て削除した。本体のCHAMPIONSセクション(カルーセル10枚・シャッフル機能)とは無関係で、現状トップページからのリンクは設置していない(直接 `external/champions-poker/index.html` を開く運用)。
 - ヘッダー検索を展開すると `.sns-links` が幅ゼロに折りたたまれ `.header-actions` の幅が変化し、`justify-content: space-between` の再配分で `.main-nav` が右にずれるバグがあった。`.sns-links.is-hidden` は幅を保持したまま `opacity:0` で見た目だけ隠す方式に修正済み(検索入力欄自体は `position: absolute` でレイアウト幅に影響しない)。
 - 全9ページ(index.html含む)の`<script src=".../js/main.js">`に`?v=N`のクエリを統一して付与済み(以前はサブページがクエリなしでキャッシュ対策が不揃いだった)。`external/champions-poker/`は独自の`js/main.js`(別ファイル、現在`?v=1`)を持つため対象外。今後JSを編集したら、index.htmlだけでなく全ページのこのクエリ番号を揃えて上げること。
-- 現在のJSバージョン: `main.js?v=28`
+- 作業履歴: この時点では `main.js?v=28` まで更新済み。
 - モバイルのハンバーガーメニュー展開は、以前`js/main.js`内でJSが直接`mainNav.style.xxx`を書き換えて見た目を作っていたが、CSSクラス(`.main-nav.open`)で見た目を管理する方式にリファクタ済み。JS側は`mainNav.classList.toggle('open')`のみを行う。見た目を調整したい場合は`css/style.css`の`.main-nav.open`を編集すればよい。
 - トップページCHAMPIONSセクション(`#championsTrack`)の10枚は、架空の選手名(final_athlete_1〜10.jpg)から2026年度の実際の現役チャンピオン10名(`images/champions/2026/26champ*.png`、`external/champions/data/champions.json`の2026年度データと同じ人物・部門・並び順)に更新済み。
 - CHAMPIONSカルーセル(10枚)もリロードごとにFisher-Yatesで表示順をシャッフルする(`championsTrack`の子要素を並び替えてから`items`配列を取得)。CHAMPIONS POKER(5枚抽選・重複あり)とは別の仕組み。
@@ -136,7 +136,7 @@ diabolo-redesign-mock/
   - 済: `js/main.js` の検索インデックス内のオンラインショップ表記を現行ナビに合わせて統一した(`main.js?v=33`)。
   - 済: 歴代チャンピオン周りのコメント/ノートに残っていた古い実写真範囲の記述を、現在の実データ(2024〜2026年度は実写真あり、2023年度以前は仮画像)に合わせて修正した。
   - 済: `images/image-specs.txt` の `final_athlete_1.jpg` など旧ダミー画像前提の記述を、現在の `images/champions/<年度>/*.webp` 運用に合わせて修正した。
-  - `PROJECT_NOTES.md` 内に過去の「現在のJSバージョン」記述が複数残っているため、最新値が読み取りやすい形に整理する。
+  - 済: `PROJECT_NOTES.md` 内に複数残っていた「現在のJSバージョン」記述を、最新値と作業履歴が区別できる形に整理した。
 - ルートに `diabolo_banner_*.png` や `middold.png` `middordd.png` など、ユーザーが置いたままの未使用画像ファイルが残っている(おそらく `midd.png` 採用前の試作)。削除指示はまだ受けていないのでそのままにしている。
 - フッターの「プライバシーポリシー」「利用規約」はリンク先未定のため削除済み(コンテンツができたら追加)。
 - `images/events/` 配下の大会バナー画像は現在どこからも参照されていない(将来イベント一覧セクションを復活させる場合用)。
