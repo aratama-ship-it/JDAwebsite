@@ -1,0 +1,236 @@
+/* ===== Reset & Base ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #ffffff;
+  --black-soft: #f6f6f7;
+  --gray-dark: #f1f1f3;
+  --gray: #e3e3e6;
+  --white: #15151a;
+  --off-white: #55555d;
+  --red: #db0a40;
+  --red-bright: #ff1e4d;
+  --font: 'Helvetica Neue', 'Hiragino Sans', 'Yu Gothic', Arial, sans-serif;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font);
+}
+
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; cursor: pointer; border: none; }
+
+h1, h2 {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+/* ===== ページ全体のレイアウト ===== */
+.poker-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 32px 100px;
+}
+
+.poker-back-link {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--off-white);
+  margin-bottom: 24px;
+}
+
+.poker-back-link:hover { color: var(--red); }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.section-head h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.section-jp {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: none;
+  color: var(--off-white);
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+}
+
+.poker-reload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--gray);
+  background: none;
+  color: var(--white);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.poker-reload-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.poker-reload-btn:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.poker-reload-btn.is-spinning svg {
+  animation: poker-reload-spin 0.5s linear;
+}
+
+@keyframes poker-reload-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ===== カード並び（5列グリッド） ===== */
+.athlete-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1000px) {
+  .athlete-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .athlete-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== カード反転（クリックで裏面→表のチャンピオン情報へフリップ） ===== */
+.poker-card {
+  position: relative;
+  aspect-ratio: 5/7;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.poker-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.poker-card.is-flipped .poker-card-inner {
+  transform: rotateY(180deg);
+}
+
+.poker-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid var(--gray);
+}
+
+.poker-card-face--back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poker-card-face--champion {
+  transform: rotateY(180deg);
+}
+
+.poker-card-face--champion .athlete-card {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ===== チャンピオンカード本体（ホログラム演出含む） ===== */
+.athlete-card {
+  position: relative;
+  aspect-ratio: 5/7;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid var(--gray);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transform: translateY(0) rotateX(0) rotateY(0);
+}
+
+.athlete-card:hover {
+  border-color: var(--red);
+  box-shadow: 0 14px 26px rgba(0,0,0,0.22);
+}
+
+.athlete-card.is-holo {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.athlete-card img { transition: transform 0.5s ease; }
+.athlete-card:hover img { transform: scale(1.08); }
+
+.athlete-card-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.3), transparent 45%),
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(255,0,170,0.22) 38%,
+      rgba(255,225,0,0.22) 45%,
+      rgba(0,225,255,0.22) 52%,
+      rgba(170,0,255,0.22) 59%,
+      transparent 68%
+    );
+  background-size: 120% 120%, 250% 250%;
+  background-position: center, var(--mx, 50%) var(--my, 50%);
+  mix-blend-mode: color-dodge;
+  transition: opacity 0.25s ease;
+}
+
+.athlete-card.is-holo .athlete-card-shine {
+  opacity: 0.5;
+}
+
+.athlete-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  padding: 20px;
+}
+
+.athlete-overlay h4 { font-size: 18px; margin-bottom: 4px; color: #ffffff; }
+.athlete-overlay p { font-size: 13px; color: #d9d9d9; }

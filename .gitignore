@@ -1,0 +1,25 @@
+.DS_Store
+Thumbs.db
+
+# Local editor and OS noise
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary files and local logs
+*.log
+tmp/
+temp/
+
+# Dependency/build folders if this static mock gains tooling later
+node_modules/
+dist/
+build/
+.cache/
+
+# Python helper artifacts
+__pycache__/
+*.py[cod]
+.venv/
+venv/

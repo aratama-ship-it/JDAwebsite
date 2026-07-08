@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記録一覧 | JAPAN DIABOLO ASSOCIATION</title>
+<link rel="stylesheet" href="../../css/style.css?v=50">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="header-inner">
+      <a href="../../index.html" class="logo">
+        <span class="logo-mark"><img src="../../images/logo/final_logo_emblem_v3.png" alt="JDA"></span>
+        <span class="logo-text">JAPAN DIABOLO ASSOCIATION</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="../../index.html#top">トップ</a>
+        <a href="../about/index.html">協会について</a>
+        <div class="nav-item has-dropdown">
+          <a href="javascript:void(0)" class="nav-trigger">大会情報</a>
+          <div class="dropdown-panel">
+            <a href="../AJDC/index.html" target="_blank" rel="noopener">全日本ディアボロ選手権大会</a>
+            <a href="../TIDC/jp/index.html" target="_blank" rel="noopener">東京国際ディアボロ競技会</a>
+            <a href="../OIDC/index.html" target="_blank" rel="noopener">大阪国際ディアボロ競技会</a>
+            <hr class="dropdown-divider">
+            <a href="../rule/index.html">採点規則</a>
+            <a href="index.html">記録一覧</a>
+            <a href="../champions/index.html">歴代チャンピオン一覧</a>
+          </div>
+        </div>
+        <a href="https://diabolo.shop-pro.jp" target="_blank" rel="noopener">オンラインショップ</a>
+        <a href="../certification/index.html">検定</a>
+        <a href="../contact/index.html">お問い合わせ</a>
+        <div class="main-nav-sns">
+          <a href="https://www.facebook.com/japandiabolo" target="_blank" rel="noopener" class="sns-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.16 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.91h-2.34V22c4.78-.78 8.44-4.94 8.44-9.94Z"/></svg>
+          </a>
+          <a href="https://x.com/Japan_Diabolo" target="_blank" rel="noopener" class="sns-icon" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2H21l-6.27 7.16L22.5 22h-6.94l-5.4-7.06L4.06 22H1.3l6.7-7.65L1 2h7.07l4.88 6.46L18.24 2Zm-2.44 18.17h1.92L8.31 3.73H6.25l9.55 16.44Z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@JapanDiabolo" target="_blank" rel="noopener" class="sns-icon" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2c-.27-1.03-1.07-1.84-2.1-2.11C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.49c-1.03.27-1.83 1.08-2.1 2.11C0 8 0 12 0 12s0 4 .5 5.8c.27 1.03 1.07 1.84 2.1 2.11 1.8.49 9.4.49 9.4.49s7.6 0 9.4-.49c1.03-.27 1.83-1.08 2.1-2.11.5-1.8.5-5.8.5-5.8s0-4-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+          </a>
+        </div>
+      </nav>
+
+      <div class="header-actions">
+        <div class="sns-links" id="snsLinks">
+            <a href="https://www.facebook.com/japandiabolo" target="_blank" rel="noopener" class="sns-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.16 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.91h-2.34V22c4.78-.78 8.44-4.94 8.44-9.94Z"/></svg>
+          </a>
+          <a href="https://x.com/Japan_Diabolo" target="_blank" rel="noopener" class="sns-icon" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2H21l-6.27 7.16L22.5 22h-6.94l-5.4-7.06L4.06 22H1.3l6.7-7.65L1 2h7.07l4.88 6.46L18.24 2Zm-2.44 18.17h1.92L8.31 3.73H6.25l9.55 16.44Z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@JapanDiabolo" target="_blank" rel="noopener" class="sns-icon" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2c-.27-1.03-1.07-1.84-2.1-2.11C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.49c-1.03.27-1.83 1.08-2.1 2.11C0 8 0 12 0 12s0 4 .5 5.8c.27 1.03 1.07 1.84 2.1 2.11 1.8.49 9.4.49 9.4.49s7.6 0 9.4-.49c1.03-.27 1.83-1.08 2.1-2.11.5-1.8.5-5.8.5-5.8s0-4-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+          </a>
+          </div>
+          <div class="site-search" id="siteSearch">
+            <input type="text" id="siteSearchInput" class="site-search-input" placeholder="検索" autocomplete="off">
+            <button type="button" class="sns-icon site-search-toggle" id="siteSearchToggle" aria-label="検索">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+            <div class="site-search-results" id="siteSearchResults"></div>
+          </div>
+        <button class="hamburger" id="hamburger" aria-label="menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== PAGE TITLE ===== -->
+  <section class="page-title">
+    <div class="page-title-inner">
+      <p class="hero-tag">RECORDS</p>
+      <h1>記録一覧</h1>
+      <p class="page-title-sub">各種ルールは<a href="../rule/index.html" class="cert-link">ディアボロ競技採点規則</a>をご覧ください。<br>練習用トラックは<a href="https://diabolo.jp/track/1m.mp3" target="_blank" rel="noopener" class="cert-link">こちら</a>。</p>
+    </div>
+  </section>
+
+  <!-- ===== RECORDS CONTENT ===== -->
+  <section class="section cert-section cert-section-wide">
+
+    <div class="cert-card">
+      <h2 class="cert-heading">男子1ディアボロ足回り部門</h2>
+      <div class="cert-table-wrap">
+        <table class="cert-table">
+          <tr><th>クラス</th><th>順位</th><th>回数</th><th>選手名</th><th>所属</th><th>競技会</th><th>日付</th></tr>
+          <tr><td>A</td><td>1</td><td>185</td><td>アゴウテンセイ</td><td>亀戸大道芸クラブ</td><td>第七回全日本ディアボロ選手権大会</td><td>2018/03/30</td></tr>
+          <tr><td>A</td><td>2</td><td>168</td><td>マキノセナ</td><td>大屋養蜂園</td><td>第八回全日本ディアボロ選手権大会</td><td>2019/03/26</td></tr>
+          <tr><td>A</td><td>3</td><td>156</td><td>トリイヒロミキ</td><td>碧南市立西端小学校(ジャグリングクラブ西端)</td><td>第四回全日本ディアボロ選手権大会</td><td>2015/03/29</td></tr>
+          <tr><td>B</td><td>1</td><td>202</td><td>アゴウテンセイ</td><td>亀戸大道芸クラブ</td><td>第十回全日本ディアボロ選手権大会</td><td>2021/03/24</td></tr>
+          <tr><td>B</td><td>2</td><td>193</td><td>トリイヒロミキ</td><td>ジャグリングクラブにしばた、西尾高校</td><td>大阪国際ディアボロ競技会2019</td><td>2019/08/14</td></tr>
+          <tr><td>B</td><td>3</td><td>182</td><td>マキノセナ</td><td>JPAS</td><td>第十回全日本ディアボロ選手権大会</td><td>2021/03/24</td></tr>
+          <tr><td>C</td><td>1</td><td>145</td><td>カメイヒロキ</td><td>三重大学ジャグリングサークル「ジャグリアーノ!」</td><td>東京国際ディアボロ競技会2014</td><td>2014/08/14</td></tr>
+          <tr><td>C</td><td>2</td><td>137</td><td>ノナカアオイ</td><td>名古屋大学</td><td>東京国際ディアボロ競技会2012</td><td>2012/08/16</td></tr>
+          <tr><td>C</td><td>3</td><td>136</td><td>ホンダヒカル</td><td>-</td><td>東京国際ディアボロ競技会2014</td><td>2014/08/14</td></tr>
+          <tr><td>D</td><td>1</td><td>129</td><td>カメイヒロキ</td><td>三重大学ジャグリングサークル「ジャグリアーノ!」</td><td>大阪国際ディアボロ競技会2017</td><td>2017/08/14</td></tr>
+          <tr><td>D</td><td>2</td><td>117</td><td>ヤマモトマサアキ</td><td>-</td><td>第四回全日本ディアボロ選手権大会</td><td>2015/03/31</td></tr>
+          <tr><td>D</td><td>3</td><td>100</td><td>オオハラユウト</td><td>三重大学ジャグリングサークル「ジャグリアーノ!」</td><td>第六回全日本ディアボロ選手権大会</td><td>2017/03/20</td></tr>
+          <tr><td>E</td><td>1</td><td>153</td><td>トリイケン</td><td>ジャグリングクラブ西端</td><td>第五回全日本ディアボロ選手権大会</td><td>2016/03/29</td></tr>
+        </table>
+      </div>
+      <p class="cert-class-legend">クラスA:12歳以下／クラスB:13歳以上18歳以下／クラスC:19歳以上24歳以下／クラスD:25歳以上34歳以下／クラスE:35歳以上</p>
+    </div>
+
+    <div class="cert-card">
+      <h2 class="cert-heading">女子1ディアボロ足回り部門</h2>
+      <div class="cert-table-wrap">
+        <table class="cert-table">
+          <tr><th>クラス</th><th>順位</th><th>回数</th><th>選手名</th><th>所属</th><th>競技会</th><th>日付</th></tr>
+          <tr><td>A</td><td>1</td><td>102</td><td>イチカワホタル</td><td>亀戸大道芸クラブ</td><td>第十一回全日本ディアボロ選手権大会</td><td>2022/03/23</td></tr>
+          <tr><td>A</td><td>2</td><td>92</td><td>マキノルナ</td><td>JPAS</td><td>第十回全日本ディアボロ選手権大会</td><td>2021/03/24</td></tr>
+          <tr><td>A</td><td>3</td><td>20</td><td>ホリエモモコ</td><td>枚岡ジャグリングクラブ</td><td>第六回全日本ディアボロ選手権大会</td><td>2017/03/20</td></tr>
+          <tr><td>B</td><td>1</td><td>79</td><td>フタガミサワコ</td><td>Jenga</td><td>大阪国際ディアボロ競技会2019</td><td>2019/08/12</td></tr>
+          <tr><td>B</td><td>2</td><td>72</td><td>コセキメグミ</td><td>湘南高校ジャグリング部Tip-Top</td><td>東京国際ディアボロ競技会2013</td><td>2013/08/15</td></tr>
+          <tr><td>B</td><td>3</td><td>41</td><td>サトウチエ</td><td>筑波大学附属高校</td><td>ディアボロサマーフェスティバル2014</td><td>2014/07/18</td></tr>
+          <tr><td>B</td><td>3</td><td>41</td><td>オオデサエ</td><td>-</td><td>東京国際ディアボロ競技会2014</td><td>2014/08/12</td></tr>
+          <tr><td>C</td><td>1</td><td>131</td><td>ヨコイユキナ</td><td>三重大学ジャグリングサークル「ジャグリアーノ!」</td><td>第四回全日本ディアボロ選手権大会</td><td>2015/03/31</td></tr>
+          <tr><td>C</td><td>2</td><td>105</td><td>ヤナガワアヤコ</td><td>ジャグリま専科</td><td>東京国際ディアボロ競技会2013</td><td>2013/08/15</td></tr>
+          <tr><td>C</td><td>3</td><td>97</td><td>イケハタユリ</td><td>早稲田大学ジャグリングサークル〜infinity〜</td><td>2013年度全日本ディアボロ競技会</td><td>2013/03/18</td></tr>
+        </table>
+      </div>
+      <p class="cert-class-legend">クラスA:12歳以下／クラスB:13歳以上18歳以下／クラスC:19歳以上24歳以下／クラスD:25歳以上34歳以下／クラスE:35歳以上</p>
+    </div>
+
+    <div class="cert-card">
+      <h2 class="cert-heading">男子1ディアボロ縄跳び部門</h2>
+      <div class="cert-table-wrap">
+        <table class="cert-table">
+          <tr><th>クラス</th><th>順位</th><th>回数</th><th>選手名</th><th>所属</th><th>競技会</th><th>日付</th></tr>
+          <tr><td>A</td><td>1</td><td>77</td><td>トリイヒロミキ</td><td>碧南市立西端小学校(ジャグリングクラブ西端)</td><td>第四回全日本ディアボロ選手権大会</td><td>2015/03/29</td></tr>
+          <tr><td>A</td><td>2</td><td>72</td><td>マキノセナ</td><td>JPAS</td><td>大阪国際ディアボロ競技会2018</td><td>2018/08/15</td></tr>
+          <tr><td>A</td><td>3</td><td>68</td><td>アゴウテンセイ</td><td>亀戸大道芸クラブ</td><td>大阪国際ディアボロ競技会2018</td><td>2018/08/15</td></tr>
+          <tr><td>B</td><td>1</td><td>92</td><td>アゴウテンセイ</td><td>亀戸大道芸クラブ、ジャグリバ</td><td>第十二回全日本ディアボロ選手権大会</td><td>2023/03/25</td></tr>
+          <tr><td>B</td><td>2</td><td>82</td><td>トリイヒロミキ</td><td>碧南市立西端中学校(ジャグリングクラブ西端)</td><td>東京国際ディアボロ競技会2015</td><td>2015/08/11</td></tr>
+          <tr><td>B</td><td>3</td><td>79</td><td>マキノセナ</td><td>JPAS</td><td>第十一回全日本ディアボロ選手権大会</td><td>2022/03/23</td></tr>
+          <tr><td>C</td><td>1</td><td>69</td><td>イソベタクミ</td><td>浜松スポーツジャグリングサークルじゃぐなぎ</td><td>第四回全日本ディアボロ選手権大会</td><td>2015/03/31</td></tr>
+          <tr><td>C</td><td>2</td><td>49</td><td>ハシモトキョウヘイ</td><td>東京理科大学DOMINUSSOMNI</td><td>第八回全日本ディアボロ選手権大会</td><td>2019/03/25</td></tr>
+          <tr><td>C</td><td>3</td><td>47</td><td>トキモリエイジ</td><td>Malabaristas</td><td>大阪国際ディアボロ競技会2019</td><td>2019/08/14</td></tr>
+          <tr><td>D</td><td>1</td><td>65</td><td>モチヅキユウサク</td><td>MAKK</td><td>東京国際ディアボロ競技会2015</td><td>2015/08/11</td></tr>
+          <tr><td>D</td><td>2</td><td>64</td><td>イソベタクミ</td><td>浜松スポーツジャグリングサークルじゃぐなぎ</td><td>東京国際ディアボロ競技会2016</td><td>2016/08/15</td></tr>
+          <tr><td>D</td><td>3</td><td>57</td><td>クドウマサヒロ</td><td>-</td><td>第十二回全日本ディアボロ選手権大会</td><td>2023/03/25</td></tr>
+          <tr><td>E</td><td>1</td><td>23</td><td>トリイケン</td><td>ジャグリングクラブ西端</td><td>東京国際ディアボロ競技会2015</td><td>2015/08/11</td></tr>
+        </table>
+      </div>
+      <p class="cert-class-legend">クラスA:12歳以下／クラスB:13歳以上18歳以下／クラスC:19歳以上24歳以下／クラスD:25歳以上34歳以下／クラスE:35歳以上</p>
+    </div>
+
+    <div class="cert-card">
+      <h2 class="cert-heading">女子1ディアボロ縄跳び部門</h2>
+      <div class="cert-table-wrap">
+        <table class="cert-table">
+          <tr><th>クラス</th><th>順位</th><th>回数</th><th>選手名</th><th>所属</th><th>競技会</th><th>日付</th></tr>
+          <tr><td>A</td><td>1</td><td>65</td><td>ヌマタユイネ</td><td>JPAS／静岡大道芸サークルWaps</td><td>第十五回全日本ディアボロ選手権大会</td><td>2026/03/27</td></tr>
+          <tr><td>A</td><td>2</td><td>33</td><td>イチカワホタル</td><td>亀戸大道芸クラブ</td><td>第十回全日本ディアボロ選手権大会</td><td>2021/03/24</td></tr>
+          <tr><td>A</td><td>3</td><td>32</td><td>マキノルナ</td><td>JPAS</td><td>第十回全日本ディアボロ選手権大会</td><td>2021/03/24</td></tr>
+          <tr><td>C</td><td>1</td><td>34</td><td>ヤマシタリエ</td><td>NJC</td><td>第四回全日本ディアボロ選手権大会</td><td>2015/03/31</td></tr>
+          <tr><td>C</td><td>2</td><td>33</td><td>ヤナガワアヤコ</td><td>ジャグリま専科</td><td>第四回全日本ディアボロ選手権大会</td><td>2015/03/31</td></tr>
+          <tr><td>C</td><td>3</td><td>30</td><td>オオサワアイカ</td><td>千葉大学ジャグリングチームpossum</td><td>東京国際ディアボロ競技会2015</td><td>2015/08/07</td></tr>
+          <tr><td>D</td><td>1</td><td>37</td><td>ヤナガワアヤコ</td><td>-</td><td>大阪国際ディアボロ競技会2018</td><td>2018/08/15</td></tr>
+        </table>
+      </div>
+      <p class="cert-class-legend">クラスA:12歳以下／クラスB:13歳以上18歳以下／クラスC:19歳以上24歳以下／クラスD:25歳以上34歳以下／クラスE:35歳以上</p>
+    </div>
+
+    <div class="cert-card">
+      <h2 class="cert-heading">2ディアボロペアパス部門</h2>
+      <div class="cert-table-wrap">
+        <table class="cert-table">
+          <tr><th>順位</th><th>回数</th><th>選手名1</th><th>選手名2</th><th>所属</th><th>競技会</th><th>日付</th></tr>
+          <tr><td>1</td><td>89</td><td>トリイヒロミキ</td><td>トリイタケミ</td><td>ジャグリンククラブにしばた</td><td>大阪国際ディアボロ競技会2018</td><td>2018/08/15</td></tr>
+          <tr><td>2</td><td>75</td><td>トリイタケミ</td><td>アゴウテンセイ</td><td>infinity/亀戸大道芸クラブ</td><td>大阪国際ディアボロ競技会2023</td><td>2023/08/14</td></tr>
+          <tr><td>3</td><td>58</td><td>ヤマダジュン</td><td>カネヒラシンイチ</td><td>-</td><td>大阪国際ディアボロ競技会2018</td><td>2018/08/15</td></tr>
+          <tr><td>3</td><td>58</td><td>イナバワタル</td><td>ハシモトキョウヘイ</td><td>dominussomni</td><td>大阪国際ディアボロ競技会2019</td><td>2019/08/14</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <h2 class="cert-heading">4ディアボロロウ部門</h2>
+      <div class="cert-table-wrap">
+        <table class="cert-table">
+          <tr><th>順位</th><th>回数</th><th>選手名</th><th>所属</th><th>競技会</th><th>日付</th></tr>
+          <tr><td>1</td><td>329</td><td>イシミズタイキ</td><td>-</td><td>第十四回全日本ディアボロ選手権大会</td><td>2025/03/21</td></tr>
+          <tr><td>2</td><td>231</td><td>ワタヌキシュンスケ</td><td>Malabaristas</td><td>第十二回全日本ディアボロ選手権大会</td><td>2023/03/25</td></tr>
+          <tr><td>3</td><td>180</td><td>クボユウイチロウ</td><td>-</td><td>第六回全日本ディアボロ選手権大会</td><td>2017/03/21</td></tr>
+        </table>
+      </div>
+      <p class="cert-class-legend">(2026.3.27現在)</p>
+    </div>
+
+  </section>
+
+  <!-- ===== ABOUT / FOOTER ===== -->
+  <footer class="site-footer" id="about">
+    <div class="footer-top">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>協会について</h5>
+          <a href="../about/index.html">概要</a>
+          <a href="../contact/index.html">お問い合わせ</a>
+        </div>
+        <div class="footer-col">
+          <h5>競技・大会</h5>
+          <a href="../AJDC/index.html" target="_blank" rel="noopener">全日本ディアボロ選手権大会</a>
+          <a href="../OIDC/index.html" target="_blank" rel="noopener">大阪国際ディアボロ競技会</a>
+          <a href="../TIDC/jp/index.html" target="_blank" rel="noopener">東京国際ディアボロ競技会</a>
+          <a href="../rule/index.html">採点規則</a>
+        </div>
+        <div class="footer-col">
+          <h5>SNS</h5>
+          <a href="https://x.com/Japan_Diabolo" target="_blank" rel="noopener">X (総合)</a>
+          <a href="https://x.com/diaboloshop" target="_blank" rel="noopener">X (事務所・店舗)</a>
+          <a href="https://www.facebook.com/japandiabolo" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.youtube.com/@JapanDiabolo" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2012-2026 Japan Diabolo Association. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>const SITE_ROOT = "../../";</script>
+
+  <script src="../../js/main.js?v=32"></script>
+</body>
+</html>
