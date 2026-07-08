@@ -145,14 +145,14 @@
     fetch('data/champions.json?_=' + Date.now())
       .then((res) => res.json())
       .then((yearGroups) => {
-        // 実写真があるのは2026年度のみ。それより前の年度の最初のグループの直前に
-        // 「カード画像は仮置き」の注記を1回だけ挿入する。
+        // 2024〜2026年度は実写真あり、2023年度以前は仮画像。
+        // 実写真がない最初の年度グループの直前に注記を1回だけ挿入する。
         const firstPlaceholderIndex = yearGroups.findIndex(
           (group) => !group.items.some((c) => c.image)
         );
 
         championsList.innerHTML = yearGroups.map((group, index) => `
-          ${index === firstPlaceholderIndex ? '<p class="champions-note">※ ここから先の年度は選手の写真が現在準備中のため、カード画像は仮置きの状態です。</p>' : ''}
+          ${index === firstPlaceholderIndex ? '<p class="champions-note">※ 2023年度以前は選手の写真が現在準備中のため、カード画像は仮置きの状態です。</p>' : ''}
           <div class="champions-year-group">
             <div class="champions-year-head">
               <h2>${formatYearTitle(group.year)}</h2>

@@ -90,7 +90,7 @@ diabolo-redesign-mock/
 - `.section-divider img`の位置を10pxだけ上にずらすため、`transform: translate(-50%, calc(-50% - 10px))`にしている。
 - `.section-divider img`の固定高さはさらに拡大の要望で440px→560pxに変更(セクション自体の高さ135pxは不変)。
 - `external/champions/index.html`の年度見出し(`.champions-year-head h2`)は、長い正式名称を表示するようになったため太字すぎる見た目(グローバルなh1-h4の`font-weight:900`継承)を`font-weight:700`に軽量化、フォントサイズも`clamp(18px,2.2vw,24px)`に縮小済み。
-- 「※ 選手の写真は現在準備中のため、カード画像は仮置きの状態です。」の注記は、ページ先頭の固定テキストではなく、実写真が無い最初の年度(2025年度)の直前に動的挿入するようにした(`firstPlaceholderIndex`で`item.image`を持たない最初のグループを検出)。2026年度のみ実写真があるため、注記はその後ろに表示される。
+- 「※ 2023年度以前は選手の写真が現在準備中のため、カード画像は仮置きの状態です。」の注記は、ページ先頭の固定テキストではなく、実写真が無い最初の年度(2023年度)の直前に動的挿入するようにした(`firstPlaceholderIndex`で`item.image`を持たない最初のグループを検出)。2024〜2026年度は実写真があるため、注記はその後ろに表示される。
 - `.section-divider img`の固定高さはさらに拡大の要望で320px→440pxに変更(セクション自体の高さ135pxは不変)。
 - `images/logo/midd.png`がデザイン変更され、アスペクト比が大きく変わった(旧: 横長の細い帯 約1920:190 → 新: 2827:744 ≈3.8:1、ロゴ+テキストが中央に大きく配置された構図)。
 - `.section-divider img`は当初`width:100%; height:100%; object-fit:cover;`(コンテナいっぱいに伸縮)にしたが、これだとウィンドウ幅が狭くなるほど表示スケールも縮んでロゴが小さくなりすぎる問題があった。`position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:auto; height:320px;`に変更し、画像をウィンドウ幅に依存しない固定の高さ(320px、拡大気味)で中央配置するようにした。コンテナ(`.section-divider`, 高さ135px固定)の`overflow:hidden`で上下左右が自動的にクロップされる。
@@ -115,8 +115,8 @@ diabolo-redesign-mock/
 - `css/style.css`内の各`/* ===== セクション名 ===== */`バナーの直下に、そのブロックが何を担当しているかの一行説明コメントを追加済み。
 - `external/champions/index.html`の年度見出しは単純な西暦(例: 2026)ではなく、正式名称「第◯回全日本ディアボロ選手権大会(AJDC◯◯◯◯)」に変換して表示している(`formatYearTitle()`、西暦-2011を回数として漢数字化)。2012年だけ特別扱いで「プレ日本ディアボロ大会(2012)」と表示(2012は「第1回」ではない)。
 - CHAMPIONSセクションの「すべて見る」リンクは `external/champions/index.html`(歴代チャンピオン一覧ページ)に接続済み。このページは他のサブページ(検定ページ等)と同じ構成(共通ヘッダー・フッター・`.page-title`帯・共通の`css/style.css`/`js/main.js`を読み込む)で統一されている。CHAMPIONS POKER(`external/champions-poker/`)とは違い、独自CSS/JSは持たず、ページ固有のスタイルは本体`css/style.css`内の「Champions Archive」セクションに追記、データ取得・カード描画スクリプトはこのページ末尾にインライン`<script>`として記述(検定ページの動画モーダルスクリプトと同じ流儀)。
-- `external/champions/data/champions.json`は2026・2025・2024年度分に、`images/champions/<年度>/<年度2桁>champ<略称>.png`(例: `images/champions/2026/26champMI.png`)の実写真を`image`フィールドで割り当て済み(略称対応: MI=男子個人総合, WI=女子個人総合, MJ=男子個人総合ジュニア, WJ=女子個人総合ジュニア, M1DHA=男子1ディアボロ水平軸固定, M1DHB=男子1ディアボロ水平軸ベアリング, M1DV=男子1ディアボロ垂直軸, 2DA=2ディアボロ固定軸, 2DB=2ディアボロベアリング軸, 3D=3ディアボロ部門)。2024年度はその年の女子部門優勝者がいなかったため8件のみ(WI/WJ無し)。この部門順(MI→WI→MJ→WJ→M1DHA→M1DHB→M1DV→2DA→2DB→3D、その後に高校生男子個人総合/女子1ディアボロ/団体/1ディアボロ部門/2ディアボロ部門 等の旧分類)で**全年度**のカードを並び替え済み(該当しない部門が無い年はスキップされるだけで欠落なし)。レンダリング側(`external/champions/index.html`)は`c.image`があればそれを使い、なければ`images/poker/cardback.png`にフォールバックする。2023年度以前はまだ`image`フィールドが無いため全件cardback.pngのまま(「仮置き」の注記もこの境界を自動検出して2023年度の直前に表示される)。今後、別の年度の実写真フォルダ(`images/champions/<年度>/`)が用意された場合は、同じ命名規則(`<年度2桁>champ<略称>.png`)で揃えれば同様にchampions.jsonへ`image`フィールドを追加できる。
-- `external/champions/data/champions.json`は`AJDC_全日本ディアボロ選手権_選手別成績一覧.csv`(プロジェクトルート)から順位=1の行を年度別・部門別に抽出して生成したもの(チャレンジクラスは元データが部分的に壊れているため除外)。選手の実写真がまだないので、カード画像は全件 `images/poker/cardback.png` を仮置き。データは2012〜2026年・全121件。CSVが更新された場合はchampions.jsonの再生成が必要(現状は自動連携ではなく一度生成したJSONを置いているだけ)。
+- `external/champions/data/champions.json`は2026・2025・2024年度分に、`images/champions/<年度>/<年度2桁>champ<略称>.webp`(例: `images/champions/2026/26champMI.webp`)の実写真を`image`フィールドで割り当て済み(略称対応: MI=男子個人総合, WI=女子個人総合, MJ=男子個人総合ジュニア, WJ=女子個人総合ジュニア, M1DHA=男子1ディアボロ水平軸固定, M1DHB=男子1ディアボロ水平軸ベアリング, M1DV=男子1ディアボロ垂直軸, 2DA=2ディアボロ固定軸, 2DB=2ディアボロベアリング軸, 3D=3ディアボロ部門)。2024年度はその年の女子部門優勝者がいなかったため8件のみ(WI/WJ無し)。この部門順(MI→WI→MJ→WJ→M1DHA→M1DHB→M1DV→2DA→2DB→3D、その後に高校生男子個人総合/女子1ディアボロ/団体/1ディアボロ部門/2ディアボロ部門 等の旧分類)で**全年度**のカードを並び替え済み(該当しない部門が無い年はスキップされるだけで欠落なし)。レンダリング側(`external/champions/index.html`)は`c.image`があればそれを使い、なければ`images/poker/cardback.webp`にフォールバックする。2023年度以前はまだ`image`フィールドが無いため全件cardback.webpのまま(「仮置き」の注記もこの境界を自動検出して2023年度の直前に表示される)。今後、別の年度の実写真フォルダ(`images/champions/<年度>/`)が用意された場合は、同じ命名規則(`<年度2桁>champ<略称>.webp`)で揃えれば同様にchampions.jsonへ`image`フィールドを追加できる。
+- `external/champions/data/champions.json`は`AJDC_全日本ディアボロ選手権_選手別成績一覧.csv`(プロジェクトルート)から順位=1の行を年度別・部門別に抽出して生成したもの(チャレンジクラスは元データが部分的に壊れているため除外)。データは2012〜2026年・全121件で、2024〜2026年の28件は実写真、2023年以前は `images/poker/cardback.webp` の仮画像を表示する。CSVが更新された場合はchampions.jsonの再生成が必要(現状は自動連携ではなく一度生成したJSONを置いているだけ)。
 - CHAMPIONS POKERは `external/champions-poker/`(独自のindex.html・css/style.css・js/main.js)に完全分離して移植済み。トップページ(index.html)・本体のcss/style.css・js/main.jsからは関連コードを全て削除した。本体のCHAMPIONSセクション(カルーセル10枚・シャッフル機能)とは無関係で、現状トップページからのリンクは設置していない(直接 `external/champions-poker/index.html` を開く運用)。
 - ヘッダー検索を展開すると `.sns-links` が幅ゼロに折りたたまれ `.header-actions` の幅が変化し、`justify-content: space-between` の再配分で `.main-nav` が右にずれるバグがあった。`.sns-links.is-hidden` は幅を保持したまま `opacity:0` で見た目だけ隠す方式に修正済み(検索入力欄自体は `position: absolute` でレイアウト幅に影響しない)。
 - 全9ページ(index.html含む)の`<script src=".../js/main.js">`に`?v=N`のクエリを統一して付与済み(以前はサブページがクエリなしでキャッシュ対策が不揃いだった)。`external/champions-poker/`は独自の`js/main.js`(別ファイル、現在`?v=1`)を持つため対象外。今後JSを編集したら、index.htmlだけでなく全ページのこのクエリ番号を揃えて上げること。
@@ -125,7 +125,7 @@ diabolo-redesign-mock/
 - トップページCHAMPIONSセクション(`#championsTrack`)の10枚は、架空の選手名(final_athlete_1〜10.jpg)から2026年度の実際の現役チャンピオン10名(`images/champions/2026/26champ*.png`、`external/champions/data/champions.json`の2026年度データと同じ人物・部門・並び順)に更新済み。
 - CHAMPIONSカルーセル(10枚)もリロードごとにFisher-Yatesで表示順をシャッフルする(`championsTrack`の子要素を並び替えてから`items`配列を取得)。CHAMPIONS POKER(5枚抽選・重複あり)とは別の仕組み。
 - CHAMPIONS POKERの画像は `images/champions/` ではなく `images/poker/` を参照(現在は final_athlete_1〜5.jpg の5枚のみ、テスト段階の限定プール)
-- CHAMPIONS POKERのカードは初期状態で `images/poker/cardback.png`(裏面)を表示し、クリックで個別にフリップして表のチャンピオン情報が現れる仕組み(`.poker-card` / `.poker-card-inner` / `.poker-card-face--back` / `.poker-card-face--champion`、CSS 3D flip)。引き直しボタンで再描画すると全カード裏面の状態にリセットされる。
+- CHAMPIONS POKERのカードは初期状態で `images/poker/cardback.webp`(裏面)を表示し、クリックで個別にフリップして表のチャンピオン情報が現れる仕組み(`.poker-card` / `.poker-card-inner` / `.poker-card-face--back` / `.poker-card-face--champion`、CSS 3D flip)。引き直しボタンで再描画すると全カード裏面の状態にリセットされる。
 
 ## 既知の保留事項 / 未対応
 
@@ -134,7 +134,7 @@ diabolo-redesign-mock/
 - **Git管理**: このフォルダはGit管理対象にする。`.gitignore` ではOS/エディタ/一時ファイルのみを除外し、HTML/CSS/JS/画像素材は基本的に追跡対象。画像の元PNG/PSDは重いが、削除指示があるまで残す方針。
 - **細かい整備予定(一つずつ確認して進める)**:
   - 済: `js/main.js` の検索インデックス内のオンラインショップ表記を現行ナビに合わせて統一した(`main.js?v=33`)。
-  - 歴代チャンピオン周りのコメント/ノートに残っている「実写真があるのは2026年度のみ」系の古い記述を、現在の実データ(2024〜2026年度は実写真あり、2023年度以前は仮画像)に合わせて直す。
+  - 済: 歴代チャンピオン周りのコメント/ノートに残っていた古い実写真範囲の記述を、現在の実データ(2024〜2026年度は実写真あり、2023年度以前は仮画像)に合わせて修正した。
   - `images/image-specs.txt` の `final_athlete_1.jpg` など旧ダミー画像前提の記述を、現在の `images/champions/<年度>/*.webp` 運用に合わせて直す。
   - `PROJECT_NOTES.md` 内に過去の「現在のJSバージョン」記述が複数残っているため、最新値が読み取りやすい形に整理する。
 - ルートに `diabolo_banner_*.png` や `middold.png` `middordd.png` など、ユーザーが置いたままの未使用画像ファイルが残っている(おそらく `midd.png` 採用前の試作)。削除指示はまだ受けていないのでそのままにしている。
