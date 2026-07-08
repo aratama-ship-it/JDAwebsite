@@ -258,7 +258,7 @@ const SEARCH_INDEX = [
   { title: '事務所・店舗へのアクセス', keywords: 'アクセス access 事務所 店舗 地図 営業時間', path: 'external/access/index.html' },
   { title: '更新情報', keywords: '更新情報 news updates', path: 'external/news/index.html' },
   { title: 'お問い合わせ', keywords: 'お問い合わせ contact フォーム', path: 'external/contact/index.html' },
-  { title: 'オンラインストア', keywords: 'オンラインストア ショップ shop store', path: 'https://diabolo.shop-pro.jp' },
+  { title: 'オンラインショップ', keywords: 'オンラインショップ ショップ shop store', path: 'https://diabolo.shop-pro.jp' },
 ];
 
 const siteSearchEl = document.getElementById('siteSearch');
@@ -361,4 +361,3 @@ function bindAthleteCardHolo(card) {
 }
 
 document.querySelectorAll('.athlete-card').forEach(bindAthleteCardHolo);
-
