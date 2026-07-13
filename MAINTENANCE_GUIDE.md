@@ -2,6 +2,7 @@
 
 この資料は、HTML/CSSを人が直接編集する時のための実務メモです。
 作業履歴や細かい判断理由は `PROJECT_NOTES.md`、トップページ改善の検討メモは `TOP_PAGE_DESIGN_MEMO.md` を見てください。
+OIDCトップの背景写真を差し替える場合は、先に `OIDC_PHOTO_EDITING_MANUAL.md` を読んでください。
 
 ## まず見るファイル
 
@@ -12,6 +13,8 @@ js/main.js                全ページ共通の動き
 marquee-updates.txt       トップ直下の赤い流れる更新帯
 external/*/index.html     下層ページ
 images/                   実際に表示する画像
+OIDCphotos/               OIDCトップの自動切り替え背景写真
+OIDC_PHOTO_EDITING_MANUAL.md OIDC写真の制作・差し替え手順
 archive/unused-assets/    未使用・旧素材の保管場所
 ```
 
@@ -36,6 +39,10 @@ external/contact/index.html
 external/champions/index.html
   ├─ external/champions/data/champions.json
   └─ images/champions/** または images/poker/cardback.webp
+
+external/OIDC/index.html
+  ├─ OIDCphotos/**            トップ背景で自動切り替え表示する写真
+  └─ OIDC_PHOTO_EDITING_MANUAL.md
 ```
 
 CSSとJSはキャッシュ対策として `?v=数字` を付けています。
@@ -116,6 +123,7 @@ images/pickup/regu.webp
 images/pickup/howtogo.webp
 images/logo/midd.webp
 images/champions/<年度>/*.webp
+OIDCphotos/*
 ```
 
 注意:
@@ -129,6 +137,8 @@ images/champions/<年度>/*.webp
 ```html
 <img src="images/pickup/oidc.webp?v=4" alt="">
 ```
+
+OIDCトップの背景写真は `OIDCphotos/` を使います。通常は5枚構成を維持し、`external/OIDC/index.html` の `.oidc-hero-bg` 内の `src="../../OIDCphotos/..."` だけを差し替えます。詳しい制作注意は `OIDC_PHOTO_EDITING_MANUAL.md` を参照してください。
 
 ## ヘッダー・フッターを変える
 

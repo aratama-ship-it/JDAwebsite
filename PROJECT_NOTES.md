@@ -26,9 +26,12 @@ diabolo-redesign-mock/
 ├── performer.html              旧パフォーマー派遣URL互換の転送ページ
 ├── workshop.html               旧ワークショップURL互換の転送ページ
 ├── MAINTENANCE_GUIDE.md         手動更新者向けのファイル関係・更新手順ガイド
+├── OIDC_PHOTO_EDITING_MANUAL.md OIDCトップ背景写真の制作・差し替え手順
+├── OIDC_LANGUAGE_EDITING_MANUAL.md OIDCの日本語・英語・中国語編集手順
 ├── TOP_PAGE_DESIGN_MEMO.md      トップページのデザイン改善メモ
 ├── css/style.css                共通スタイル(全ページで読み込み)
 ├── js/main.js                   共通スクリプト(全ページで読み込み)
+├── OIDCphotos/                  OIDCトップの自動切り替え背景写真
 ├── images/
 │   ├── logo/                    ロゴ・仕切りバナー(midd.webp)
 │   ├── pickup/                  PICK UPカード用(oidc.webp, tar.webp, regu.webp, howtogo.webp)
@@ -46,7 +49,7 @@ diabolo-redesign-mock/
     ├── otp2/                    TAR UMT OTP TOURNAMENT 2.0 大会情報
     ├── records/                 記録一覧(男女別の各部門テーブル)
     ├── rule/                    採点規則(バージョン別PDFリンク一覧)
-    ├── AJDC/, OIDC/, TIDC/      diabolo.jp本家サイトのHTMLをそのままミラーしたもの(レイアウトは別物、リンク先として使用)
+    ├── AJDC/, OIDC/, TIDC/      特設サイト改築対象。本文・大会情報の文章は維持し、デザインと表示エラーを段階的に整備する
 ```
 
 ## デザインの現状(重要な決定事項)
@@ -144,7 +147,9 @@ diabolo-redesign-mock/
 
 ## 既知の保留事項 / 未対応
 
-- **AJDC/OIDC/TIDCの既存ミラーは当面修復対象外**。この3つの特設サイトは後日別途新規に作り直す方針のため、現時点では `external/AJDC/`・`external/OIDC/`・`external/TIDC/` 内の古いHTML、外部依存、欠損アセットを直さなくてよい。トップや共通ナビからのリンク先としては残すが、デザイン統一・ローカル完全ミラー化・TIDCの不足ファイル補完は後続タスクに回す。
+- **リリース前タスク**: CHAMPIONSカードの一部で表示エラーが出ている。特にタケミ選手のカードは、公開前に画像パス・選手名表記・トップカルーセル/歴代チャンピオン一覧での表示状態を確認して修正する。
+- **AJDC/OIDC/TIDCの特設サイト改築方針**。ユーザーから改築許可が出たため、`external/AJDC/`・`external/OIDC/`・`external/TIDC/` は修復・デザイン統一の対象に戻す。ただし、まずは本文・大会情報・更新情報などの文章は変えず、邪魔な表示エラーや古い外部依存を整えてからデザインを段階的に差し替える。初手として OIDC の不要なWordPress編集系JSエラー、TIDC の旧スマホ転送ダイアログと欠損旧JSプラグイン由来のエラーを抑制済み。
+- **OIDC改築メモ**: `external/OIDC/index.html` は旧WordPress出力をやめ、OIDCロゴを維持した静的な国際大会サイトへ初回リデザイン済み。OIDCは毎年継続するイベントのため、ページ全体は「Osaka International Diabolo Competition」の常設サイトとして扱い、トップの `#announcement` ヒーローで今年の大会告知を出す構成にする。色は黒×オレンジ基調。ヒーロータイトルは Osaka / International / Diabolo / Competition の先頭文字だけをオレンジで縦にそろえ、略称 OIDC として読めるデザインにしている。`OIDCphotos/` 内の過去大会ハイライト写真5枚は独立セクションではなく、ファーストビュー背景の自動クロスフェードとして使用している。写真制作・差し替え時の注意は `OIDC_PHOTO_EDITING_MANUAL.md` に整理済み。2026年大会の大会名・日程・会場・選手登録/開催要項リンクは右側の `.oidc-hero-card` に集約済み。アフタームービーは独立セクションではなく、ヒーロー内の `.oidc-hero-film` からモーダル再生する。現在のYouTube動画IDは `4EK8bo23qZ0`。大会概要、更新情報、スポンサー募集、主催ロゴを1ページに整理している。**言語はヘッダーの `JP / EN / 简 / 繁` で、日本語・英語・中国語簡体字・中国語繁体字を同一ページ内で切り替える。翻訳データと更新手順は `OIDC_LANGUAGE_EDITING_MANUAL.md` を参照。** 選手登録・開催要項・お問い合わせは既存の `diabolo.jp/OIDC/` 側URLへ接続しているため、外部ページ/PDFの多言語化は別途必要。翌年度に更新する際は、ヒーロー背景の `OIDCphotos/` 画像 `src`、右側 `.oidc-hero-card`、アフタームービーモーダルのタイトル・YouTube動画ID、`#updates` の年度・日付・リンク、および4言語の翻訳データを揃えて差し替える。
 - **共同編集メモ**: Codex、Claude Codeなど複数のAI/エディタで触る前提。作業前後に `git status --short` を確認し、他ツールやユーザーの変更を勝手に戻さないこと。作業判断に迷う場合は、この `PROJECT_NOTES.md` と `AGENTS.md` を先に読む。
 - **Git管理**: このフォルダはGit管理対象にする。`.gitignore` ではOS/エディタ/一時ファイルのみを除外し、HTML/CSS/JS/画像素材は基本的に追跡対象。画像の元PNG/PSDは重いが、削除指示があるまで残す方針。
 - **未使用・旧素材の保管場所**: 現行サイトから参照されていない画像や元PNG/PSDは削除せず `archive/unused-assets/` に退避する。再利用する場合は元のパスへ戻すか、参照パスを更新する。内容は `archive/unused-assets/README.md` を参照。

@@ -7,25 +7,10 @@
 	<meta http-equiv="imagetoolbar" content="no" />
 	<title>TIDC特設ページ</title>
 	
-	<script type="text/javascript">
-// iPhoneまたは、Androidの場合は振り分けを判断
-if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('iPad') == -1) || navigator.userAgent.indexOf('iPod') > 0 || navigator.userAgent.indexOf('Android') > 0) {
-    if(confirm('このサイトにはスマートフォン用のサイトがあります。表示しますか？')) {
-        location.href = 'http://diabolo.jp/TIDC/jp_SP/index.html';
-    }
-}
-</script>
-	<link href="../css/tablets.css" rel="stylesheet" type="text/css" media="screen and (min-width: 0px) and (max-width: 800px)" > <!--iphone専用ができるまでの予備-->
-	<link href="../css/narrow.css" rel="stylesheet" type="text/css" media="screen and (min-width: 801px) and (max-width: 1200px)" >	 <!--ブラウザ幅1200以下用-->	
-	<link href="../css/main.css" rel="stylesheet" type="text/css" media="screen and (min-width: 1201px)" >	<!--ブラウザ幅1200以上-->
+	<!-- 旧スマートフォンサイトへの確認ダイアログは、改築作業中の表示確認を妨げるため無効化。 -->
 	
 	<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>-->
-	<script type="text/javascript" src="../js/jquery.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="../jquery-yycountdown-master/js/jquery.yycountdown.js"></script><!--countdown-->
-	<script type="text/javascript" src="../js/common.js"></script>
-    <link rel="stylesheet" type="text/css" href="../Magnific-Popup-master/dist/magnific-popup.css">
-	<script src="../Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
 	<!--画像ドラッグ禁止-->
 	<script language="Javascript">
 		/*<![CDATA[*/
@@ -160,16 +145,18 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
   </div>
 	
     <script type="text/javascript">
-		$('head').append(
-			'<style type="text/css">#container { display: none; } #fade, #loader { display: block; }</style>'
-		);
+		if (window.jQuery) {
+			$('head').append(
+				'<style type="text/css">#container { display: none; } #fade, #loader { display: block; }</style>'
+			);
   
-		jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
-			var pageH = $("#container").height();
-			$("#fade").css("height", pageH).delay(900).fadeOut(800);
-			$("#loader").delay(600).fadeOut(300);
-			$("#container").css("display", "block");
-		});
+			jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
+				var pageH = $("#container").height();
+				$("#fade").css("height", pageH).delay(900).fadeOut(800);
+				$("#loader").delay(600).fadeOut(300);
+				$("#container").css("display", "block");
+			});
+		}
 		
 		//10秒たったら強制的にロード画面を非表示
 		/*$(function(){
@@ -178,6 +165,7 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
 		*/
  
 		function stopload(){
+			if (!window.jQuery) return;
 			var pageH = $("#container").height();
 			$("#fade").css("height", pageH).delay(900).fadeOut(800);
 			$("#loader").delay(600).fadeOut(300);
@@ -186,43 +174,53 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
 	</script>
 
 	<script type="text/javascript">	
-		$(function(){
-			$('.popup-iframe').magnificPopup({
-				type: 'iframe',
-				disableOn: 500, //ウィンドウ幅が500px以下だったらモーダル表示させずにリンク先へ遷移
-				mainClass: 'mfp-fade',
-				removalDelay: 200,
-				preloader: false,
-				fixedContentPos: false
-			});
+		if (window.jQuery) $(function(){
+			if ($.fn.magnificPopup) {
+				$('.popup-iframe').magnificPopup({
+					type: 'iframe',
+					disableOn: 500, //ウィンドウ幅が500px以下だったらモーダル表示させずにリンク先へ遷移
+					mainClass: 'mfp-fade',
+					removalDelay: 200,
+					preloader: false,
+					fixedContentPos: false
+				});
+			}
 		});
 	</script>
 	<script type="text/javascript">
-		$(function() {
-    		$('#slide').slideshow({
-        		autoSlide    : true,
-        		type         : 'repeat',
-        		interval     : 5000,
-        		duration     : 500,
-        		easing       : 'swing',
-       			imgHoverStop : true,
-        		navHoverStop : true,
-        		prevPosition : 0,
-        		nextPosition : 0,
-        		//baseWidth    : 940
-    		});
-    		$('.slidePrev img').rollover();
-    		$('.slideNext img').rollover();
-    		$(window).load(function() {
-        		$('.topNaviCon').uniformHeight();
-    		});
+		if (window.jQuery) $(function() {
+			if ($.fn.slideshow) {
+				$('#slide').slideshow({
+					autoSlide    : true,
+					type         : 'repeat',
+					interval     : 5000,
+					duration     : 500,
+					easing       : 'swing',
+					imgHoverStop : true,
+					navHoverStop : true,
+					prevPosition : 0,
+					nextPosition : 0,
+					//baseWidth    : 940
+				});
+			}
+			if ($.fn.rollover) {
+				$('.slidePrev img').rollover();
+				$('.slideNext img').rollover();
+			}
+			$(window).load(function() {
+				if ($.fn.uniformHeight) {
+					$('.topNaviCon').uniformHeight();
+				}
+			});
 		});
 	</script>
 	
 	<script type="text/javascript">	
-	$("#timer").yycountdown({
-		endDateTime   : '2016/08/12 00:00:00'
-	});
+	if (window.jQuery && $.fn.yycountdown) {
+		$("#timer").yycountdown({
+			endDateTime   : '2016/08/12 00:00:00'
+		});
+	}
 	</script>
 </body>
 </html>
