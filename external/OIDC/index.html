@@ -76,7 +76,8 @@
 
   .oidc-page {
     position: relative;
-    overflow: hidden;
+    /* 横方向だけを描画上クリップし、stickyヘッダーの基準は画面のままにする。 */
+    overflow-x: clip;
   }
 
   .oidc-header {

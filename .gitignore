@@ -23,3 +23,6 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+
+# iCloudの同期競合コピー(「app 2.js」等)は追跡しない
+* [0-9].*
