@@ -26,3 +26,6 @@ venv/
 
 # iCloudの同期競合コピー(「app 2.js」等)は追跡しない
 * [0-9].*
+
+# 会議記録・内部メモは公開リポジトリに置かない（meeting-prep/ へ）
+docs/meetings/
