@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""公開候補の境界検査に関する回帰テスト。"""
+
+from __future__ import annotations
+
+import tempfile
+import unittest
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from prepare_release import copy_path, validate_copy_source
+from verify_release import is_forbidden_public_name
+
+
+class ReleaseSourceSafetyTests(unittest.TestCase):
+    def test_regular_source_tree_is_copied(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "external" / "about"
+            source.mkdir(parents=True)
+            (source / "index.html").write_text("safe", encoding="utf-8")
+            destination = root / "candidate" / "about"
+
+            copy_path(source, destination, root)
+
+            self.assertEqual((destination / "index.html").read_text(encoding="utf-8"), "safe")
+
+    def test_nested_source_symlink_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir, tempfile.TemporaryDirectory() as outside_dir:
+            root = Path(temp_dir)
+            source = root / "external" / "about"
+            source.mkdir(parents=True)
+            outside = Path(outside_dir) / "secret.txt"
+            outside.write_text("not public", encoding="utf-8")
+            (source / "leak.txt").symlink_to(outside)
+
+            with self.assertRaisesRegex(RuntimeError, "シンボリックリンク"):
+                validate_copy_source(source, root)
+
+    def test_source_outside_repository_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as root_dir, tempfile.TemporaryDirectory() as outside_dir:
+            source = Path(outside_dir) / "outside.html"
+            source.write_text("not public", encoding="utf-8")
+
+            with self.assertRaisesRegex(RuntimeError, "リポジトリ外"):
+                validate_copy_source(source, Path(root_dir))
+
+
+class ReleaseFilenameSafetyTests(unittest.TestCase):
+    def test_server_control_and_hidden_names_are_rejected(self) -> None:
+        for name in (".htaccess", ".HTACCESS", ".user.ini", "web.config", "WEB.CONFIG", ".well-known"):
+            with self.subTest(name=name):
+                self.assertTrue(is_forbidden_public_name(name))
+
+    def test_normal_static_names_are_allowed(self) -> None:
+        for name in ("index.html", "style.css", "main.js", "champions.json", "photo.webp"):
+            with self.subTest(name=name):
+                self.assertFalse(is_forbidden_public_name(name))
+
+
+if __name__ == "__main__":
+    unittest.main()

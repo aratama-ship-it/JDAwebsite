@@ -247,8 +247,17 @@
       subjectSelect.value = subjectParamMap[initialSubject];
     }
 
-    function summaryRow(label, value) {
-      return `<dt>${label}</dt><dd>${value || '（未入力）'}</dd>`;
+    function appendSummaryRow(label, value, preserveNewlines = false) {
+      const term = document.createElement('dt');
+      term.textContent = label;
+
+      const description = document.createElement('dd');
+      description.textContent = value || '（未入力）';
+      if (preserveNewlines) {
+        description.style.whiteSpace = 'pre-wrap';
+      }
+
+      confirmSummary.append(term, description);
     }
 
     contactForm.addEventListener('submit', (e) => {
@@ -268,12 +277,12 @@
         ? 'なし'
         : `${fileInput.files.length}件（${Array.from(fileInput.files).map(f => f.name).join('、')}）`;
 
-      confirmSummary.innerHTML =
-        summaryRow('お名前', name) +
-        summaryRow('メールアドレス', email) +
-        summaryRow('お問い合わせ種別', subject) +
-        summaryRow('お問い合わせ内容', message.replace(/\n/g, '<br>')) +
-        summaryRow('添付ファイル', fileText);
+      confirmSummary.replaceChildren();
+      appendSummaryRow('お名前', name);
+      appendSummaryRow('メールアドレス', email);
+      appendSummaryRow('お問い合わせ種別', subject);
+      appendSummaryRow('お問い合わせ内容', message, true);
+      appendSummaryRow('添付ファイル', fileText);
 
       confirmOverlay.classList.add('is-open');
     });
