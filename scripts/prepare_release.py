@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import os
 import shutil
 import subprocess
 import sys
@@ -20,11 +21,42 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 GENERATED_MARKER = ".generated-jda-release"
 
 
-def copy_path(source: Path, destination: Path) -> None:
+def validate_copy_source(source: Path, repo_root: Path = REPO_ROOT) -> None:
+    """コピー元がリポジトリ内の通常ファイルだけで構成されていることを確認する。"""
+    root_absolute = repo_root.absolute()
+    root_resolved = repo_root.resolve()
+    source_absolute = source.absolute()
+    try:
+        source_absolute.relative_to(root_absolute)
+    except ValueError as exc:
+        raise RuntimeError(f"リポジトリ外のコピー元を検出: {source}") from exc
+
+    if source.is_symlink():
+        raise RuntimeError(f"コピー元のシンボリックリンクを検出: {source_absolute.relative_to(root_absolute)}")
     if not source.exists():
-        raise FileNotFoundError(f"公開候補の元ファイルがありません: {source.relative_to(REPO_ROOT)}")
+        raise FileNotFoundError(f"公開候補の元ファイルがありません: {source_absolute.relative_to(root_absolute)}")
+
+    paths = [source]
     if source.is_dir():
-        shutil.copytree(source, destination)
+        for current_root, directory_names, file_names in os.walk(source, followlinks=False):
+            current = Path(current_root)
+            paths.extend(current / name for name in (*directory_names, *file_names))
+
+    for path in paths:
+        relative = path.absolute().relative_to(root_absolute)
+        if path.is_symlink():
+            raise RuntimeError(f"コピー元のシンボリックリンクを検出: {relative}")
+        try:
+            path.resolve(strict=True).relative_to(root_resolved)
+        except ValueError as exc:
+            raise RuntimeError(f"リポジトリ外を参照するコピー元を検出: {relative}") from exc
+
+
+def copy_path(source: Path, destination: Path, repo_root: Path = REPO_ROOT) -> None:
+    validate_copy_source(source, repo_root)
+    if source.is_dir():
+        # 事前検査後にリンクが紛れ込んでも、リンクのまま保持して後段検査で拒否する。
+        shutil.copytree(source, destination, symlinks=True)
     else:
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)

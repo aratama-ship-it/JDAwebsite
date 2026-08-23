@@ -48,3 +48,4 @@ LIVE_LINK_REPLACEMENTS = {
 PRESERVED_LIVE_PREFIXES = ("/AJDC/", "/OIDC/", "/TIDC/")
 FORBIDDEN_DIRECTORY_NAMES = {"AJDC", "OIDC", "TIDC", "wp", "champions-poker"}
 FORBIDDEN_SUFFIXES = {".php", ".sql"}
+FORBIDDEN_FILE_NAMES = {".htaccess", ".user.ini", "web.config"}

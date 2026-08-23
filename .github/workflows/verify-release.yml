@@ -24,6 +24,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Test release safety boundaries
+        run: python3 -B scripts/test_release_safety.py
+
       - name: Generate and verify Cyberduck candidate
         run: ./scripts/prepare_release.sh --require-clean --output "$RUNNER_TEMP/jda-release-candidate"
 

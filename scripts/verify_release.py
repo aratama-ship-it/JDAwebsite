@@ -13,6 +13,7 @@ from urllib.parse import unquote, urlsplit
 
 from release_config import (
     FORBIDDEN_DIRECTORY_NAMES,
+    FORBIDDEN_FILE_NAMES,
     FORBIDDEN_SUFFIXES,
     LIVE_LINK_REPLACEMENTS,
     PRESERVED_LIVE_PREFIXES,
@@ -38,6 +39,11 @@ REQUIRED_FILES = (
     "external/rule/index.html",
 )
 HIDDEN_OR_TEMP_NAMES = {".DS_Store", "Thumbs.db"}
+
+
+def is_forbidden_public_name(name: str) -> bool:
+    """公開フォルダ内で許可しない隠し・サーバー制御ファイル名を判定する。"""
+    return name.startswith(".") or name.casefold() in FORBIDDEN_FILE_NAMES
 
 
 class ReferenceParser(HTMLParser):
@@ -108,7 +114,11 @@ def verify(candidate: Path) -> tuple[list[str], int, set[str], set[str]]:
         relative = path.relative_to(public)
         if path.is_symlink():
             errors.append(f"シンボリックリンクを検出: {relative}")
-        if path.name in HIDDEN_OR_TEMP_NAMES or path.name.startswith("._"):
+        if (
+            path.name in HIDDEN_OR_TEMP_NAMES
+            or path.name.startswith("._")
+            or is_forbidden_public_name(path.name)
+        ):
             errors.append(f"隠しファイル・一時ファイルを検出: {relative}")
         if path.name.endswith("~") or path.suffix.lower() in {".log", ".tmp"}:
             errors.append(f"一時ファイルを検出: {relative}")
