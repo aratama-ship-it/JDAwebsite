@@ -7,6 +7,17 @@
 
 トップページ + 10個のサブページからなる完パケのフォルダで、`index.html` を起点にすべて相対パスでリンクしています。
 
+## GitHub・Cyberduck運用基盤（2026-08-23）
+
+- 制作データの正本はこのGitリポジトリとし、制作途中は `feature/*`、`fix/*`、`chore/*` の作業ブランチへ保存する。`main`へ直接pushしない。
+- GitHubへのpush、GitHub Pagesの確認、本番 `diabolo.jp` への反映は別工程。ロリポップ本番は引き続きCyberduckで本人承認後に手動反映する。
+- `./scripts/prepare_release.sh` で、Git管理中のソースから `release-candidate/` を毎回再生成する。生成物はGit管理対象外で、このコマンド自体はアップロードを行わない。
+- 本番用の最終候補はcommit後に `./scripts/prepare_release.sh --require-clean` で生成し、`SOURCE_STATE.txt` が `CLEAN` であることを確認する。
+- 生成時に `external/AJDC/`、`external/OIDC/`、`external/TIDC/` のローカルリンクを既存本番の `/AJDC/`、`/OIDC/`、`/TIDC/jp/` へ変換する。制作側のローカルミラーは変更しない。
+- 検査は大会ミラー、WordPress/PHP/MySQL、`champions-poker`、隠しファイル、一時ファイル、リンク切れ、キャッシュ番号不一致を停止条件にする。
+- GitHub Pull Requestと対象ブランチへのpushでは `.github/workflows/verify-release.yml` が同じ候補生成・検査を行う。生成物はActions artifactとして公開しない。
+- 詳細手順とFTPS接続前の停止条件は `docs/GITHUB_CYBERDUCK_WORKFLOW.md` を正とする。
+
 ## 動かし方(重要)
 
 お問い合わせフォーム(FormSubmit連携)が `file://` では動作しないため、**ローカルサーバー経由で開く必要があります**。

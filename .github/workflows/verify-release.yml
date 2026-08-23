@@ -1,0 +1,31 @@
+name: Verify safe release candidate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - "chore/**"
+      - "feature/**"
+      - "fix/**"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate and verify Cyberduck candidate
+        run: ./scripts/prepare_release.sh --require-clean --output "$RUNNER_TEMP/jda-release-candidate"
+
+      - name: Verify candidate again
+        run: python3 scripts/verify_release.py --candidate "$RUNNER_TEMP/jda-release-candidate"

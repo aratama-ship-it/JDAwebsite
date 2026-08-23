@@ -3,6 +3,7 @@
 この資料は、HTML/CSSを人が直接編集する時のための実務メモです。
 作業履歴や細かい判断理由は `PROJECT_NOTES.md`、トップページ改善の検討メモは `TOP_PAGE_DESIGN_MEMO.md` を見てください。
 OIDCトップの背景写真を差し替える場合は、先に `OIDC_PHOTO_EDITING_MANUAL.md` を読んでください。
+GitHub・Codex・Cyberduckを通した保存と本番反映は、先に `docs/GITHUB_CYBERDUCK_WORKFLOW.md` を読んでください。
 
 ## まず見るファイル
 
@@ -218,7 +219,7 @@ python3 -m http.server 8000
 http://127.0.0.1:8000/index.html
 ```
 
-## GitHub Pages公開
+## GitHubへの保存と確認用Pages
 
 現在の公開先:
 
@@ -226,16 +227,28 @@ http://127.0.0.1:8000/index.html
 https://aratama-ship-it.github.io/JDAwebsite/
 ```
 
-通常の流れ:
+制作途中は `main` へ直接pushせず、作業ブランチを使います。
 
 ```bash
 git status --short
+git switch -c feature/変更内容
 git add 変更したファイル
 git commit -m "変更内容を短く書く"
-git push
+git push -u origin 現在のブランチ名
 ```
 
-push後、GitHub Pagesの反映には少し時間がかかります。
+Pull Requestの自動検査がPASSした後に `main` へ統合します。`main`への統合後、GitHub Pagesの反映には少し時間がかかります。
+GitHubへのpushと、Cyberduckによる `diabolo.jp` 本番アップロードは別工程です。
+
+Cyberduck用候補は次で毎回再生成します。
+
+```bash
+./scripts/prepare_release.sh
+```
+
+生成された `release-candidate/public/` の中身だけが本番候補です。詳細と停止条件は
+`docs/GITHUB_CYBERDUCK_WORKFLOW.md` を参照してください。
+本番に使う最終候補はcommit後に `./scripts/prepare_release.sh --require-clean` で作り直します。
 
 ## 手動編集時の注意
 
