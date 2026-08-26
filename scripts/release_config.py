@@ -14,8 +14,6 @@ COPY_TREES = (
     "css",
     "js",
     "images/champions",
-    "images/logo",
-    "images/pickup",
     "images/poker",
     "external/about",
     "external/access",
@@ -32,6 +30,14 @@ COPY_TREES = (
 IMAGE_FILES = (
     "images/diaicon-white.png",
     "images/image-specs.txt",
+    "images/logo/final_logo_emblem_v3.png",
+    "images/logo/midd.webp",
+    "images/logo/wdc2026-logo-v2-light.png",
+    "images/pickup/howtogo.webp",
+    "images/pickup/oidc.webp",
+    "images/pickup/regu.webp",
+    "images/pickup/wdc2026-taipei-hero-bg.webp",
+    "images/pickup/wdc2026-taipei-rain.webp",
 )
 
 # 制作リポジトリではローカルミラーを確認できる一方、本番候補では既存の

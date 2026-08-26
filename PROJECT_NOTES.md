@@ -44,8 +44,8 @@ diabolo-redesign-mock/
 ├── js/main.js                   共通スクリプト(全ページで読み込み)
 ├── OIDCphotos/                  OIDCトップの自動切り替え背景写真
 ├── images/
-│   ├── logo/                    ロゴ・仕切りバナー(midd.webp)
-│   ├── pickup/                  PICK UPカード用(oidc.webp, tar.webp, regu.webp, howtogo.webp)
+│   ├── logo/                    協会ロゴ・仕切りバナー・WDC2026ロゴ3種
+│   ├── pickup/                  PICK UP・ヒーロー用(wdc2026-v2.webp, regu.webp, howtogo.webpほか)
 │   ├── champions/               CHAMPIONS/歴代チャンピオン用の選手写真(WebP)
 │   ├── poker/                   CHAMPIONS POKER用の画像・カード裏面
 │   └── image-specs.txt          各画像の推奨サイズ・形式まとめ
@@ -78,13 +78,14 @@ diabolo-redesign-mock/
 `css/style.css` と `js/main.js` は、編集してもブラウザにキャッシュされて反映されないことが何度かあった。
 **全ページの `<link>` / `<script>` タグに `?v=N` を付けてあるので、CSSかJSを編集したら必ずバージョン番号を上げること。**
 
-- 現在のCSSバージョン: `style.css?v=59`(共通CSSを読むページは同じ値で揃える)
+- 現在のCSSバージョン: `style.css?v=69`(共通CSSを読むページは同じ値で揃える)
 - 現在のJSバージョン: `main.js?v=35`(共通JSを読むページは同じ値で揃える)
 - トップページ内リンク(`#news`/`#athletes`/`#updates`)は、固定ヘッダーで見出しが隠れないよう `scroll-margin-top` を設定済み。PCは96px、700px以下は88px。
 - トップページのスマホCHAMPIONSカードは、`#athletes` 配下に限定してオーバーレイを強め、選手名・部門名の文字サイズ/行間/影を調整済み。歴代チャンピオン一覧ページのカードには影響しないようスコープしている。
 - トップページPICK UP直前の `midd` 帯は、デスクトップで少し軽く見えるよう `.section-divider` の高さを135px→112px、画像固定高さを560px→500px、上方向のずらしを10px→8pxに調整済み。スマホ幅(700px以下)の非表示は維持。
 - UPDATESカードは、`.rule-item:has(.update-text)` で更新情報系のカードだけを白背景・薄い境界線・軽い影・浮くhoverに調整済み。採点規則ページのPDFリストなど、`.update-text` を持たない `.rule-item` には基本的に影響しない。
 - OIDCのトップ画像(`images/pickup/oidc.webp`)は2人構図の新画像に差し替え済み。右側人物の紐が二重に見える箇所を修正済み。同名ファイル更新のため、`index.html` のヒーロー/PICK UPカード参照には `?v=3` を付けて画像キャッシュを回避している。
+- トップページPICK UPの2枚目は、採点規則カードから「大阪国際ディアボロ競技会2026 競技結果」へ変更済み。既存の `images/pickup/oidc.webp?v=3` を再利用し、PDFへ直接飛ばさず、競技結果を掲載しているOIDC公式サイトへリンクする。
 - トップページのヒーローは、スライドごとの文字位置・画像位置調整を撤回し、全スライド共通の左下配置と共通グラデーションに戻した。`hero-slide--*` クラスは使わない。
 - スマホヘッダーはロゴ横に短縮表記 `JDA` を表示し、768px以上では従来通り `JAPAN DIABOLO ASSOCIATION` を表示する。480px以下ではヘッダー左右余白とアクション間隔を少し詰めている。
 - トップページのセクション見出し下にあった日本語サブテキスト(`ピックアップ`/`日本チャンピオン`/`更新情報`)は不要との判断で削除済み。共通CSS側の `.section-jp` スタイルも削除。
@@ -144,7 +145,8 @@ diabolo-redesign-mock/
 - `css/style.css`内の各`/* ===== セクション名 ===== */`バナーの直下に、そのブロックが何を担当しているかの一行説明コメントを追加済み。
 - `external/champions/index.html`の年度見出しは単純な西暦(例: 2026)ではなく、正式名称「第◯回全日本ディアボロ選手権大会(AJDC◯◯◯◯)」に変換して表示している(`formatYearTitle()`、西暦-2011を回数として漢数字化)。2012年だけ特別扱いで「プレ日本ディアボロ大会(2012)」と表示(2012は「第1回」ではない)。
 - CHAMPIONSセクションの「すべて見る」リンクは `external/champions/index.html`(歴代チャンピオン一覧ページ)に接続済み。このページは他のサブページ(検定ページ等)と同じ構成(共通ヘッダー・フッター・`.page-title`帯・共通の`css/style.css`/`js/main.js`を読み込む)で統一されている。CHAMPIONS POKER(`external/champions-poker/`)とは違い、独自CSS/JSは持たず、ページ固有のスタイルは本体`css/style.css`内の「Champions Archive」セクションに追記、データ取得・カード描画スクリプトはこのページ末尾にインライン`<script>`として記述(検定ページの動画モーダルスクリプトと同じ流儀)。
-- `external/champions/data/champions.json`は2026・2025・2024年度分に、`images/champions/<年度>/<年度2桁>champ<略称>.webp`(例: `images/champions/2026/26champMI.webp`)の実写真を`image`フィールドで割り当て済み(略称対応: MI=男子個人総合, WI=女子個人総合, MJ=男子個人総合ジュニア, WJ=女子個人総合ジュニア, M1DHA=男子1ディアボロ水平軸固定, M1DHB=男子1ディアボロ水平軸ベアリング, M1DV=男子1ディアボロ垂直軸, 2DA=2ディアボロ固定軸, 2DB=2ディアボロベアリング軸, 3D=3ディアボロ部門)。2024年度はその年の女子部門優勝者がいなかったため8件のみ(WI/WJ無し)。この部門順(MI→WI→MJ→WJ→M1DHA→M1DHB→M1DV→2DA→2DB→3D、その後に高校生男子個人総合/女子1ディアボロ/団体/1ディアボロ部門/2ディアボロ部門 等の旧分類)で**全年度**のカードを並び替え済み(該当しない部門が無い年はスキップされるだけで欠落なし)。レンダリング側(`external/champions/index.html`)は`c.image`があればそれを使い、なければ`images/poker/cardback.webp`にフォールバックする。2023年度以前はまだ`image`フィールドが無いため全件cardback.webpのまま(「仮置き」の注記もこの境界を自動検出して2023年度の直前に表示される)。今後、別の年度の実写真フォルダ(`images/champions/<年度>/`)が用意された場合は、同じ命名規則(`<年度2桁>champ<略称>.webp`)で揃えれば同様にchampions.jsonへ`image`フィールドを追加できる。
+- トップページの見出しは `2026 CHAMPIONS` とし、CHAMPIONSとUPDATESの「すべて見る」は画面右端ではなく、各見出しのすぐ右側に配置する。
+- `external/champions/data/champions.json`は2026・2025・2024年度分に、`images/champions/<年度>/<年度2桁>champ<略称>.webp`(例: `images/champions/2026/26champMI.webp`)の実写真を`image`フィールドで割り当て済み(略称対応: MI=男子個人総合, WI=女子個人総合, MJ=男子個人総合ジュニア, WJ=女子個人総合ジュニア, M1DHA=男子1ディアボロ水平軸固定, M1DHB=男子1ディアボロ水平軸ベアリング, M1DV=男子1ディアボロ垂直軸, 2DA=2ディアボロ固定軸, 2DB=2ディアボロベアリング軸, 3D=3ディアボロ部門)。2024年度はその年の女子部門優勝者がいなかったため8件のみ(WI/WJ無し)。この部門順(MI→WI→MJ→WJ→M1DHA→M1DHB→M1DV→2DA→2DB→3D、その後に高校生男子個人総合/女子1ディアボロ/団体/1ディアボロ部門/2ディアボロ部門 等の旧分類)で**全年度**のカードを並び替え済み(該当しない部門が無い年はスキップされるだけで欠落なし)。レンダリング側(`external/champions/index.html`)は`c.image`があればそれを使い、なければ`images/poker/cardback.webp`にフォールバックする。2023年度以前はまだ`image`フィールドが無いため全件cardback.webpのまま(「仮置き」の注記もこの境界を自動検出して2023年度の直前に表示される)。2025年のトリイ タケミ選手3カードは、`25champMI.webp`・`25champ2DB.webp`・`25champ3D.webp`の実画像と氏名・部門表記を公開候補のブラウザで確認済み。今後、別の年度の実写真フォルダ(`images/champions/<年度>/`)が用意された場合は、同じ命名規則(`<年度2桁>champ<略称>.webp`)で揃えれば同様にchampions.jsonへ`image`フィールドを追加できる。
 - `external/champions/data/champions.json`は`AJDC_全日本ディアボロ選手権_選手別成績一覧.csv`(プロジェクトルート)から順位=1の行を年度別・部門別に抽出して生成したもの(チャレンジクラスは元データが部分的に壊れているため除外)。データは2012〜2026年・全121件で、2024〜2026年の28件は実写真、2023年以前は `images/poker/cardback.webp` の仮画像を表示する。CSVが更新された場合はchampions.jsonの再生成が必要(現状は自動連携ではなく一度生成したJSONを置いているだけ)。
 - CHAMPIONS POKERは `external/champions-poker/`(独自のindex.html・css/style.css・js/main.js)に完全分離して移植済み。トップページ(index.html)・本体のcss/style.css・js/main.jsからは関連コードを全て削除した。本体のCHAMPIONSセクション(カルーセル10枚・シャッフル機能)とは無関係で、現状トップページからのリンクは設置していない(直接 `external/champions-poker/index.html` を開く運用)。
 - ヘッダー検索を展開すると `.sns-links` が幅ゼロに折りたたまれ `.header-actions` の幅が変化し、`justify-content: space-between` の再配分で `.main-nav` が右にずれるバグがあった。`.sns-links.is-hidden` は幅を保持したまま `opacity:0` で見た目だけ隠す方式に修正済み(検索入力欄自体は `position: absolute` でレイアウト幅に影響しない)。
@@ -158,7 +160,6 @@ diabolo-redesign-mock/
 
 ## 既知の保留事項 / 未対応
 
-- **リリース前タスク**: CHAMPIONSカードの一部で表示エラーが出ている。特にタケミ選手のカードは、公開前に画像パス・選手名表記・トップカルーセル/歴代チャンピオン一覧での表示状態を確認して修正する。
 - **AJDC/OIDC/TIDCの特設サイト改築方針**。ユーザーから改築許可が出たため、`external/AJDC/`・`external/OIDC/`・`external/TIDC/` は修復・デザイン統一の対象に戻す。ただし、まずは本文・大会情報・更新情報などの文章は変えず、邪魔な表示エラーや古い外部依存を整えてからデザインを段階的に差し替える。初手として OIDC の不要なWordPress編集系JSエラー、TIDC の旧スマホ転送ダイアログと欠損旧JSプラグイン由来のエラーを抑制済み。
 - **AJDC 次回デザインタスク**: 選手写真を合成したキービジュアルを制作し、AJDCトップページのヒーロー背景（または全幅トップ画像）として配置する。その上に「全日本ディアボロ選手権大会」などの大会名を重ねる構成に切り替える。写真素材の選定・合成が完了してから実装すること。現在は仮画像 `external/AJDC/images/ajdc-hero-placeholder.png` をヒーローに使用しているため、完成版ができたらこのファイルを差し替えるか参照先を更新する。
 - **OIDC改築メモ**: `external/OIDC/index.html` は旧WordPress出力をやめ、OIDCロゴを維持した静的な国際大会サイトへ初回リデザイン済み。OIDCは毎年継続するイベントのため、ページ全体は「Osaka International Diabolo Competition」の常設サイトとして扱い、トップの `#announcement` ヒーローで今年の大会告知を出す構成にする。色は黒×オレンジ基調。ヒーロータイトルは Osaka / International / Diabolo / Competition の先頭文字だけをオレンジで縦にそろえ、略称 OIDC として読めるデザインにしている。`OIDCphotos/` 内の過去大会ハイライト写真5枚は独立セクションではなく、ファーストビュー背景の自動クロスフェードとして使用している。写真制作・差し替え時の注意は `OIDC_PHOTO_EDITING_MANUAL.md` に整理済み。2026年大会の大会名・日程・会場・選手登録/開催要項リンクは右側の `.oidc-hero-card` に集約済み。アフタームービーは独立セクションではなく、ヒーロー内の `.oidc-hero-film` からモーダル再生する。現在のYouTube動画IDは `4EK8bo23qZ0`。大会概要、更新情報、スポンサー募集、主催ロゴを1ページに整理している。**言語はヘッダーの `JP / EN / 简 / 繁` で、日本語・英語・中国語簡体字・中国語繁体字を同一ページ内で切り替える。翻訳データと更新手順は `OIDC_LANGUAGE_EDITING_MANUAL.md` を参照。** 選手登録・開催要項・お問い合わせは既存の `diabolo.jp/OIDC/` 側URLへ接続しているため、外部ページ/PDFの多言語化は別途必要。翌年度に更新する際は、ヒーロー背景の `OIDCphotos/` 画像 `src`、右側 `.oidc-hero-card`、アフタームービーモーダルのタイトル・YouTube動画ID、`#updates` の年度・日付・リンク、および4言語の翻訳データを揃えて差し替える。

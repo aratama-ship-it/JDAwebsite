@@ -328,12 +328,13 @@ h1, h2, h3, h4 {
 /* トップページのヒーロー：4枚の画像とテキストが自動で切り替わるスライドショー */
 .hero {
   position: relative;
+  margin-top: 76px;
   height: 662px;
   overflow: hidden;
 }
 
 @media (max-width: 700px) {
-  .hero { height: 390px; }
+  .hero { margin-top: 72px; height: 390px; }
   .hero-slide-content .hero-actions { display: none; }
 }
 
@@ -372,6 +373,251 @@ h1, h2, h3, h4 {
 
 .hero-slide.is-active .hero-slide-media img {
   transform: scale(1);
+}
+
+/* WDC 2026 Heroは、背景・ロゴ・台湾島・都市表示を別レイヤーにし、横長画面を全面使用する。PICK UPは従来の16:9アートを維持。 */
+.hero-slide--event .hero-slide-media {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 24% 34%, rgba(211, 74, 145, 0.08), transparent 24%),
+    radial-gradient(circle at 78% 66%, rgba(110, 182, 216, 0.1), transparent 30%),
+    linear-gradient(90deg, #020812 0%, #06182e 52%, #07101b 100%);
+}
+
+.hero-wdc-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+  container-name: hero-wdc;
+  container-type: inline-size;
+}
+
+.hero-slide--event .hero-wdc-stage img {
+  transform: none;
+  transition: none;
+}
+
+.hero-slide--event.is-active .hero-wdc-stage img { transform: none; }
+
+.hero-wdc-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  /* 雨とボケの背景だけを横へ広げる。ロゴと台湾島は別レイヤーなので変形しない。 */
+  object-fit: fill;
+  object-position: center;
+}
+
+.hero-wdc-grade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(90deg, rgba(2, 8, 18, .66) 0%, rgba(2, 8, 18, .28) 31%, rgba(2, 8, 18, .04) 58%, rgba(2, 8, 18, .22) 100%),
+    linear-gradient(0deg, rgba(2, 8, 18, .24) 0%, transparent 38%);
+  pointer-events: none;
+}
+
+.hero-wdc-identity {
+  position: absolute;
+  /* 公式ロゴはヒーロー上端から必ず安全余白を確保し、クリップさせない。 */
+  top: clamp(72px, 13%, 92px);
+  left: clamp(34px, 5vw, 104px);
+  z-index: 4;
+  width: clamp(280px, 20vw, 400px);
+}
+
+.hero-wdc-identity img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.hero-wdc-map {
+  position: absolute;
+  /* 台湾島は上側の余白を優先。縦長画面では南端が少し切れてもよい。 */
+  top: clamp(76px, 14%, 98px);
+  right: clamp(155px, 11.5vw, 236px);
+  z-index: 3;
+  width: clamp(360px, 29vw, 535px);
+  height: 94%;
+  overflow: visible;
+  filter: drop-shadow(0 0 18px rgba(119, 185, 223, .56));
+}
+
+.hero-wdc-island {
+  fill: rgba(2, 11, 24, .28);
+  stroke: rgba(217, 239, 255, .96);
+  stroke-width: 5;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-wdc-locator {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-wdc-point {
+  fill: #f1c84b;
+  stroke: #fff;
+  stroke-width: 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-wdc-city {
+  position: absolute;
+  top: clamp(72px, 13%, 92px);
+  right: clamp(22px, 2.6vw, 54px);
+  z-index: 5;
+  display: flex;
+  width: clamp(128px, 9.2vw, 176px);
+  min-height: 172px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 18px;
+  border: 1px solid rgba(119, 185, 223, .3);
+  border-left: 2px solid rgba(119, 185, 223, .78);
+  background: linear-gradient(145deg, rgba(10, 33, 53, .9), rgba(6, 21, 37, .84));
+  color: #f1f7fb;
+  box-shadow: inset 4px 0 0 rgba(207, 86, 138, .5), -16px 0 34px rgba(2, 9, 18, .18);
+  backdrop-filter: blur(8px);
+}
+
+.hero-wdc-city span { display: block; font-weight: 800; letter-spacing: .12em; }
+.hero-wdc-city__number { margin-bottom: 11px; color: #cf568a; font-size: 10px; }
+.hero-wdc-city__ja { font-size: clamp(28px, 2.2vw, 40px); font-weight: 900 !important; letter-spacing: 0 !important; line-height: 1; }
+.hero-wdc-city__en { margin-top: 6px; font-size: 10px; }
+.hero-wdc-city__rule { width: 100%; height: 1px; margin: 14px 0 12px; background: rgba(255, 255, 255, .2); }
+.hero-wdc-city__kicker { color: #77b9df; font-size: 8px; }
+
+.hero-slide-content--wdc {
+  z-index: 2;
+  max-width: 900px;
+  padding: 0 clamp(38px, 5.4vw, 110px) 36px;
+  pointer-events: none;
+}
+
+.hero-slide-content--wdc .hero-title {
+  font-size: clamp(32px, 4.2vw, 58px);
+  text-shadow: 0 3px 24px rgba(2, 8, 18, .72);
+}
+
+.hero-slide-content--wdc .hero-sub {
+  margin-bottom: 0;
+  color: #f1f7fb;
+  text-shadow: 0 2px 12px rgba(2, 8, 18, .7);
+}
+
+.hero-wdc-details {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 30px);
+}
+
+.hero-wdc-details .hero-actions { flex-shrink: 0; }
+
+.hero-slide-content--wdc .hero-actions,
+.hero-slide-content--wdc .hero-actions a {
+  pointer-events: auto;
+}
+
+@media (max-width: 1100px) {
+  .hero-wdc-identity { top: 72px; width: clamp(250px, 27vw, 330px); }
+  .hero-wdc-map { top: 82px; right: 8%; width: 35vw; height: 92%; opacity: .92; }
+  .hero-wdc-city { top: 72px; right: 18px; width: 118px; min-height: 148px; padding: 16px 14px; }
+}
+
+@media (max-width: 700px) {
+  .hero-wdc-backdrop {
+    object-fit: cover;
+    object-position: 72% center;
+  }
+
+  .hero-wdc-grade {
+    background: linear-gradient(90deg, rgba(2, 8, 18, .78) 0%, rgba(2, 8, 18, .2) 60%, rgba(2, 8, 18, .16) 100%);
+  }
+
+  .hero-wdc-identity {
+    top: clamp(54px, 16%, 70px);
+    left: 6%;
+    width: min(40vw, 200px);
+  }
+
+  .hero-wdc-map {
+    top: clamp(58px, 17%, 72px);
+    right: 1%;
+    width: 46vw;
+    height: 90%;
+    opacity: .8;
+  }
+
+  .hero-wdc-city { display: none; }
+
+  .hero-slide-content--wdc {
+    max-width: 68%;
+    padding: 0 6% 28px;
+  }
+
+  .hero-slide-content--wdc .hero-title {
+    font-size: clamp(25px, 8vw, 36px);
+  }
+
+  .hero-slide-content--wdc .hero-sub {
+    margin-bottom: 0;
+    font-size: 11px;
+  }
+
+  .hero-wdc-details { display: block; }
+}
+
+.wdc-art-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-name: wdc-art;
+  container-type: inline-size;
+}
+
+.wdc-city-tone {
+  position: absolute;
+  top: 3.8%;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  width: 11.5%;
+  min-height: 24%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.25cqw 1cqw;
+  border: max(1px, .16cqw) solid rgba(110, 182, 216, .3);
+  border-right: 0;
+  background: linear-gradient(145deg, #0a2135 0%, #061525 100%);
+  color: #f1f7fb;
+  box-shadow: inset 3px 0 0 rgba(211, 74, 145, .45), -12px 0 30px rgba(2, 9, 18, .18);
+}
+
+.wdc-city-tone span { display: block; font-weight: 800; letter-spacing: .12em; }
+.wdc-city-tone__number { margin-bottom: .9cqw; color: #d34a91; font-size: .72cqw; }
+.wdc-city-tone__ja { font-size: 2.35cqw; font-weight: 900 !important; letter-spacing: 0 !important; line-height: 1; }
+.wdc-city-tone__en { margin-top: .4cqw; font-size: .72cqw; }
+.wdc-city-tone__kicker { margin-top: .9cqw; color: #91a7ba; font-size: .55cqw; }
+
+.hero-event-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-event-link:focus-visible {
+  outline: 3px solid #f2c92c;
+  outline-offset: -7px;
 }
 
 .hero-gradient {
@@ -570,6 +816,11 @@ h1, h2, h3, h4 {
   gap: 12px;
 }
 
+.section-head--compact {
+  justify-content: flex-start;
+  column-gap: 18px;
+}
+
 .section-head h2 {
   font-size: clamp(28px, 4vw, 44px);
   display: flex;
@@ -619,7 +870,19 @@ h1, h2, h3, h4 {
   box-shadow: 0 16px 30px rgba(0,0,0,0.5);
 }
 
-.card-media { aspect-ratio: 16/9; overflow: hidden; }
+.card-media {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.card-media-event .wdc-art-frame {
+  aspect-ratio: 16 / 9;
+  transition: transform .5s ease;
+}
+
+.card:hover .card-media-event .wdc-art-frame { transform: scale(1.06); }
+.card:hover .card-media-event img { transform: none; }
 
 .card-media img { transition: transform 0.5s ease; }
 .card:hover .card-media img { transform: scale(1.06); }

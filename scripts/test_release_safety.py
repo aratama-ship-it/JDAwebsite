@@ -11,6 +11,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from prepare_release import copy_path, validate_copy_source
+from release_config import IMAGE_FILES
 from verify_release import is_forbidden_public_name
 
 
@@ -58,6 +59,12 @@ class ReleaseFilenameSafetyTests(unittest.TestCase):
         for name in ("index.html", "style.css", "main.js", "champions.json", "photo.webp"):
             with self.subTest(name=name):
                 self.assertFalse(is_forbidden_public_name(name))
+
+    def test_release_images_exclude_design_experiments(self) -> None:
+        forbidden_fragments = ("concepts", "neon", "overlay", "diabolo-v1", "diabolo-v2")
+        for image_path in IMAGE_FILES:
+            with self.subTest(image_path=image_path):
+                self.assertFalse(any(fragment in image_path for fragment in forbidden_fragments))
 
 
 if __name__ == "__main__":
