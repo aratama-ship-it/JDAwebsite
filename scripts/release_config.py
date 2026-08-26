@@ -43,12 +43,14 @@ IMAGE_FILES = (
 # 制作リポジトリではローカルミラーを確認できる一方、本番候補では既存の
 # 大会サイトを触らず、現在の本番URLへリンクする。
 LIVE_LINK_REPLACEMENTS = {
-    "external/AJDC/index.html": "/AJDC/",
-    "external/OIDC/index.html": "/OIDC/",
-    "external/TIDC/jp/index.html": "/TIDC/jp/",
-    "../AJDC/index.html": "/AJDC/",
-    "../OIDC/index.html": "/OIDC/",
-    "../TIDC/jp/index.html": "/TIDC/jp/",
+    # 絶対URLにしておくことで、本番だけでなくGitHub Pagesや
+    # release-candidateのローカル確認サーバーからも既存大会サイトへ到達できる。
+    "external/AJDC/index.html": "https://diabolo.jp/AJDC/",
+    "external/OIDC/index.html": "https://diabolo.jp/OIDC/",
+    "external/TIDC/jp/index.html": "https://diabolo.jp/TIDC/jp/",
+    "../AJDC/index.html": "https://diabolo.jp/AJDC/",
+    "../OIDC/index.html": "https://diabolo.jp/OIDC/",
+    "../TIDC/jp/index.html": "https://diabolo.jp/TIDC/jp/",
 }
 
 PRESERVED_LIVE_PREFIXES = ("/AJDC/", "/OIDC/", "/TIDC/")
