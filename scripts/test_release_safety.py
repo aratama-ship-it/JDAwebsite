@@ -77,6 +77,19 @@ class ReleaseFilenameSafetyTests(unittest.TestCase):
             with self.subTest(url=url):
                 self.assertTrue(url.startswith("https://diabolo.jp/"))
 
+    def test_certification_passed_lists_match_current_legacy_site(self) -> None:
+        certification_html = (
+            Path(__file__).resolve().parent.parent / "external" / "certification" / "index.html"
+        ).read_text(encoding="utf-8")
+
+        for grade in range(1, 5):
+            expected_url = (
+                f"https://diabolo.jp/certification/grade_{grade}_list(20260813).pdf"
+            )
+            with self.subTest(grade=grade):
+                self.assertIn(expected_url, certification_html)
+        self.assertIn("(2026.8.15 更新)", certification_html)
+
 
 if __name__ == "__main__":
     unittest.main()
