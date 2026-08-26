@@ -26,7 +26,7 @@ archive/unused-assets/    未使用・旧素材の保管場所
 
 ```
 index.html
-  ├─ css/style.css?v=59        トップと下層ページ共通のCSS
+  ├─ css/style.css?v=69        トップと下層ページ共通のCSS
   ├─ js/main.js?v=35           トップと下層ページ共通のJS
   ├─ marquee-updates.txt       赤い流れる更新帯の文章
   ├─ images/pickup/*.webp      ヒーロー画像・PICK UPカード画像
@@ -118,8 +118,10 @@ ABOUT / FOOTER        フッター
 よく触る画像:
 
 ```
-images/pickup/oidc.webp
-images/pickup/tar.webp
+images/pickup/wdc2026-v2.webp
+images/logo/wdc2026-logo-v2-light.png
+images/logo/wdc2026-logo-v2-dark.png
+images/logo/wdc2026-logo-v2-mark.png
 images/pickup/regu.webp
 images/pickup/howtogo.webp
 images/logo/midd.webp
@@ -136,7 +138,7 @@ OIDCphotos/*
 例:
 
 ```html
-<img src="images/pickup/oidc.webp?v=4" alt="">
+<img src="images/pickup/wdc2026-v2.webp?v=2" alt="">
 ```
 
 OIDCトップの背景写真は `OIDCphotos/` を使います。通常は5枚構成を維持し、`external/OIDC/index.html` の `.oidc-hero-bg` 内の `src="../../OIDCphotos/..."` だけを差し替えます。詳しい制作注意は `OIDC_PHOTO_EDITING_MANUAL.md` を参照してください。
