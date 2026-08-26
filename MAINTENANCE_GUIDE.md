@@ -27,7 +27,7 @@ archive/unused-assets/    未使用・旧素材の保管場所
 ```
 index.html
   ├─ css/style.css?v=69        トップと下層ページ共通のCSS
-  ├─ js/main.js?v=35           トップと下層ページ共通のJS
+  ├─ js/main.js?v=36           トップと下層ページ共通のJS
   ├─ marquee-updates.txt       赤い流れる更新帯の文章
   ├─ images/pickup/*.webp      ヒーロー画像・PICK UPカード画像
   ├─ images/champions/**       CHAMPIONSカード画像

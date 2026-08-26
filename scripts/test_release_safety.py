@@ -11,7 +11,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from prepare_release import copy_path, validate_copy_source
-from release_config import IMAGE_FILES
+from release_config import IMAGE_FILES, LIVE_LINK_REPLACEMENTS
 from verify_release import is_forbidden_public_name
 
 
@@ -65,6 +65,17 @@ class ReleaseFilenameSafetyTests(unittest.TestCase):
         for image_path in IMAGE_FILES:
             with self.subTest(image_path=image_path):
                 self.assertFalse(any(fragment in image_path for fragment in forbidden_fragments))
+
+    def test_live_event_links_are_absolute_production_urls(self) -> None:
+        expected_paths = ("/AJDC/", "/OIDC/", "/TIDC/jp/")
+        values = set(LIVE_LINK_REPLACEMENTS.values())
+
+        for path in expected_paths:
+            with self.subTest(path=path):
+                self.assertIn(f"https://diabolo.jp{path}", values)
+        for url in values:
+            with self.subTest(url=url):
+                self.assertTrue(url.startswith("https://diabolo.jp/"))
 
 
 if __name__ == "__main__":
