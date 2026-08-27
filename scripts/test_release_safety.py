@@ -91,5 +91,29 @@ class ReleaseFilenameSafetyTests(unittest.TestCase):
         self.assertIn("(2026.8.15 更新)", certification_html)
 
 
+class ContactFormConfigurationTests(unittest.TestCase):
+    def test_contact_form_uses_native_multipart_submission(self) -> None:
+        contact_html = (
+            Path(__file__).resolve().parent.parent / "external" / "contact" / "index.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn('action="https://formsubmit.co/info@diabolo.jp"', contact_html)
+        self.assertIn('method="POST" enctype="multipart/form-data"', contact_html)
+        self.assertIn(
+            'name="_next" value="https://www.diabolo.jp/external/contact/?submitted=1"',
+            contact_html,
+        )
+        self.assertIn('contactForm.submit();', contact_html)
+        self.assertNotIn('fetch(contactForm.action', contact_html)
+
+    def test_contact_attachment_limit_matches_formsubmit_limit(self) -> None:
+        contact_html = (
+            Path(__file__).resolve().parent.parent / "external" / "contact" / "index.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("添付ファイル合計10MBまで", contact_html)
+        self.assertIn("10 * 1024 * 1024", contact_html)
+
+
 if __name__ == "__main__":
     unittest.main()

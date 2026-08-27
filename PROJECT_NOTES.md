@@ -182,7 +182,7 @@ diabolo-redesign-mock/
   - `_captcha`を`false`→`true`に変更(以前は無効化されていた)。
   - FormSubmit公式のハニーポット欄(`_honey`、画面外に飛ばすCSSで人間には見えない)を追加。
   - お名前・メール・お問い合わせ内容に`required`属性を追加し、送信前に`contactForm.reportValidity()`でブラウザ標準の検証を行うようにした。
-  - 送信処理を`fetch` + `FormData`によるAjax送信に変更(`Accept: application/json`ヘッダーでFormSubmitがJSONを返すモードを使用)。送信中はボタンを無効化+「送信中…」表示、成功時はフォームを隠して`#contactFormResult`に完了メッセージを表示、失敗時はエラーメッセージ+`mailto:info@diabolo.jp`リンク+「フォームに戻る」ボタンを表示する(ページ離脱なしで完結する)。
+  - 添付ファイルとreCAPTCHAをFormSubmit公式仕様で処理するため、通常の`multipart/form-data`送信を使用する。確認モーダルの「送信する」でネイティブ送信し、完了後は`_next`で`?submitted=1`へ戻って`#contactFormResult`に完了メッセージを表示する。以前は通常送信URLへ`fetch`していたため、HTML応答をJSONとして読めず、送信済みでも失敗表示になる可能性があった。添付上限は公式仕様に合わせて合計10MBとし、送信前にも検証する。
   - **ハマったポイント**: `.contact-form { display: flex; }`という著者スタイルが、ブラウザ標準の`[hidden]{display:none}`より優先されてしまい、JSで`contactForm.hidden = true`としても見た目上消えないバグがあった。`.contact-form[hidden] { display: none; }`を明示的に追加して解決(リセットCSSの全要素セレクタが無効化されたバグと同種の「同じ詳細度では記述順/出自が勝つ」パターン)。
   - フォームと結果表示(`#contactFormResult`)は`.contact-grid`の2カラムレイアウトを崩さないよう、`.contact-form-col`という共通の親divでまとめている。
   - Googleカレンダーiframe(`#contactCalendarIframe`)の下端とフォーム(`#contactForm`)の下端を揃えるため、固定の`height`では揺れる(フォントの読み込みや内容変化で高さが微妙に変わる)ことを避け、JSで`formRect.bottom - iframeRect.top`を都度計算してiframeの高さに反映している(`load`/`resize`時に再計算)。800px以下(`.contact-grid`が1カラムになる`@media`の境目)では合わせる必要がないので計算をスキップし、HTML側のデフォルト`height="475"`に戻す。
