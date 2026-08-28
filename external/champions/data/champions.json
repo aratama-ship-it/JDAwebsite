@@ -70,8 +70,7 @@
       {
         "name": "トリイ タケミ",
         "division": "男子個人総合部門",
-        "class": "オーバーオールクラス",
-        "image": "images/champions/2025/25champMI.webp"
+        "class": "オーバーオールクラス"
       },
       {
         "name": "マツキ リナ",
@@ -94,14 +93,12 @@
       {
         "name": "カンノ ジョウエイ",
         "division": "男子1ディアボロ水平軸(固定)部門",
-        "class": "スペシャリストクラス",
-        "image": "images/champions/2025/25champM1DHA.webp"
+        "class": "スペシャリストクラス"
       },
       {
         "name": "カンノ ジョウエイ",
         "division": "男子1ディアボロ水平軸(ベアリング)部門",
-        "class": "スペシャリストクラス",
-        "image": "images/champions/2025/25champM1DHB.webp"
+        "class": "スペシャリストクラス"
       },
       {
         "name": "ヤガミ リンタロウ",
@@ -171,8 +168,7 @@
       {
         "name": "スナハラ ヒロト",
         "division": "2ディアボロ(ベアリング)部門",
-        "class": "スペシャリストクラス",
-        "image": "images/champions/2024/24champ2DB.webp"
+        "class": "スペシャリストクラス"
       },
       {
         "name": "アゴウ テンセイ",
