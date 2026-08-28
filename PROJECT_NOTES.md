@@ -78,8 +78,8 @@ diabolo-redesign-mock/
 `css/style.css` と `js/main.js` は、編集してもブラウザにキャッシュされて反映されないことが何度かあった。
 **全ページの `<link>` / `<script>` タグに `?v=N` を付けてあるので、CSSかJSを編集したら必ずバージョン番号を上げること。**
 
-- 現在のCSSバージョン: `style.css?v=69`(共通CSSを読むページは同じ値で揃える)
-- 現在のJSバージョン: `main.js?v=36`(共通JSを読むページは同じ値で揃える)
+- 現在のCSSバージョン: `style.css?v=72`(共通CSSを読むページは同じ値で揃える)
+- 現在のJSバージョン: `main.js?v=38`(共通JSを読むページは同じ値で揃える)
 - トップページ内リンク(`#news`/`#athletes`/`#updates`)は、固定ヘッダーで見出しが隠れないよう `scroll-margin-top` を設定済み。PCは96px、700px以下は88px。
 - トップページのスマホCHAMPIONSカードは、`#athletes` 配下に限定してオーバーレイを強め、選手名・部門名の文字サイズ/行間/影を調整済み。歴代チャンピオン一覧ページのカードには影響しないようスコープしている。
 - トップページPICK UP直前の `midd` 帯は、デスクトップで少し軽く見えるよう `.section-divider` の高さを135px→112px、画像固定高さを560px→500px、上方向のずらしを10px→8pxに調整済み。スマホ幅(700px以下)の非表示は維持。
@@ -103,11 +103,11 @@ diabolo-redesign-mock/
   - カーソルが`#athletes`セクション(カード・矢印・進捗バーを含む全体)の上にある間は`paused`フラグで自動再生を止める(`mouseenter`/`mouseleave`)。
   - 矢印クリック・進捗バーのドラッグは、自動再生用の`offset`(px)を直接書き換える方式に統一(以前の「0〜maxIndexの段階的index」方式は廃止)。クリック時のみ`transition: transform 0.4s ease`を一時的に付けて滑らかにスナップさせ、自動再生中とドラッグ中は`transition: none`で逐次描画する。
 - **モバイルヘッダーのデザイン改善(4点レビュー対応)**:
-  1. SNSアイコンをヘッダーから外し、ハンバーガーメニュー内(`.main-nav-sns`、当時の既存ページの`<nav id="mainNav">`内に複製マークアップを追加)に移動。`max-width:1023px`で`.header-actions .sns-links`を非表示、`.main-nav.open .main-nav-sns`のみ表示。
-  2. モバイル検索欄の幅をSNS分の余白を気にせず拡大(`max-width:1023px`で180px、`max-width:480px`で150px。旧480px時130px固定だった)。
-  3. 「大会情報」ドロップダウンを`max-width:1023px`でクリック開閉対応。`js/main.js`が`.nav-trigger`クリックで親`.nav-item`に`is-open`をトグルし、CSSの`.nav-item.has-dropdown.is-open .dropdown-panel`で表示。**ハマったポイント**: `.nav-item`が`display:flex`なので、`.dropdown-panel`を`position:static`にしただけだと横並びの兄弧要素になってしまう。`@media(max-width:1023px){.nav-item.has-dropdown{display:block;}}`で縦積みに修正した。
+  1. SNSアイコンをヘッダーから外し、ハンバーガーメニュー内(`.main-nav-sns`、当時の既存ページの`<nav id="mainNav">`内に複製マークアップを追加)に移動。`max-width:1279px`で`.header-actions .sns-links`を非表示、`.main-nav.open .main-nav-sns`のみ表示。
+  2. モバイル検索欄の幅をSNS分の余白を気にせず拡大(`max-width:1279px`で180px、`max-width:480px`で150px。旧480px時130px固定だった)。
+  3. 「大会情報」ドロップダウンを`max-width:1279px`でクリック開閉対応。`js/main.js`が`.nav-trigger`クリックで親`.nav-item`に`is-open`をトグルし、CSSの`.nav-item.has-dropdown.is-open .dropdown-panel`で表示。**ハマったポイント**: `.nav-item`が`display:flex`なので、`.dropdown-panel`を`position:static`にしただけだと横並びの兄弧要素になってしまう。`@media(max-width:1279px){.nav-item.has-dropdown{display:block;}}`で縦積みに修正した。
   4. PICK UP/CHAMPIONS/UPDATESの余白・密度を`max-width:700px`でコンパクト化(`.section`のpadding、`.card-grid`/`.athlete-grid`のgap、`.card-body`/`.rule-item`のpadding等を縮小)。
-  この一連の変更でハンバーガー/ドロップダウンのブレークポイントは`1023px`(既存の`.hamburger`表示切替と合わせた)、余白密度の変更は`700px`(スマホ向け)を使い分けている。
+  この一連の変更でハンバーガー/ドロップダウンのブレークポイントは`1279px`(1280px以上でPCナビ表示)、余白密度の変更は`700px`(スマホ向け)を使い分けている。
 - **CSS変数のリネーム**: `css/style.css`の`:root`で`--black`(実際は白`#ffffff`)・`--white`(実際は黒系`#15151a`)という名前と実際の色が逆になっていた問題を修正。`--black`→`--bg`、`--black-soft`→`--bg-soft`、`--white`→`--text`、`--off-white`→`--text-muted`に役割名でリネーム済み(色の値そのものは変更なし、62箇所の`var(...)`参照も全て追従済み)。`--gray`/`--gray-dark`/`--red`/`--red-bright`は名前と実際の色が一致しているため変更していない。`css/style.css`以外(js/main.js・HTML)でこれらの変数名を直接参照している箇所は無かった。
 - チャンピオン写真(`images/champions/2024・2025・2026/*.png`、各2〜9.5MB)と`images/poker/cardback.png`(2.7MB)をWebPに変換・圧縮済み(長辺800pxにリサイズ、quality=78)。合計84.6MB→1.7MBに削減。`index.html`・`external/champions/data/champions.json`・`external/champions-poker/js/main.js`・`external/champions/index.html`内の参照を`.webp`に更新し、チャンピオンカードの`<img>`に`loading="lazy"`を追加した(トップのCHAMPIONSカルーセル10枚、歴代チャンピオン一覧の121枚)。元PNGは削除せず `archive/unused-assets/images/champions/` と `archive/unused-assets/images/poker/` に退避済み。
 - **重要**: `images/diaicon.png`(赤いグロス調の元画像)は実体が存在しない(おそらく作業中に削除された)。`css/style.css`内の2箇所(マーキー区切りアイコン、`.page-title`の背景装飾)で参照していたため404になっていたバグを修正し、両方とも実在する`images/diaicon-white.png`に差し替えた。`.page-title`側は背景が薄いグレーで白アイコンのままだと見えなくなるため、`filter: brightness(0.35)`を追加してグレー寄りに暗くし、視認できるようにしている。今後 `diaicon.png` という名前のファイルを画像参照に使う場合は、まずファイルの実在を確認すること。

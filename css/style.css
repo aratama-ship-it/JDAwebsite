@@ -116,17 +116,19 @@ h1, h2, h3, h4 {
 }
 
 /* モバイルでハンバーガーをクリックした時の展開表示。JS側はclassListのトグルのみ行い、見た目はここで管理する。 */
-.main-nav.open {
-  display: flex;
-  position: fixed;
-  top: 64px;
-  left: 0;
-  right: 0;
-  background: #ffffff;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-  flex-direction: column;
-  padding: 24px 32px;
-  gap: 20px;
+@media (max-width: 1279px) {
+  .main-nav.open {
+    display: flex;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    flex-direction: column;
+    padding: 24px 32px;
+    gap: 20px;
+  }
 }
 
 .main-nav a {
@@ -148,8 +150,10 @@ h1, h2, h3, h4 {
 
 .main-nav a:hover::after { width: 100%; }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .main-nav { display: flex; align-items: center; }
+  .main-nav > a,
+  .main-nav > .nav-item > .nav-trigger { white-space: nowrap; }
 }
 
 .nav-item {
@@ -204,7 +208,7 @@ h1, h2, h3, h4 {
 
 /* モバイル(ハンバーガーメニュー時)は hover が使えないため、クリックで開閉する。
    nav-trigger クリック時に js/main.js が .nav-item へ is-open を付け外しする。 */
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .nav-item.has-dropdown {
     display: block;
   }
@@ -263,7 +267,7 @@ h1, h2, h3, h4 {
 
 /* モバイルではヘッダーが窮屈になるため、SNSアイコンはヘッダーから外し、
    ハンバーガーメニュー内(.main-nav-sns)に表示する。 */
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .header-actions .sns-links {
     display: none;
   }
@@ -274,7 +278,7 @@ h1, h2, h3, h4 {
   gap: 16px;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .main-nav.open .main-nav-sns {
     display: flex;
     margin-top: 16px;
@@ -320,7 +324,7 @@ h1, h2, h3, h4 {
   transition: background 0.4s ease;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .hamburger { display: none; }
 }
 
@@ -346,6 +350,7 @@ h1, h2, h3, h4 {
 .hero-slide {
   position: absolute;
   inset: 0;
+  z-index: 0;
   display: flex;
   align-items: flex-end;
   opacity: 0;
@@ -355,9 +360,26 @@ h1, h2, h3, h4 {
 }
 
 .hero-slide.is-active {
+  z-index: 1;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+.hero-slide.is-incoming {
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+  transition: none;
+  pointer-events: none;
+}
+
+.hero-slide.is-incoming .hero-slide-media img {
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide { transition: none; }
 }
 
 .hero-slide-media {
@@ -633,7 +655,7 @@ h1, h2, h3, h4 {
   transform: translateX(-50%);
   display: flex;
   gap: 10px;
-  z-index: 2;
+  z-index: 3;
 }
 
 .hero-dot {
@@ -2477,7 +2499,7 @@ h1, h2, h3, h4 {
 }
 
 /* SNSアイコンをヘッダーから外した分、モバイルでは検索欄を広げられる */
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .site-search.is-active .site-search-input { width: 180px; }
   .site-search-results { width: 240px; }
 }

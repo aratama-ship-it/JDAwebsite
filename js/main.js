@@ -79,20 +79,154 @@ document.querySelectorAll('.nav-item.has-dropdown > .nav-trigger').forEach((trig
   });
 });
 
-// ヒーローのスライドショー（Red Bull風：画像とコンテンツを一緒に切り替え）
+// ヒーローのスライドショー：縦向きのディアボロ輪郭を境に前後の画像を切り替える
 const heroSlideshow = document.getElementById('heroSlideshow');
 if (heroSlideshow) {
-  const slides = heroSlideshow.querySelectorAll('.hero-slide');
-  const dots = document.querySelectorAll('.hero-dot');
+  const hero = heroSlideshow.closest('.hero');
+  const slides = Array.from(heroSlideshow.querySelectorAll('.hero-slide'));
+  const dots = Array.from(document.querySelectorAll('.hero-dot'));
+  const clipShape = document.getElementById('heroDiaboloClipShape');
+  const clipTrail = document.getElementById('heroDiaboloClipTrail');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const duration = 1600;
+  const D = {
+    R: 65.45,
+    CUP_H: 61.6,
+    R_AXLE: 6,
+    AXLE_GAP: 10,
+  };
+  D.HALF_W = D.CUP_H + D.AXLE_GAP / 2;
+
   let current = 0;
+  let busy = false;
   let timer;
 
-  function goToSlide(index) {
-    slides[current].classList.remove('is-active');
-    dots[current].classList.remove('is-active');
+  function sidePath() {
+    const R = D.R;
+    const hw = D.HALF_W;
+    const ax = D.AXLE_GAP / 2;
+    const ar = D.R_AXLE;
+    const lip = 3.2;
+    const dx = hw - lip - ax;
+    const dy = R - ar;
+    const e1x = 0.42 * dx;
+    const e1y = 0.06 * dy;
+    const e2x = 0.18 * dx;
+    const e2y = 0.55 * dy;
+    const n = (value) => value.toFixed(2);
+
+    return [
+      `M ${n(-hw)} ${n(-R + lip)}`,
+      `Q ${n(-hw)} ${n(-R)} ${n(-hw + lip)} ${n(-R)}`,
+      `C ${n(-hw + lip + e1x)} ${n(-R + e1y)} ${n(-ax - e2x)} ${n(-ar - e2y)} ${n(-ax)} ${n(-ar)}`,
+      `L ${n(ax)} ${n(-ar)}`,
+      `C ${n(ax + e2x)} ${n(-ar - e2y)} ${n(hw - lip - e1x)} ${n(-R + e1y)} ${n(hw - lip)} ${n(-R)}`,
+      `Q ${n(hw)} ${n(-R)} ${n(hw)} ${n(-R + lip)}`,
+      `L ${n(hw)} ${n(R - lip)}`,
+      `Q ${n(hw)} ${n(R)} ${n(hw - lip)} ${n(R)}`,
+      `C ${n(hw - lip - e1x)} ${n(R - e1y)} ${n(ax + e2x)} ${n(ar + e2y)} ${n(ax)} ${n(ar)}`,
+      `L ${n(-ax)} ${n(ar)}`,
+      `C ${n(-ax - e2x)} ${n(ar + e2y)} ${n(-hw + lip + e1x)} ${n(R - e1y)} ${n(-hw + lip)} ${n(R)}`,
+      `Q ${n(-hw)} ${n(R)} ${n(-hw)} ${n(R - lip)}`,
+      'Z',
+    ].join(' ');
+  }
+
+  const diaboloPath = sidePath();
+  clipShape.setAttribute('d', diaboloPath);
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function applyCutout(target, transform, centerX, heroH) {
+    clipShape.setAttribute('transform', transform);
+    clipTrail.setAttribute('width', Math.max(0, centerX));
+    clipTrail.setAttribute('height', heroH);
+    target.style.clipPath = 'url(#heroDiaboloClip)';
+  }
+
+  function clearTransitionStyles(outgoing, incoming) {
+    [outgoing, incoming].forEach((slide) => {
+      slide.style.removeProperty('clip-path');
+      slide.style.removeProperty('transform');
+      slide.style.removeProperty('opacity');
+      if (!slide.getAttribute('style')) slide.removeAttribute('style');
+    });
+    clipShape.removeAttribute('transform');
+    clipTrail.setAttribute('width', '0');
+    clipTrail.setAttribute('height', '0');
+  }
+
+  function completeSwap(index, outgoing, incoming) {
+    outgoing.classList.remove('is-active');
+    incoming.classList.remove('is-incoming');
+    incoming.classList.add('is-active');
+    clearTransitionStyles(outgoing, incoming);
     current = index;
-    slides[current].classList.add('is-active');
-    dots[current].classList.add('is-active');
+    busy = false;
+  }
+
+  function playTransition(index) {
+    const outgoing = slides[current];
+    const incoming = slides[index];
+    const heroW = hero.clientWidth;
+    const heroH = hero.clientHeight;
+    const scale = (heroH * 1.02) / (D.HALF_W * 2);
+    const halfSpanX = D.R * scale;
+    const x0 = -halfSpanX;
+    const x1 = heroW + halfSpanX;
+    const y = heroH / 2;
+    let startTime = null;
+    let finished = false;
+    let guard;
+
+    incoming.classList.add('is-incoming');
+
+    function applyFrame(progress) {
+      const eased = easeInOutCubic(progress);
+      const x = x0 + (x1 - x0) * eased;
+      const transform = `matrix(0,${scale},${-scale},0,${x},${y})`;
+
+      applyCutout(incoming, transform, x, heroH);
+    }
+
+    function finish() {
+      if (finished) return;
+      finished = true;
+      clearTimeout(guard);
+      applyFrame(1);
+      completeSwap(index, outgoing, incoming);
+    }
+
+    function step(now) {
+      if (finished) return;
+      if (startTime === null) startTime = now;
+      const progress = Math.min(1, (now - startTime) / duration);
+      applyFrame(progress);
+      if (progress < 1) requestAnimationFrame(step);
+      else finish();
+    }
+
+    guard = setTimeout(finish, duration + 600);
+    requestAnimationFrame(step);
+  }
+
+  function goToSlide(index) {
+    if (busy || index === current || index < 0 || index >= slides.length) return;
+
+    dots[current].classList.remove('is-active');
+    dots[index].classList.add('is-active');
+
+    if (reduceMotion) {
+      const outgoing = slides[current];
+      const incoming = slides[index];
+      completeSwap(index, outgoing, incoming);
+      return;
+    }
+
+    busy = true;
+    playTransition(index);
   }
 
   function nextSlide() {
