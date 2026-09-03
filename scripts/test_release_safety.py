@@ -48,6 +48,32 @@ class ReleaseSourceSafetyTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "リポジトリ外"):
                 validate_copy_source(source, Path(root_dir))
 
+    def test_ds_store_in_source_tree_is_not_copied(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "images" / "champions" / "2026"
+            source.mkdir(parents=True)
+            (source / "26champMI.webp").write_bytes(b"fake-image")
+            (source / ".DS_Store").write_bytes(b"finder-metadata")
+            destination = root / "candidate" / "26"
+
+            copy_path(source, destination, root)
+
+            self.assertTrue((destination / "26champMI.webp").is_file())
+            self.assertFalse((destination / ".DS_Store").exists())
+
+    def test_ds_store_as_single_file_source_is_skipped(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "css" / ".DS_Store"
+            source.parent.mkdir(parents=True)
+            source.write_bytes(b"finder-metadata")
+            destination = root / "candidate" / "css" / ".DS_Store"
+
+            copy_path(source, destination, root)
+
+            self.assertFalse(destination.exists())
+
 
 class ReleaseFilenameSafetyTests(unittest.TestCase):
     def test_server_control_and_hidden_names_are_rejected(self) -> None:

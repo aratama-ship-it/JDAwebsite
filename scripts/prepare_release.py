@@ -14,7 +14,7 @@ from datetime import datetime
 from pathlib import Path
 
 from release_config import COPY_TREES, IMAGE_FILES, LIVE_LINK_REPLACEMENTS, ROOT_FILES
-from verify_release import verify
+from verify_release import HIDDEN_OR_TEMP_NAMES, is_forbidden_public_name, verify
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -52,12 +52,23 @@ def validate_copy_source(source: Path, repo_root: Path = REPO_ROOT) -> None:
             raise RuntimeError(f"リポジトリ外を参照するコピー元を検出: {relative}") from exc
 
 
+def _is_excluded_from_public(name: str) -> bool:
+    """OSが自動生成する隠しファイル(.DS_Store等)は、コピー元に残しつつ公開候補には含めない。"""
+    return name in HIDDEN_OR_TEMP_NAMES or is_forbidden_public_name(name)
+
+
+def _ignore_excluded(_directory: str, names: list[str]) -> set[str]:
+    return {name for name in names if _is_excluded_from_public(name)}
+
+
 def copy_path(source: Path, destination: Path, repo_root: Path = REPO_ROOT) -> None:
     validate_copy_source(source, repo_root)
     if source.is_dir():
         # 事前検査後にリンクが紛れ込んでも、リンクのまま保持して後段検査で拒否する。
-        shutil.copytree(source, destination, symlinks=True)
+        shutil.copytree(source, destination, symlinks=True, ignore=_ignore_excluded)
     else:
+        if _is_excluded_from_public(source.name):
+            return
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
 
