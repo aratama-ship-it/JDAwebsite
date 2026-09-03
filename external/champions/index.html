@@ -4,9 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>歴代チャンピオン一覧 | JAPAN DIABOLO ASSOCIATION</title>
-<link rel="stylesheet" href="../../css/style.css?v=72">
+<meta name="description" content="全日本ディアボロ選手権大会の歴代チャンピオンを年度・部門別にご紹介します。">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="../../images/logo/final_logo_emblem_v3.png" type="image/png">
+<link rel="apple-touch-icon" href="../../images/logo/final_logo_emblem_v3.png">
+<link rel="stylesheet" href="../../css/style.css?v=73">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
 
   <!-- ===== HEADER ===== -->
   <header class="site-header scrolled" id="siteHeader">
@@ -20,8 +25,8 @@
         <a href="../../index.html#top">トップ</a>
         <a href="../about/index.html">協会について</a>
         <div class="nav-item has-dropdown">
-          <a href="javascript:void(0)" class="nav-trigger">大会情報</a>
-          <div class="dropdown-panel">
+          <a href="javascript:void(0)" class="nav-trigger" role="button" aria-expanded="false" aria-controls="eventDropdown">大会情報</a>
+          <div class="dropdown-panel" id="eventDropdown">
             <a href="../AJDC/index.html" target="_blank" rel="noopener">全日本ディアボロ選手権大会</a>
             <a href="../TIDC/jp/index.html" target="_blank" rel="noopener">東京国際ディアボロ競技会</a>
             <a href="../OIDC/index.html" target="_blank" rel="noopener">大阪国際ディアボロ競技会</a>
@@ -73,6 +78,8 @@
     </div>
   </header>
 
+  <main id="main-content">
+
   <!-- ===== PAGE TITLE ===== -->
   <section class="page-title">
     <div class="page-title-inner">
@@ -88,6 +95,8 @@
   </section>
 
   <!-- ===== ABOUT / FOOTER ===== -->
+  </main>
+
   <footer class="site-footer" id="about">
     <div class="footer-top">
       <div class="footer-cols">
@@ -121,7 +130,7 @@
 
   <script>const SITE_ROOT = "../../";</script>
 
-  <script src="../../js/main.js?v=38"></script>
+  <script src="../../js/main.js?v=39"></script>
   <script>
     // 歴代チャンピオン一覧：data/champions.json（年度ごとの優勝者リスト）を読み込んでカードを生成する。
     // 各選手データの image フィールドがあれば実写真を、なければ images/poker/cardback.webp を仮置きする。

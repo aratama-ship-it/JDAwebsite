@@ -70,12 +70,56 @@ hamburger.addEventListener('click', () => {
   mainNav.classList.toggle('open');
 });
 
-// 「大会情報」ドロップダウン：PCはホバーで開くが、モバイル(タッチ)はホバーが効かないため
-// クリックでも開閉できるようにする(CSSの.is-openクラスで表示を切り替える)。
-document.querySelectorAll('.nav-item.has-dropdown > .nav-trigger').forEach((trigger) => {
+// 「大会情報」ドロップダウン：PCはホバーで開くが、ホバーが使えない環境(タッチ・キーボード)でも
+// 開けるようにする。クリック / Enter / Space で開閉し、Escapeと外側クリックで閉じる
+// (WAI-ARIAのディスクロージャーパターン)。表示の切り替えはCSSの .is-open が担当する。
+const dropdownItems = Array.from(document.querySelectorAll('.nav-item.has-dropdown'));
+
+dropdownItems.forEach((item) => {
+  const trigger = item.querySelector('.nav-trigger');
+  if (!trigger) return;
+
+  function setExpanded(isOpen) {
+    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  }
+
+  function close() {
+    item.classList.remove('is-open');
+    setExpanded(false);
+  }
+
   trigger.addEventListener('click', (e) => {
     e.preventDefault();
-    trigger.closest('.nav-item').classList.toggle('is-open');
+    setExpanded(item.classList.toggle('is-open'));
+  });
+
+  // role="button" の要素はEnterに加えてSpaceでも起動できることが期待される
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      trigger.click();
+    }
+  });
+
+  // メニュー内から外へフォーカスが移ったら閉じる
+  item.addEventListener('focusout', (e) => {
+    if (!item.contains(e.relatedTarget)) close();
+  });
+
+  // Escapeで閉じ、フォーカスはトリガーへ戻す
+  item.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !item.classList.contains('is-open')) return;
+    close();
+    trigger.focus();
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.nav-item.has-dropdown')) return;
+  dropdownItems.forEach((item) => {
+    item.classList.remove('is-open');
+    const trigger = item.querySelector('.nav-trigger');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
   });
 });
 
