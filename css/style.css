@@ -405,6 +405,10 @@ h1, h2, h3, h4 {
 @media (max-width: 700px) {
   .hero { margin-top: 72px; height: 390px; }
   .hero-slide-content .hero-actions { display: none; }
+
+  /* CTAボタンを隠す幅では、テキストの上をタップしてもスライド全体の
+     .hero-event-link へ届くようにする(この幅では文中に操作要素が無い) */
+  .hero-slide-content { pointer-events: none; }
 }
 
 .hero-slideshow {
@@ -445,6 +449,19 @@ h1, h2, h3, h4 {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-slide { transition: none; }
+
+  /* 自動で流れ続ける要素を止める。JS側でも自動送り・自動スクロールを開始しない
+     (js/main.js の prefersReducedMotion を参照)。 */
+  .marquee-track,
+  .carousel-track {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .hero-slide-media img {
+    transition: none;
+    transform: none;
+  }
 }
 
 .hero-slide-media {
@@ -724,6 +741,7 @@ h1, h2, h3, h4 {
 }
 
 .hero-dot {
+  position: relative;
   width: 26px;
   height: 3px;
   background: rgba(255,255,255,0.35);
@@ -733,10 +751,20 @@ h1, h2, h3, h4 {
   transition: background 0.2s;
 }
 
+/* 細い線のままでは指で押しにくいため、当たり判定だけを44px四方へ広げる */
+.hero-dot::before {
+  content: '';
+  position: absolute;
+  inset: -20.5px -9px;
+}
+
 .hero-dot.is-active { background: var(--red); }
 
 .hero-slide-content {
   position: relative;
+  /* スライド全体を覆う .hero-event-link(z-index:1) より前面に置き、
+     CTAボタンやテキスト選択が従来どおり働くようにする */
+  z-index: 2;
   padding: 0 32px 32px;
   max-width: 900px;
 }
