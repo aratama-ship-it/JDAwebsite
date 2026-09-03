@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "domain": "diabolo.jp",
+  "checkedOn": "2026-09-03",
+  "documentRoot": "/",
+  "rootHtaccess": {
+    "state": "absent",
+    "contentHash": null
+  },
+  "evidence": [
+    {
+      "source": "Lolipop independent-domain settings",
+      "observation": "The public upload folder field was blank, indicating the account root (/)."
+    },
+    {
+      "source": "Lolipop FTP root listing",
+      "observation": "No .htaccess entry was present in the public root listing."
+    }
+  ],
+  "releasePolicy": {
+    "standardReleaseIncludesHtaccess": false,
+    "proposalPath": "server-config/proposals/clean-url-cutover.conf",
+    "requiresDedicatedApproval": true
+  }
+}
+

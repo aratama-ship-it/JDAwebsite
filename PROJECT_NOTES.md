@@ -9,6 +9,7 @@
 
 ## GitHub・Cyberduck運用基盤（2026-08-23）
 
+- 2026-09-03にロリポップ管理画面とロリポップFTPで、`diabolo.jp` の公開フォルダがアカウントルート `/`、公開ルート直下の `.htaccess` が不存在であることを読み取り確認した。確認時点の記録と将来のクリーンURL切替案は `server-config/README.md` に分離し、通常公開候補には `.htaccess` を含めない。
 - 制作データの正本はこのGitリポジトリとし、制作途中は `feature/*`、`fix/*`、`chore/*` の作業ブランチへ保存する。`main`へ直接pushしない。
 - GitHubへのpush、GitHub Pagesの確認、本番 `diabolo.jp` への反映は別工程。ロリポップ本番は引き続きCyberduckで本人承認後に手動反映する。
 - `./scripts/prepare_release.sh` で、Git管理中のソースから `release-candidate/` を毎回再生成する。生成物はGit管理対象外で、このコマンド自体はアップロードを行わない。
