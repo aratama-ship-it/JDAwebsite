@@ -422,6 +422,75 @@ if (championsWrap) {
   if (!prefersReducedMotion) requestAnimationFrame(tick);
 }
 
+// モーダル共通のフォーカス管理。
+// 開いている間はモーダルの外へフォーカスが出ないようにし(aria-modalだけでは
+// キーボード操作は止まらないため)、閉じたら開く前の要素へ戻す。
+// 実際の開閉は各ページのスクリプトから openModal / closeModal を呼ぶ。
+const MODAL_FOCUSABLE = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  'iframe',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ');
+
+let activeModal = null;
+let modalReturnFocus = null;
+
+function modalFocusableItems(overlay) {
+  return Array.from(overlay.querySelectorAll(MODAL_FOCUSABLE))
+    .filter((el) => el.getClientRects().length > 0);
+}
+
+// モーダルは visibility を0.25秒かけて切り替えるため、クラスを付けた直後は
+// まだ visibility:hidden 扱いでフォーカスを受け付けないことがある。
+// 表示され次第フォーカスできるよう、数フレームだけ試行する。
+function focusWhenVisible(target, attempt) {
+  if (!target) return;
+  target.focus();
+  if (document.activeElement === target || attempt >= 10) return;
+  requestAnimationFrame(() => focusWhenVisible(target, attempt + 1));
+}
+
+function openModal(overlay, initialFocus) {
+  modalReturnFocus = document.activeElement;
+  activeModal = overlay;
+  overlay.classList.add('is-open');
+  focusWhenVisible(initialFocus || modalFocusableItems(overlay)[0], 0);
+}
+
+function closeModal(overlay) {
+  overlay.classList.remove('is-open');
+  if (activeModal !== overlay) return;
+  activeModal = null;
+  const previous = modalReturnFocus;
+  modalReturnFocus = null;
+  if (previous && document.contains(previous)) previous.focus();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (!activeModal || e.key !== 'Tab') return;
+  const items = modalFocusableItems(activeModal);
+  if (items.length === 0) {
+    e.preventDefault();
+    return;
+  }
+  const first = items[0];
+  const last = items[items.length - 1];
+  if (!activeModal.contains(document.activeElement)) {
+    e.preventDefault();
+    first.focus();
+  } else if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+});
+
 // お問い合わせフォームのファイル添付：選択したファイル名を表示
 const cfFileInput = document.getElementById('cf-file');
 const cfFileName = document.getElementById('cfFileName');
