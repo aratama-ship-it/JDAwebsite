@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from prepare_release import copy_path, validate_copy_source
 from release_config import IMAGE_FILES, LIVE_LINK_REPLACEMENTS
-from verify_release import is_forbidden_public_name
+from verify_release import is_forbidden_public_name, resolve_champion_image
 
 
 class ReleaseSourceSafetyTests(unittest.TestCase):
@@ -50,6 +50,14 @@ class ReleaseSourceSafetyTests(unittest.TestCase):
 
 
 class ReleaseFilenameSafetyTests(unittest.TestCase):
+    def test_champion_image_cache_query_is_not_part_of_filename(self) -> None:
+        public = Path("/tmp/public")
+
+        self.assertEqual(
+            resolve_champion_image(public, "images/champions/2025/photo.webp?v=2"),
+            public / "images/champions/2025/photo.webp",
+        )
+
     def test_server_control_and_hidden_names_are_rejected(self) -> None:
         for name in (".htaccess", ".HTACCESS", ".user.ini", "web.config", "WEB.CONFIG", ".well-known"):
             with self.subTest(name=name):

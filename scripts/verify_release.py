@@ -85,6 +85,12 @@ def resolve_reference(public: Path, source: Path, raw_reference: str) -> Path | 
     return target.resolve()
 
 
+def resolve_champion_image(public: Path, raw_reference: str) -> Path:
+    """champions.json の画像URLからクエリを除いた公開ファイルを解決する。"""
+    path_text = unquote(urlsplit(raw_reference.strip()).path)
+    return public / path_text.lstrip("/")
+
+
 def add_reference_error(
     errors: list[str], public: Path, source: Path, reference: str
 ) -> None:
@@ -167,7 +173,9 @@ def verify(candidate: Path) -> tuple[list[str], int, set[str], set[str]]:
             for year_group in champions:
                 for item in year_group.get("items", []):
                     image_path = item.get("image")
-                    if image_path and not (public / image_path).is_file():
+                    if image_path and not resolve_champion_image(
+                        public, image_path
+                    ).is_file():
                         errors.append(f"チャンピオン画像なし: {image_path}")
 
     text_paths = [*readable_html]
