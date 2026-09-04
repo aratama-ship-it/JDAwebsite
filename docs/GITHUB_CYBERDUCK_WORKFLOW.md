@@ -115,6 +115,17 @@ python3 scripts/diff_production.py
 「変更」「新規」「同一」「候補に含まれず本番に残る」に分けて表示します。
 **本人はこの一覧を見て承認します**（停止条件8）。すべて「同一」なら反映の必要はありません。
 
+そして、**Cyberduckへドラッグする直前に**次を実行します。
+
+```bash
+python3 scripts/precheck_upload.py
+```
+
+公開候補は生成後も汚れます。**Finderでフォルダを開くだけで `.DS_Store` が作られる**ため、
+「生成時に検証済み」では転送時の安全を保証できません。このコマンドはOSが作った不要ファイルを
+取り除いたうえで生成時と同じ検査を行い、さらに `FILELIST.sha256` と突き合わせて
+生成後に中身が変わっていないかを確認します。`PASS` が出てから転送してください。
+
 ## 6. 本番アップロード前の停止条件
 
 次をすべて満たすまでは接続・上書きしません。
@@ -128,6 +139,7 @@ python3 scripts/diff_production.py
 7. **`scripts/backup_production.py` で控えを取り、`state.json` の `failed` が空であることを確認した**
 8. **`scripts/diff_production.py` の一覧を本人が確認し、変更範囲に納得した**
 9. 本人が本番アップロードを明示承認した
+10. **ドラッグの直前に `scripts/precheck_upload.py` が `PASS` を返した**
 
 ## 7. Cyberduckの使い方
 
