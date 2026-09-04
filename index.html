@@ -4,10 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JAPAN DIABOLO ASSOCIATION</title>
+<meta name="description" content="日本ディアボロ協会（JDA）の公式サイトです。全日本ディアボロ選手権大会などの大会情報、ディアボロ検定、採点規則、日本記録、派遣業務をご案内します。">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="images/logo/final_logo_emblem_v3.png" type="image/png">
+<link rel="apple-touch-icon" href="images/logo/final_logo_emblem_v3.png">
 <!-- 共通CSS。css/style.cssを編集したら、全HTMLの ?v= 数字を上げてキャッシュを避ける。 -->
-<link rel="stylesheet" href="css/style.css?v=72">
+<link rel="stylesheet" href="css/style.css?v=73">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
 
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="siteHeader">
@@ -21,8 +26,8 @@
         <a href="#top">トップ</a>
         <a href="external/about/index.html">協会について</a>
         <div class="nav-item has-dropdown">
-          <a href="javascript:void(0)" class="nav-trigger">大会情報</a>
-          <div class="dropdown-panel">
+          <a href="javascript:void(0)" class="nav-trigger" role="button" aria-expanded="false" aria-controls="eventDropdown">大会情報</a>
+          <div class="dropdown-panel" id="eventDropdown">
             <a href="external/AJDC/index.html" target="_blank" rel="noopener">全日本ディアボロ選手権大会</a>
             <a href="external/TIDC/jp/index.html" target="_blank" rel="noopener">東京国際ディアボロ競技会</a>
             <a href="external/OIDC/index.html" target="_blank" rel="noopener">大阪国際ディアボロ競技会</a>
@@ -74,6 +79,9 @@
     </div>
   </header>
 
+  <main id="main-content">
+    <h1 class="visually-hidden">日本ディアボロ協会</h1>
+
   <!-- ===== HERO ===== -->
   <!--
     トップの大きなスライド。1つの .hero-slide が1枚分です。
@@ -119,7 +127,7 @@
         </div>
         <div class="hero-slide-content hero-slide-content--wdc">
           <p class="hero-tag">世界大会</p>
-          <h1 class="hero-title">WORLD DIABOLO<br>CONTEST 2026</h1>
+          <h2 class="hero-title">WORLD DIABOLO<br>CONTEST 2026</h2>
           <div class="hero-wdc-details">
             <p class="hero-sub">2026年11月5日〜8日、台湾・台北で開催。</p>
             <div class="hero-actions">
@@ -137,7 +145,7 @@
         </div>
         <div class="hero-slide-content">
           <p class="hero-tag">大会結果</p>
-          <h1 class="hero-title">大阪国際ディアボロ<br>競技会2026 競技結果</h1>
+          <h2 class="hero-title">大阪国際ディアボロ<br>競技会2026 競技結果</h2>
           <p class="hero-sub">OIDC 2026の競技結果を公開しました。</p>
           <div class="hero-actions">
             <a href="external/OIDC/index.html" class="btn-primary" target="_blank" rel="noopener">競技結果を見る</a>
@@ -152,7 +160,7 @@
         </div>
         <div class="hero-slide-content">
           <p class="hero-tag">採点規則</p>
-          <h1 class="hero-title">ディアボロ競技<br>採点規則の改定</h1>
+          <h2 class="hero-title">ディアボロ競技<br>採点規則の改定</h2>
           <p class="hero-sub">採点規則 第八版を発行しました。最新の規定をご確認ください。</p>
           <div class="hero-actions">
             <a href="external/rule/index.html" class="btn-primary">採点規則を見る</a>
@@ -167,7 +175,7 @@
         </div>
         <div class="hero-slide-content">
           <p class="hero-tag">案内</p>
-          <h1 class="hero-title">事務所・店舗への<br>アクセス</h1>
+          <h2 class="hero-title">事務所・店舗への<br>アクセス</h2>
           <p class="hero-sub">事務所・店舗の所在地やアクセス方法をご案内しています。</p>
           <div class="hero-actions">
             <a href="external/access/index.html" class="btn-primary">アクセスを見る</a>
@@ -442,6 +450,8 @@
 
   <!-- ===== ABOUT / FOOTER ===== -->
   <!-- フッターは下層ページにもコピーされています。リンクを変える時は external/*/index.html 側も同じように更新してください。 -->
+  </main>
+
   <footer class="site-footer" id="about">
     <div class="footer-top">
       <div class="footer-cols">
@@ -477,6 +487,6 @@
   <script>const SITE_ROOT = "";</script>
 
   <!-- 共通JS。js/main.jsを編集したら、全HTMLの ?v= 数字を上げてキャッシュを避ける。 -->
-  <script src="js/main.js?v=38"></script>
+  <script src="js/main.js?v=39"></script>
 </body>
 </html>
