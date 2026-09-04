@@ -1,6 +1,11 @@
 // 共通JS。トップページだけでなく下層ページも読み込むため、特定ページ用の処理は
 // getElementByIdなどで対象要素が存在する時だけ動かす構成にしている。
 
+// OS側で「視差効果を減らす」等を設定している利用者には、自動で動き続ける演出
+// (マーキー・ヒーローの自動送り・CHAMPIONSの自動スクロール)を開始しない。
+// 手動操作(矢印・ドット・ドラッグ)は従来どおり使える。
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // マーキー（更新情報の流れるバー）：項目数や画面幅が変わっても継ぎ目なくループするよう、
 // 元の項目セットを画面幅以上になるまで複製してから、その複製ブロックをもう一度繰り返して
 // ちょうど2分割のトラックを作る（CSSのtranslateX(-50%)で前半→後半が完全に一致し、途切れず巻き戻る）
@@ -39,6 +44,13 @@ if (marqueeTrack) {
       marqueeTrack.innerHTML = block + block;
       const halfWidth = marqueeTrack.scrollWidth / 2;
       marqueeTrack.style.animation = `scroll-left ${halfWidth / speed}s linear infinite`;
+    }
+
+    if (prefersReducedMotion) {
+      // 流さずに1セットだけ表示する(複製すると読み上げが重複するため)
+      marqueeTrack.innerHTML = originalHTML;
+      marqueeTrack.style.animation = 'none';
+      return;
     }
 
     setupMarquee();
@@ -131,7 +143,7 @@ if (heroSlideshow) {
   const dots = Array.from(document.querySelectorAll('.hero-dot'));
   const clipShape = document.getElementById('heroDiaboloClipShape');
   const clipTrail = document.getElementById('heroDiaboloClipTrail');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduceMotion = prefersReducedMotion;
   const duration = 1600;
   const D = {
     R: 65.45,
@@ -278,6 +290,7 @@ if (heroSlideshow) {
   }
 
   function startAutoplay() {
+    if (reduceMotion) return;
     timer = setInterval(nextSlide, 5000);
   }
 
@@ -405,7 +418,8 @@ if (championsWrap) {
     }
     requestAnimationFrame(tick);
   }
-  requestAnimationFrame(tick);
+  // 自動スクロールしない設定でも、矢印と進捗バーのドラッグは使える
+  if (!prefersReducedMotion) requestAnimationFrame(tick);
 }
 
 // お問い合わせフォームのファイル添付：選択したファイル名を表示
