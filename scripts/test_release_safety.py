@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from prepare_release import copy_path, validate_copy_source
 from release_config import IMAGE_FILES, LIVE_LINK_REPLACEMENTS
-from verify_release import is_forbidden_public_name, resolve_champion_image
+from verify_release import is_forbidden_public_name, resolve_champion_image, verify
 
 
 class ReleaseSourceSafetyTests(unittest.TestCase):
@@ -88,6 +88,21 @@ class ReleaseFilenameSafetyTests(unittest.TestCase):
         for name in (".htaccess", ".HTACCESS", ".user.ini", "web.config", "WEB.CONFIG", ".well-known"):
             with self.subTest(name=name):
                 self.assertTrue(is_forbidden_public_name(name))
+
+    def test_source_png_next_to_published_webp_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            candidate = Path(temp_dir)
+            public = candidate / "public"
+            (public / "images/champions/2026").mkdir(parents=True)
+            (public / "images/champions/2026/26champMI.webp").write_bytes(b"published")
+            (public / "images/champions/2026/26champMI.png").write_bytes(b"source")
+
+            errors, *_ = verify(candidate)
+
+            self.assertTrue(
+                any("公開しない画像形式" in error for error in errors),
+                msg=f"元PNGが検出されなかった: {errors}",
+            )
 
     def test_normal_static_names_are_allowed(self) -> None:
         for name in ("index.html", "style.css", "main.js", "champions.json", "photo.webp"):
