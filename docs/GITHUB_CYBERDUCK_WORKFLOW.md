@@ -106,6 +106,15 @@ python3 scripts/backup_production.py
 
 `backups/` はGit管理対象外です。控えは反映のたびに取り直します。
 
+控えを取ったら、反映で何が変わるかを一覧にします。新たな通信は行わず、控えと公開候補を突き合わせます。
+
+```bash
+python3 scripts/diff_production.py
+```
+
+「変更」「新規」「同一」「候補に含まれず本番に残る」に分けて表示します。
+**本人はこの一覧を見て承認します**（停止条件8）。すべて「同一」なら反映の必要はありません。
+
 ## 6. 本番アップロード前の停止条件
 
 次をすべて満たすまでは接続・上書きしません。
@@ -117,7 +126,8 @@ python3 scripts/backup_production.py
 5. `./scripts/prepare_release.sh --require-clean` とGitHub ActionsがPASSした
 6. PC・スマートフォン表示を確認した
 7. **`scripts/backup_production.py` で控えを取り、`state.json` の `failed` が空であることを確認した**
-8. 本人が対象ファイルを確認し、本番アップロードを明示承認した
+8. **`scripts/diff_production.py` の一覧を本人が確認し、変更範囲に納得した**
+9. 本人が本番アップロードを明示承認した
 
 ## 7. Cyberduckの使い方
 
