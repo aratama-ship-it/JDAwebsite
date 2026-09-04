@@ -11,7 +11,8 @@
 
 - 2026-09-03にロリポップ管理画面とロリポップFTPで、`diabolo.jp` の公開フォルダがアカウントルート `/`、公開ルート直下の `.htaccess` が不存在であることを読み取り確認した。確認時点の記録と将来のクリーンURL切替案は `server-config/README.md` に分離し、通常公開候補には `.htaccess` を含めない。
 - 制作データの正本はこのGitリポジトリとし、制作途中は `feature/*`、`fix/*`、`chore/*` の作業ブランチへ保存する。`main`へ直接pushしない。
-- GitHubへのpush、GitHub Pagesの確認、本番 `diabolo.jp` への反映は別工程。ロリポップ本番は引き続きCyberduckで本人承認後に手動反映する。
+- GitHubへのpush、ローカルでの確認、本番 `diabolo.jp` への反映は別工程。ロリポップ本番は引き続きCyberduckで本人承認後に手動反映する。
+- 2026-09-04にGitHub Pagesを停止した。公開リポジトリの `main` を丸ごと配信していたため、`PROJECT_NOTES.md`・`AGENTS.md`・選手別成績CSV・`work/image-composite/` の人物写真・`scripts/` まで誰でも取得できる状態だった（実測で確認）。確認はローカルサーバーで行う。共有用URLが必要になったら、リポジトリ全体ではなく `release-candidate/public/` の中身だけを配信する形で作り直す。
 - `./scripts/prepare_release.sh` で、Git管理中のソースから `release-candidate/` を毎回再生成する。生成物はGit管理対象外で、このコマンド自体はアップロードを行わない。
 - 本番用の最終候補はcommit後に `./scripts/prepare_release.sh --require-clean` で生成し、`SOURCE_STATE.txt` が `CLEAN` であることを確認する。
 - 生成時に `external/AJDC/`、`external/OIDC/`、`external/TIDC/` のローカルリンクを既存本番の `/AJDC/`、`/OIDC/`、`/TIDC/jp/` へ変換する。制作側のローカルミラーは変更しない。
@@ -66,7 +67,7 @@ diabolo-redesign-mock/
 
 ## デザインの現状(重要な決定事項)
 
-- 人がHTML/CSSを直接編集する場合は、まず `MAINTENANCE_GUIDE.md` を読む。ファイル間の関係、UPDATES更新手順、キャッシュ番号、GitHub Pages公開手順をそちらに整理している。
+- 人がHTML/CSSを直接編集する場合は、まず `MAINTENANCE_GUIDE.md` を読む。ファイル間の関係、UPDATES更新手順、キャッシュ番号、GitHubへの保存手順をそちらに整理している。
 - **配色は白ベースに変更済み**。元はダーク基調(Red Bull風)で作っていたが、ユーザーの指示で全体を反転し、現在は白背景+濃いグレー系の文字が基本。赤(`--red: #db0a40`)はアクセントとして継続使用。
 - **ヘッダーは全ページで白背景+暗色文字に統一**。スクロールしても色が変わらない(以前は暗→白に切り替わる仕様だったが「切り替え不要、白のままでよい」という指示で統一した)。
 - ヘッダーの「大会情報」はクリックしても画面遷移しない(`href="javascript:void(0)"`)。ホバーでドロップダウン(全日本/東京国際/大阪国際/採点規則/記録一覧)が開くだけ。
