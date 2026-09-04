@@ -1,0 +1,32 @@
+# 公開候補内に存在したら検査を失敗させるパス/拡張子。
+# 末尾 / はディレクトリprefix、先頭 *. は拡張子パターンとして扱う。
+AGENTS.md
+PROJECT_NOTES.md
+MAINTENANCE_GUIDE.md
+TOP_PAGE_DESIGN_MEMO.md
+OIDC_LANGUAGE_EDITING_MANUAL.md
+OIDC_PHOTO_EDITING_MANUAL.md
+AJDC_全日本ディアボロ選手権_選手別成績一覧.csv
+docs/
+work/
+archive/
+bfaseed-mock/
+external/
+OIDCphotos/
+JDA web-upload-candidate-2026-08-01/
+.git/
+.github/
+.codex/
+.agents/
+*.php
+*.phtml
+*.phar
+*.env
+*.sql
+*.sqlite
+*.sqlite3
+*.psd
+*.csv
+*.md
+*.log
+.DS_Store

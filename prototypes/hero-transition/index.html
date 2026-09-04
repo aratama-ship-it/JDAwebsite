@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ヒーロー切替演出プロトタイプ — ディアボロ・トランジション</title>
+<style>
+  :root{
+    --jda-red: #db0a40;
+    --jda-red-bright: #ff1e4d;
+    --ink: #111111;
+    --ink-sub: #5a5a60;
+    --line: #e3e3e6;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0; background:#fff; color:var(--ink);
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+    line-height:1.8; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px 96px; }
+
+  .page-head{ border-bottom:3px solid var(--ink); padding:44px 0 18px; margin-bottom:28px; }
+  .page-head .eyebrow{ font-size:12px; letter-spacing:.18em; font-weight:700; color:var(--jda-red); margin:0 0 10px; }
+  .page-head h1{ font-size:26px; line-height:1.4; margin:0 0 10px; }
+  .page-head p{ margin:0; color:var(--ink-sub); font-size:13.5px; }
+
+  /* ============ ヒーロー ============ */
+  .hero{
+    position:relative; width:100%; aspect-ratio:16/7;
+    overflow:hidden; background:#0d0d10;
+  }
+  .hero-slide{ position:absolute; inset:0; opacity:0; z-index:1; }
+  .hero-slide.is-active{ opacity:1; z-index:2; }
+  .hero-slide.is-incoming{ opacity:1; z-index:3; }
+  .hero-slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-slide .veil{
+    position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(10,10,14,.72) 0%, rgba(10,10,14,.28) 46%, rgba(10,10,14,0) 72%);
+  }
+  .hero-cap{ position:absolute; left:0; bottom:0; padding:0 0 34px 40px; color:#fff; max-width:62%; }
+  .hero-cap .k{ font-size:11px; letter-spacing:.22em; font-weight:700; color:var(--jda-red-bright); margin:0 0 8px; }
+  .hero-cap h2{ font-size:clamp(21px,3vw,35px); margin:0 0 8px; line-height:1.28; }
+  .hero-cap p{ font-size:13.5px; margin:0; opacity:.86; }
+
+  #fx{ position:absolute; inset:0; width:100%; height:100%; z-index:4; pointer-events:none; }
+  #defs{ position:absolute; width:0; height:0; overflow:hidden; }
+
+  /* ============ 操作パネル ============ */
+  .panel{
+    border:1px solid var(--line); border-top:0; padding:12px 16px; font-size:13px; margin-bottom:24px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .row{ display:flex; gap:10px 18px; align-items:center; flex-wrap:wrap; }
+  .row > .lab{ font-size:11.5px; letter-spacing:.08em; font-weight:700; color:var(--ink-sub); width:5.2em; flex:none; }
+  .seg{ display:flex; border:1px solid var(--ink); border-radius:2px; overflow:hidden; }
+  .seg button{
+    font:inherit; font-size:12px; font-weight:700; border:0; background:#fff; color:var(--ink);
+    padding:6px 12px; cursor:pointer; border-right:1px solid var(--ink);
+  }
+  .seg button:last-child{ border-right:0; }
+  .seg button[aria-pressed="true"]{ background:var(--ink); color:#fff; }
+  .btn{
+    font:inherit; font-size:12.5px; font-weight:700; border:1px solid var(--ink);
+    background:#fff; color:var(--ink); padding:6px 16px; border-radius:2px; cursor:pointer;
+  }
+  .btn:hover{ background:var(--ink); color:#fff; }
+  .panel label{ display:flex; gap:7px; align-items:center; color:#333; }
+  .meta{ color:var(--ink-sub); font-size:12px; margin-left:auto; }
+
+  /* ============ 解説 ============ */
+  .notes h2{ font-size:18px; margin:32px 0 8px; padding-top:20px; border-top:1px solid var(--line); }
+  .notes h3{ font-size:14px; margin:18px 0 4px; color:var(--jda-red); }
+  .notes p{ font-size:13.5px; margin:0 0 12px; color:#333; }
+  .notes code{ background:#f1f1f3; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"SF Mono",Menlo,monospace; }
+  .notes table{ border-collapse:collapse; font-size:13px; margin:8px 0 16px; }
+  .notes th,.notes td{ border:1px solid var(--line); padding:6px 12px; text-align:left; }
+  .notes th{ background:#f6f6f7; font-weight:700; }
+  .warn{ border-left:3px solid var(--jda-red); padding:2px 0 2px 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page-head">
+    <p class="eyebrow">PROTOTYPE / diabolo.jp ヒーロー切替演出</p>
+    <h1>ディアボロ・トランジション</h1>
+    <p>
+      ヒーロー画像が切り替わるたびに、ディアボロそのものが画面を切り替える。
+      <strong>動き</strong>と<strong>見た目</strong>を別々に切り替えて、実際の画像に対して合うかどうかを比べられる。
+    </p>
+  </header>
+
+  <div class="hero" id="hero">
+    <svg id="fx" viewBox="0 0 1600 700" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </div>
+
+  <div class="panel">
+    <div class="row">
+      <span class="lab">動き</span>
+      <div class="seg" id="modeSeg">
+        <button data-mode="iris"    aria-pressed="true">A 迫る</button>
+        <button data-mode="tumble"  aria-pressed="false">B 横切る</button>
+        <button data-mode="roll"    aria-pressed="false">B' 面で転がる</button>
+        <button data-mode="toss"    aria-pressed="false">C 投げ上げ</button>
+      </div>
+    </div>
+    <div class="row">
+      <span class="lab">見た目</span>
+      <div class="seg" id="skinSeg">
+        <button data-skin="cutout" aria-pressed="true">抜き（窓）</button>
+        <button data-skin="white"  aria-pressed="false">白</button>
+        <button data-skin="ink"    aria-pressed="false">黒</button>
+        <button data-skin="gray"   aria-pressed="false">グレー半透明</button>
+        <button data-skin="red"    aria-pressed="false">赤</button>
+      </div>
+    </div>
+    <div class="row">
+      <span class="lab">再生</span>
+      <button class="btn" id="playBtn">切り替える</button>
+      <button class="btn" id="compareBtn">4色を並べて比較</button>
+      <label><input type="checkbox" id="autoChk"> 自動で繰り返す</label>
+      <label>速さ
+        <input type="range" id="speedInput" min="60" max="200" value="100" style="width:100px">
+        <span id="speedVal" style="font-variant-numeric:tabular-nums; color:var(--ink-sub)">1.00×</span>
+      </label>
+      <span class="meta" id="meta">—</span>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h2>見た目（5種類）</h2>
+    <p>
+      <strong>抜き（窓）</strong>が、動画編集のトランジションに一番近い。ディアボロの形が「窓」になり、
+      その中に次の画像が見える。色を一切足さないので、写真の邪魔をしない。
+      <strong>白 / 黒 / グレー半透明</strong>は形をはっきり見せたいとき用。
+      <strong>赤</strong>は協会カラーだが、写真の上では主張が強い。
+      ヒーロー画像は台北の夜景など<strong>暗くて彩度の高い写真</strong>なので、
+      白と抜きが素直に合い、赤は色がぶつかりやすい。3枚の画像で切り替えて確かめてほしい。
+    </p>
+
+    <h2>動き（4種類）</h2>
+
+    <h3>A. 迫る — 軸をこちらへ向け、カップの縁が広がる</h3>
+    <p>
+      横から見た砂時計が、軸をこちらに向けるように回り込む。真正面を向いた瞬間に見える
+      <strong>カップの円</strong>が、そのまま広がって次の画像になる。
+      回り込みは幾何どおり。軸の傾き <code>φ</code> のとき胴の見かけ幅は <code>W·cos φ</code>、
+      縁は横径 <code>R·sin φ</code> の楕円で、2枚のカップの縁は <code>±(W/2)·cos φ</code> の位置に見える。
+    </p>
+
+    <h3>B. 横切る — 軸を縦にした砂時計が、横に移動して画面を入れ替える</h3>
+    <p>
+      回転はしない。<strong>軸を縦</strong>にして（演技中の向きから90度）、
+      画面の高さいっぱいの砂時計がそのまま横へ移動していくだけ。
+      <strong>砂時計の輪郭がそのまま切り替えの境界線になる</strong>ので、
+      次の画像は直線ではなく、中央がくびれた縁から流れ込んでくる。
+      映像編集のワイプに近いが、境界の形がディアボロになっている。
+    </p>
+    <p>
+      A（迫る）と C（投げ上げ）は軸を横のままにしている。
+      軸が横なのが、紐に乗って演技しているときに客席から見える向きだから。
+    </p>
+    <p>
+      ディアボロを境に左右が完全に入れ替わる。左は次の画像、右は前の画像で、
+      境界線はディアボロの前側（右）の輪郭そのもの。前の画像が左に残ることはない。
+    </p>
+
+    <h3>B'. 面で転がる — 物理どおりの転がり</h3>
+    <p>
+      地面を転がる場合の正しい見え方。カップの正面（円）が転がる。
+      円だけでは回転が見えないので、実測した<strong>ハブと4つの小穴</strong>を描いて回転が読めるようにした。
+    </p>
+
+    <h3>C. 投げ上げ — ハイトスの放物線</h3>
+    <p>
+      演技どおり砂時計の形のまま放物線で飛ぶ（<code>y = 4h·t(1−t)</code> をそのまま使用。
+      イージング関数で「それっぽく」動かしてはいない）。
+      抜きのときは飛びながら窓が広がり、着地で画面が入れ替わる。
+    </p>
+
+    <h2>形の根拠（実測値）</h2>
+    <p><code>3d/reference/diabolo/</code> の実測データ（2026-08-24、ノギス実測・白カップ）から形を起こしている。</p>
+    <table>
+      <tr><th>項目</th><th>値</th><th>由来</th></tr>
+      <tr><td>カップ外径</td><td>130.9 mm</td><td>ノギス実測</td></tr>
+      <tr><td>カップ高さ H_out</td><td>61.6 mm</td><td>ノギス実測</td></tr>
+      <tr><td>開口内径</td><td>117.6 mm</td><td>ノギス実測</td></tr>
+      <tr><td>ハブ凸側の円</td><td>φ34.9 / φ50.3 mm</td><td>ノギス実測</td></tr>
+      <tr><td>小穴</td><td>φ3.6 × 4個</td><td>ノギス実測</td></tr>
+      <tr><td>軸の直径・露出長</td><td>φ12 / 10 mm</td><td class="warn"><strong>未測定（仮値）</strong></td></tr>
+      <tr><td>カップ側面の曲率</td><td>—</td><td class="warn"><strong>近似</strong>（縁と高さは実測、間の曲線は推定）</td></tr>
+    </table>
+
+    <h2>実装メモ</h2>
+    <p>
+      外部ライブラリ不使用。ディアボロはSVG（実寸mmをそのまま座標に使用）、
+      「抜き」は SVG <code>clipPath</code> を <code>clip-path: url()</code> でスライドに適用している。
+      ディアボロとマスクを毎フレーム同じ時刻から計算しているのでずれない。
+      タブが隠れて <code>requestAnimationFrame</code> が止まっても切り替えが途中で固まらないよう、
+      強制完了の保険を入れてある。<code>prefers-reduced-motion: reduce</code> では演出せず即切替。
+    </p>
+  </div>
+</div>
+
+<svg id="defs" aria-hidden="true">
+  <defs>
+    <clipPath id="diaClip" clipPathUnits="userSpaceOnUse">
+      <path id="clipShape" d=""></path>
+      <rect id="clipTrail" x="0" y="0" width="0" height="0"></rect>
+    </clipPath>
+  </defs>
+</svg>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ============================================================
+     ディアボロの寸法（mm）
+     出典: 3d/reference/diabolo/ 実測（2026-08-24 ノギス実測・白カップ）
+     ============================================================ */
+  var D = {
+    R: 65.45,          // カップ外径130.9/2 …実測
+    CUP_H: 61.6,       // カップ高さ …実測
+    R_INNER: 58.8,     // 開口内径117.6/2 …実測
+    R_HUB: 17.45,      // ハブ凸側φ34.9/2 …実測
+    R_BOSS: 25.15,     // ハブ凸側φ50.3/2 …実測
+    R_HOLE: 1.8,       // 小穴φ3.6/2 …実測
+    HOLE_N: 4,         // 小穴の数 …実測
+    R_HOLE_ORBIT: 21,  // 小穴の配置半径 …未測定（仮）
+    R_AXLE: 6,         // 軸半径 …未測定（仮）
+    AXLE_GAP: 10       // 露出した軸の長さ …未測定（仮。実物は短いので18→10に調整）
+  };
+  D.HALF_W = D.CUP_H + D.AXLE_GAP / 2;   // 70.6mm
+
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var STAGE = { w: 1600, h: 700 };
+
+  var SLIDES = [
+    { img: "../../images/pickup/wdc2026-taipei-hero-bg.webp",
+      k: "WORLD DIABOLO CUP 2026", t: "台北、世界がまわる。",
+      d: "2026年11月 / 台北アリーナ　エントリー受付中" },
+    { img: "../../images/pickup/wdc2026-taipei-rain.webp",
+      k: "AJDC 2026", t: "全日本ディアボロ選手権",
+      d: "予選6月・本選9月　規定演技と自由演技の配点を公開" },
+    { img: "../../images/pickup/oidc.webp",
+      k: "JAPAN DIABOLO ASSOCIATION", t: "競技としての、ディアボロ。",
+      d: "普及と、選手が実力を発揮できる場づくりに取り組んでいます" }
+  ];
+
+  var hero = document.getElementById("hero");
+  var fx = document.getElementById("fx");
+  var clipShape = document.getElementById("clipShape");
+  var clipTrail = document.getElementById("clipTrail");
+  var meta = document.getElementById("meta");
+
+  var slideEls = SLIDES.map(function(s, i){
+    var el = document.createElement("div");
+    el.className = "hero-slide" + (i === 0 ? " is-active" : "");
+    el.innerHTML = '<img src="' + s.img + '" alt=""><div class="veil"></div>' +
+      '<div class="hero-cap"><p class="k">' + s.k + '</p><h2>' + s.t + '</h2><p>' + s.d + '</p></div>';
+    hero.insertBefore(el, fx);
+    return el;
+  });
+
+  var current = 0, busy = false, mode = "iris", skin = "cutout", speed = 1, autoTimer = null;
+
+  /* ------------------------------------------------------------
+     見た目
+     ------------------------------------------------------------ */
+  var SKIN = {
+    red:   { fill: "#db0a40", edge: "rgba(255,255,255,.9)",  op: 1 },
+    white: { fill: "#ffffff", edge: "rgba(0,0,0,.35)",       op: 1 },
+    ink:   { fill: "#0d0d10", edge: "rgba(255,255,255,.55)", op: 1 },
+    gray:  { fill: "#7b7f88", edge: "rgba(255,255,255,.7)",  op: .78 }
+  };
+  function isCutout(){ return skin === "cutout"; }
+  function skinOf(){ return SKIN[skin] || SKIN.white; }
+
+  /* ------------------------------------------------------------
+     形
+     ------------------------------------------------------------ */
+  // 横から見たシルエット。軸は水平（＝演技中に客席から見える向き）を基準形とする。
+  // 縁の直径・カップの高さは実測。カップ外面の曲線と縁の丸みは近似。
+  // 実物のカップは三角錐ではなくベル型で、縁の近くは軸とほぼ平行、
+  // ハブに近づくほど急に絞られる。三次ベジエでその変化を出す。
+  function sidePath(){
+    var R = D.R, hw = D.HALF_W, ax = D.AXLE_GAP / 2, ar = D.R_AXLE;
+    var lip = 3.2;                       // 縁の丸み（実測していない・見た目の近似）
+    var dx = hw - lip - ax;              // カップの軸方向スパン
+    var dy = R - ar;                     // カップの半径方向スパン
+    var e1x = 0.42 * dx, e1y = 0.06 * dy;   // 縁側の制御点＝軸とほぼ平行に立ち上がる
+    var e2x = 0.18 * dx, e2y = 0.55 * dy;   // ハブ側の制御点＝急に絞る
+    function n(v){ return v.toFixed(2); }
+
+    return [
+      "M " + n(-hw) + " " + n(-R + lip),
+      "Q " + n(-hw) + " " + n(-R) + " " + n(-hw + lip) + " " + n(-R),
+      // 左上のカップ外面: 縁 → 軸
+      "C " + n(-hw + lip + e1x) + " " + n(-R + e1y) + " " + n(-ax - e2x) + " " + n(-ar - e2y) + " " + n(-ax) + " " + n(-ar),
+      "L " + n(ax) + " " + n(-ar),                                    // 軸（上側）
+      // 右上のカップ外面: 軸 → 縁
+      "C " + n(ax + e2x) + " " + n(-ar - e2y) + " " + n(hw - lip - e1x) + " " + n(-R + e1y) + " " + n(hw - lip) + " " + n(-R),
+      "Q " + n(hw) + " " + n(-R) + " " + n(hw) + " " + n(-R + lip),
+      "L " + n(hw) + " " + n(R - lip),                                // 右の縁（実物では円の端＝直線に見える）
+      "Q " + n(hw) + " " + n(R) + " " + n(hw - lip) + " " + n(R),
+      "C " + n(hw - lip - e1x) + " " + n(R - e1y) + " " + n(ax + e2x) + " " + n(ar + e2y) + " " + n(ax) + " " + n(ar),
+      "L " + n(-ax) + " " + n(ar),                                    // 軸（下側）
+      "C " + n(-ax - e2x) + " " + n(ar + e2y) + " " + n(-hw + lip + e1x) + " " + n(R - e1y) + " " + n(-hw + lip) + " " + n(R),
+      "Q " + n(-hw) + " " + n(R) + " " + n(-hw) + " " + n(R - lip),
+      "Z"
+    ].join(" ");
+  }
+  var SIDE_D = sidePath();
+
+  function el(name, attrs){
+    var n = document.createElementNS(SVGNS, name);
+    for(var k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+  function clearFx(){ while(fx.firstChild) fx.removeChild(fx.firstChild); }
+
+  // 正面から見たカップの面（円＋開口＋ハブ＋小穴）
+  function buildFace(){
+    var s = skinOf();
+    var g = el("g", {});
+    g.appendChild(el("circle", { r: D.R, fill: s.fill, opacity: s.op }));
+    g.appendChild(el("circle", { r: D.R_INNER, fill: "none", stroke: s.edge, "stroke-width": 1.6 }));
+    var spin = el("g", {});
+    spin.appendChild(el("circle", { r: D.R_BOSS, fill: s.edge, opacity: .35 }));
+    spin.appendChild(el("circle", { r: D.R_HUB, fill: s.edge, opacity: .8 }));
+    for(var i = 0; i < D.HOLE_N; i++){
+      var a = (i / D.HOLE_N) * Math.PI * 2;
+      spin.appendChild(el("circle", {
+        cx: Math.cos(a) * D.R_HOLE_ORBIT, cy: Math.sin(a) * D.R_HOLE_ORBIT,
+        r: D.R_HOLE, fill: s.fill, opacity: .9
+      }));
+    }
+    g.appendChild(spin);
+    return { g: g, spin: spin };
+  }
+
+  /* ------------------------------------------------------------
+     「抜き」用: スライドのピクセル座標系でクリップを組む
+     （clipPathUnits="userSpaceOnUse" の user space は参照元HTML要素のボックス）
+     ------------------------------------------------------------ */
+  var px = { w: 0, h: 0, sx: 1, sy: 1 };
+  function measure(){
+    px.w = hero.clientWidth; px.h = hero.clientHeight;
+    px.sx = px.w / STAGE.w; px.sy = px.h / STAGE.h;   // ステージ座標 → px
+  }
+  function applyCutout(target, shapeTransform, trail){
+    clipShape.setAttribute("d", SIDE_D);
+    clipShape.setAttribute("transform", shapeTransform);
+    if(trail){
+      clipTrail.setAttribute("x", trail.x); clipTrail.setAttribute("y", trail.y);
+      clipTrail.setAttribute("width", Math.max(0, trail.w));
+      clipTrail.setAttribute("height", Math.max(0, trail.h));
+    } else {
+      clipTrail.setAttribute("width", 0); clipTrail.setAttribute("height", 0);
+    }
+    target.style.clipPath = "url(#diaClip)";
+  }
+
+  /* ------------------------------------------------------------
+     アニメーション基盤
+     ------------------------------------------------------------ */
+  function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+  function easeInOutCubic(t){ return t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2; }
+
+  function run(duration, onFrame, onDone){
+    duration = duration / speed;
+    var t0 = null, finished = false, guard;
+    function finish(){
+      if(finished) return;
+      finished = true; clearTimeout(guard);
+      onFrame(1); onDone && onDone();
+    }
+    function step(now){
+      if(finished) return;
+      if(t0 === null) t0 = now;
+      var p = Math.min(1, (now - t0) / duration);
+      onFrame(p);
+      if(p < 1) requestAnimationFrame(step); else finish();
+    }
+    // 保険: タブが隠れる等で rAF が止まっても切り替えが固まらないようにする
+    guard = setTimeout(finish, duration + 600);
+    requestAnimationFrame(step);
+  }
+
+  function beginSwap(){
+    measure();
+    var next = (current + 1) % SLIDES.length;
+    slideEls[next].classList.add("is-incoming");
+    return next;
+  }
+  function endSwap(next){
+    slideEls[current].classList.remove("is-active");
+    slideEls[next].classList.remove("is-incoming");
+    slideEls[next].classList.add("is-active");
+    [slideEls[current], slideEls[next]].forEach(function(s){
+      s.style.clipPath = ""; s.style.transform = ""; s.style.opacity = "";
+    });
+    current = next; clearFx(); busy = false;
+    meta.textContent = SLIDES[current].k;
+  }
+
+  /* ============================================================
+     A. 迫る
+     ============================================================ */
+  function playIris(next, done){
+    var cx = STAGE.w / 2, cy = STAGE.h / 2;
+    var maxR = Math.sqrt(cx*cx + cy*cy) * 1.02;
+    var startScale = (STAGE.h * 0.30) / (D.R * 2);
+    var s = skinOf(), cut = isCutout();
+
+    var bodyG = el("g", {});
+    bodyG.appendChild(el("path", { d: SIDE_D, fill: cut ? "rgba(255,255,255,.10)" : s.fill,
+                                   opacity: cut ? 1 : s.op,
+                                   stroke: s.edge, "stroke-width": cut ? 2.4 : 0 }));
+    var rimFar  = el("ellipse", { rx: 0, ry: D.R, fill: cut ? "none" : s.fill, opacity: cut ? 1 : s.op });
+    var rimNear = el("ellipse", { rx: 0, ry: D.R, fill: cut ? "none" : s.fill, opacity: cut ? 1 : s.op });
+    var rimEdge = el("ellipse", { rx: 0, ry: D.R, fill: "none", stroke: s.edge, "stroke-width": 2.4 });
+    var root = el("g", {});
+    root.appendChild(rimFar); root.appendChild(bodyG); root.appendChild(rimNear); root.appendChild(rimEdge);
+    clearFx(); fx.appendChild(root);
+
+    run(1500, function(p){
+      var turn = Math.min(1, p / 0.55);
+      var open = Math.max(0, (p - 0.45) / 0.55);
+      var phi = easeInOutCubic(turn) * Math.PI / 2;
+      var cosP = Math.cos(phi), sinP = Math.sin(phi);
+
+      // 幾何: 胴の見かけ幅は cos φ 倍、2枚の縁は ±(W/2)·cos φ、横径 R·sin φ の楕円
+      bodyG.setAttribute("transform", "scale(" + cosP.toFixed(4) + ",1)");
+      bodyG.setAttribute("opacity", (1 - turn * 0.85).toFixed(3));
+      var rx = D.R * sinP, off = D.HALF_W * cosP;
+      rimFar.setAttribute("rx", rx.toFixed(2));  rimFar.setAttribute("cx", (-off).toFixed(2));
+      rimNear.setAttribute("rx", rx.toFixed(2)); rimNear.setAttribute("cx", off.toFixed(2));
+      rimEdge.setAttribute("rx", rx.toFixed(2)); rimEdge.setAttribute("cx", off.toFixed(2));
+      if(!cut) rimFar.setAttribute("opacity", (s.op * 0.55 * sinP).toFixed(3));
+
+      var scale = startScale + (maxR / D.R - startScale) * easeOutCubic(open);
+      root.setAttribute("transform", "translate(" + cx + "," + cy + ") scale(" + scale.toFixed(4) + ")");
+
+      // 縁の内側に次の画像を出す＝カップの中から出てくる
+      var rPx = D.R * scale * px.sy;
+      slideEls[next].style.clipPath = "circle(" + (open > 0 ? rPx : 0).toFixed(1) + "px at 50% 50%)";
+      if(open > 0){
+        rimNear.setAttribute("fill", "none");
+        rimFar.setAttribute("opacity", "0");
+      }
+    }, done);
+  }
+
+  /* ============================================================
+     B. 横に転がる（砂時計のまま回る）
+     ============================================================ */
+  function playTumble(next, done){
+    // 軸を縦にして（基準形から90度）、上下いっぱいの砂時計が横へ移動するだけ。回転はしない。
+    // 回転後は「縦＝軸方向(2·HALF_W)」「横＝カップの直径(2·R)」になる。
+    var scale = (STAGE.h * 1.02) / (D.HALF_W * 2);   // 縦を画面いっぱいに（端に隙間が出ないよう少し大きく）
+    var halfSpanX = D.R * scale;                     // 進行方向の半分＝カップの半径
+    var y = STAGE.h / 2;
+    var x0 = -halfSpanX, x1 = STAGE.w + halfSpanX;   // 画面外から画面外まで
+    var s = skinOf(), cut = isCutout();
+
+    var root = el("g", {});
+    root.appendChild(el("path", {
+      d: SIDE_D,
+      fill: cut ? "none" : s.fill,
+      opacity: cut ? 1 : s.op,
+      stroke: s.edge,
+      "stroke-width": cut ? 2.2 / scale : 1.2 / scale   // 拡大しても線の太さを一定に保つ
+    }));
+    clearFx(); fx.appendChild(root);
+
+    run(1600, function(p){
+      var e = easeInOutCubic(p);
+      var x = x0 + (x1 - x0) * e;
+      root.setAttribute("transform",
+        "translate(" + x.toFixed(2) + "," + y.toFixed(2) + ") rotate(90) scale(" + scale.toFixed(4) + ")");
+
+      // 塗り分けの矩形はディアボロの「中心」まで伸ばす。
+      // 後ろの縁(x-halfSpanX)で止めると、シルエットがくびれている中央付近で
+      // 矩形とシルエットの間に隙間ができ、そこに前の画像が残ってしまう。
+      // 中心まで埋めればシルエットの左半分は完全に矩形の内側に入り、
+      // 境界はディアボロの前側(右)の輪郭だけになる＝左右が完全に入れ替わる。
+      var trailX = Math.max(0, x * px.sx);
+      if(cut){
+        // rotate(90)+scale をピクセル座標の行列に展開する（縦横の倍率差もそのまま反映される）
+        var a = 0, b = scale * px.sy, c = -scale * px.sx, dd = 0;
+        applyCutout(slideEls[next],
+          "matrix(" + a + "," + b.toFixed(5) + "," + c.toFixed(5) + "," + dd + "," +
+          (x * px.sx).toFixed(2) + "," + (y * px.sy).toFixed(2) + ")",
+          { x: 0, y: 0, w: trailX, h: px.h });
+      } else {
+        // 塗りのときは砂時計自体が継ぎ目を隠すので、後ろの縁で切ればよい
+        var pct = Math.max(0, Math.min(100, (trailX / px.w) * 100));
+        slideEls[next].style.clipPath = "inset(0 " + (100 - pct).toFixed(2) + "% 0 0)";
+      }
+    }, done);
+  }
+
+  /* ============================================================
+     B'. 面で転がる（物理どおり）
+     ============================================================ */
+  function playRoll(next, done){
+    var scale = (STAGE.h * 0.52) / (D.R * 2);
+    var rSt = D.R * scale;
+    var y = STAGE.h - rSt - STAGE.h * 0.06;
+    var x0 = -rSt * 1.3, x1 = STAGE.w + rSt * 1.3;
+    var cut = isCutout();
+
+    var face = buildFace();
+    var root = el("g", {});
+    root.appendChild(face.g);
+    clearFx(); fx.appendChild(root);
+    if(cut) face.g.setAttribute("opacity", ".35");
+
+    run(1700, function(p){
+      var e = easeInOutCubic(p);
+      var x = x0 + (x1 - x0) * e;
+      var deg = ((x - x0) / rSt) * 180 / Math.PI;   // すべりなし転がり
+      root.setAttribute("transform",
+        "translate(" + x.toFixed(2) + "," + y.toFixed(2) + ") scale(" + scale.toFixed(4) + ")");
+      face.spin.setAttribute("transform", "rotate(" + deg.toFixed(2) + ")");
+
+      var pct = Math.max(0, Math.min(100, (x / STAGE.w) * 100));
+      slideEls[next].style.clipPath = "inset(0 " + (100 - pct).toFixed(2) + "% 0 0)";
+    }, done);
+  }
+
+  /* ============================================================
+     C. 投げ上げ
+     ============================================================ */
+  function playToss(next, done){
+    var baseScale = (STAGE.h * 0.30) / (D.R * 2);
+    var x0 = STAGE.w * 0.22, x1 = STAGE.w * 0.80;
+    var yGround = STAGE.h * 0.80, apex = STAGE.h * 0.15;
+    var s = skinOf(), cut = isCutout();
+    var maxScale = (Math.sqrt(STAGE.w*STAGE.w + STAGE.h*STAGE.h) * 1.1) / (D.R * 2);
+
+    var spin = el("g", {});
+    spin.appendChild(el("path", { d: SIDE_D, fill: cut ? "none" : s.fill, opacity: cut ? 1 : s.op,
+                                  stroke: s.edge, "stroke-width": cut ? 2.6 : 1.6 }));
+    if(!cut){
+      spin.appendChild(el("rect", { x: -D.HALF_W*0.72, y: -3, width: D.HALF_W*0.34, height: 6,
+                                    fill: s.edge, opacity: .8 }));
+    }
+    var root = el("g", {});
+    root.appendChild(spin);
+    clearFx(); fx.appendChild(root);
+
+    run(1800, function(p){
+      var t = p;
+      var x = x0 + (x1 - x0) * t;                      // 水平は等速（空気抵抗は無視）
+      var lift = 4 * (yGround - apex) * t * (1 - t);   // 放物線 y = 4h·t(1−t)
+      var y = yGround - lift;
+      // 抜きのときは飛びながら窓が広がる
+      var scale = cut ? baseScale + (maxScale - baseScale) * easeOutCubic(Math.max(0,(t-0.25)/0.75)) : baseScale;
+
+      root.setAttribute("transform",
+        "translate(" + x.toFixed(2) + "," + y.toFixed(2) + ") scale(" + scale.toFixed(4) + ")");
+      spin.setAttribute("transform", "rotate(" + (t * 900).toFixed(1) + ")");
+
+      if(cut){
+        applyCutout(slideEls[next],
+          "translate(" + (x*px.sx).toFixed(2) + "," + (y*px.sy).toFixed(2) + ") rotate(" + (t*900).toFixed(1) + ") scale(" + (scale*px.sy).toFixed(4) + ")",
+          null);
+      } else if(t >= 0.5){
+        // 頂点で古い画像が落ちて、次の画像が現れる
+        var k = easeOutCubic((t - 0.5) / 0.5);
+        slideEls[current].style.transform = "translateY(" + (k*100).toFixed(2) + "%)";
+        slideEls[current].style.opacity = (1 - k * 0.35).toFixed(3);
+      }
+    }, done);
+  }
+
+  /* ------------------------------------------------------------ */
+  function play(){
+    if(busy) return;
+    busy = true;
+    var next = beginSwap();
+    if(reduceMotion){ clearFx(); endSwap(next); return; }
+    var fn = mode === "tumble" ? playTumble
+           : mode === "roll"   ? playRoll
+           : mode === "toss"   ? playToss : playIris;
+    fn(next, function(){ endSwap(next); });
+  }
+
+  document.getElementById("playBtn").addEventListener("click", play);
+  document.getElementById("modeSeg").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(!b) return;
+    mode = b.dataset.mode;
+    [].forEach.call(this.querySelectorAll("button"), function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+  });
+  document.getElementById("skinSeg").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(!b) return;
+    skin = b.dataset.skin;
+    [].forEach.call(this.querySelectorAll("button"), function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+  });
+  // 4色を同じ画像の上に並べて、どれが写真に合うか一目で比べる
+  var comparing = false;
+  document.getElementById("compareBtn").addEventListener("click", function(){
+    if(busy) return;
+    if(comparing){ clearFx(); comparing = false; this.textContent = "4色を並べて比較"; return; }
+    comparing = true; this.textContent = "比較を消す";
+    clearFx();
+    var list = [
+      { x: 230,  key: "white", label: "白" },
+      { x: 620,  key: "ink",   label: "黒" },
+      { x: 1000, key: "gray",  label: "グレー半透明" },
+      { x: 1385, key: "red",   label: "赤" }
+    ];
+    var sc = 200 / (D.R * 2);
+    list.forEach(function(item){
+      var sk = SKIN[item.key];
+      var g = el("g", { transform: "translate(" + item.x + ",300) scale(" + sc.toFixed(4) + ")" });
+      g.appendChild(el("path", { d: SIDE_D, fill: sk.fill, opacity: sk.op,
+                                 stroke: sk.edge, "stroke-width": 1.6 }));
+      fx.appendChild(g);
+      var t = el("text", { x: item.x, y: 480, "text-anchor": "middle", fill: "#fff",
+                           "font-size": 26, "font-family": "sans-serif" });
+      t.textContent = item.label;
+      fx.appendChild(t);
+    });
+  });
+
+  document.getElementById("autoChk").addEventListener("change", function(e){
+    if(e.target.checked) autoTimer = setInterval(play, 3800);
+    else { clearInterval(autoTimer); autoTimer = null; }
+  });
+  var speedInput = document.getElementById("speedInput"), speedVal = document.getElementById("speedVal");
+  speedInput.addEventListener("input", function(){
+    speed = parseInt(speedInput.value, 10) / 100;
+    speedVal.textContent = speed.toFixed(2) + "×";
+  });
+  window.addEventListener("resize", measure);
+
+  measure();
+  meta.textContent = SLIDES[0].k;
+})();
+</script>
+</body>
+</html>
