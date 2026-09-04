@@ -14,7 +14,6 @@ COPY_TREES = (
     "css",
     "js",
     "images/champions",
-    "images/poker",
     "external/about",
     "external/access",
     "external/certification",
@@ -31,6 +30,8 @@ IMAGE_FILES = (
     "images/diaicon-white.png",
     "images/image-specs.txt",
     "images/logo/final_logo_emblem_v3.png",
+    # champions.json に写真が無い年度のカード裏面。poker用のJPEGは公開しない。
+    "images/poker/cardback.webp",
     "images/logo/midd.webp",
     "images/logo/wdc2026-logo-v2-light.png",
     "images/pickup/howtogo.webp",

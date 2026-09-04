@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COMPETITION SCENES — Portrait-first Slideshow</title>
+  <link rel="stylesheet" href="../../css/style.css?v=72">
+  <link rel="stylesheet" href="styles.css?v=8">
+</head>
+<body>
+  <header class="preview-site-header" aria-label="プレビュー用ヘッダー">
+    <a class="preview-site-header__brand" href="#news" aria-label="日本ディアボロ協会 ホーム">
+      <img src="../../images/logo/final_logo_emblem_v3.png" alt="">
+      <span>JAPAN DIABOLO ASSOCIATION</span>
+    </a>
+    <button class="competition-scenes-launcher" type="button" data-open-scenes aria-haspopup="dialog" aria-controls="competitionScenesModal">
+      <span class="competition-scenes-launcher__thumb" aria-hidden="true">
+        <img src="../../OIDCphotos/Gyc7djdbMAA-Mx4.jpeg" alt="">
+      </span>
+      <span class="competition-scenes-launcher__copy">
+        <small>COMPETITION SCENES</small>
+        <strong>大会写真を見る</strong>
+      </span>
+      <span class="competition-scenes-launcher__arrow" aria-hidden="true">↗</span>
+    </button>
+  </header>
+
+  <main class="preview-page">
+    <!-- 現行PICK UP。新セクションとのつながりを見るための比較用です。 -->
+    <section class="section" id="news">
+      <div class="section-head">
+        <h2>PICK UP</h2>
+      </div>
+
+      <div class="card-grid">
+        <a class="card" href="#pickup-wdc">
+          <div class="card-media"><img src="../../images/pickup/wdc2026-taipei-rain.webp" alt=""></div>
+          <div class="card-body"><span class="card-tag">世界大会</span><h3>WORLD DIABOLO CONTEST 2026</h3></div>
+        </a>
+        <a class="card" href="#pickup-oidc">
+          <div class="card-media"><img src="../../images/pickup/oidc.webp?v=3" alt=""></div>
+          <div class="card-body"><span class="card-tag">大会結果</span><h3>大阪国際ディアボロ競技会2026 競技結果</h3></div>
+        </a>
+        <a class="card" href="#pickup-rule">
+          <div class="card-media"><img src="../../images/pickup/regu.webp" alt=""></div>
+          <div class="card-body"><span class="card-tag">採点規則</span><h3>ディアボロ競技 採点規則 第八版</h3></div>
+        </a>
+        <a class="card" href="#pickup-access">
+          <div class="card-media"><img src="../../images/pickup/howtogo.webp" alt=""></div>
+          <div class="card-body"><span class="card-tag">案内</span><h3>事務所・店舗へのアクセス</h3></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 独自再設計案：初回に開き、上部のボタンから再表示できる大会写真モーダル。 -->
+    <div class="competition-scenes-modal" id="competitionScenesModal" role="dialog" aria-modal="true" aria-labelledby="competitionScenesTitle" hidden>
+      <div class="competition-scenes-modal__backdrop" data-close-scenes></div>
+      <div class="competition-scenes-modal__panel">
+        <button class="competition-scenes-modal__close" type="button" data-close-scenes aria-label="大会写真を閉じる">
+          <span aria-hidden="true"></span>
+        </button>
+
+        <section class="competition-scenes-v2" id="competitionScenes" aria-labelledby="competitionScenesTitle">
+      <div class="competition-scenes-v2__inner">
+        <div class="competition-scenes-v2__head">
+          <div>
+            <h2 id="competitionScenesTitle">COMPETITION SCENES</h2>
+          </div>
+          <p class="competition-scenes-v2__intro">ステージの緊張、技が決まる一瞬、会場の熱気。<br>大会の現場を、実際の写真で紹介します。</p>
+        </div>
+
+        <div class="competition-scenes-v2__stage">
+          <div class="competition-scenes-v2__viewport">
+            <div class="competition-scenes-v2__track" id="competitionScenesTrack" tabindex="0" aria-label="大会写真スライド">
+              <div class="competition-scenes-v2__slide" data-scene>
+                <figure class="competition-scenes-v2__figure">
+                  <img src="../../OIDCphotos/Gyc7djdbMAA-Mx4.jpeg" alt="ピンク色のディアボロを使って演技する競技者" width="1366" height="2048" loading="eager" draggable="false">
+                </figure>
+              </div>
+              <div class="competition-scenes-v2__slide" data-scene>
+                <figure class="competition-scenes-v2__figure">
+                  <img src="../../OIDCphotos/Gye6iB2aIAAJtFB.jpeg" alt="空中のディアボロを見上げながら演技する競技者" width="1366" height="2048" loading="eager" draggable="false">
+                </figure>
+              </div>
+              <div class="competition-scenes-v2__slide" data-scene>
+                <figure class="competition-scenes-v2__figure">
+                  <img src="../../OIDCphotos/GyT0FkgbIAAOVg7.jpeg" alt="大会ステージで演技するディアボロ競技者" width="1567" height="1045" loading="eager" draggable="false">
+                </figure>
+              </div>
+              <div class="competition-scenes-v2__slide" data-scene>
+                <figure class="competition-scenes-v2__figure">
+                  <img src="../../OIDCphotos/Gye6VbYaEAA8rLh.jpeg" alt="光るディアボロを使った大会ステージのグループ演技" width="2048" height="1366" loading="lazy" draggable="false">
+                </figure>
+              </div>
+              <div class="competition-scenes-v2__slide" data-scene>
+                <figure class="competition-scenes-v2__figure">
+                  <img src="../../OIDCphotos/GyTzLDpa4B4xI_y.jpeg" alt="大会ステージでディアボロを操作する競技者" width="1567" height="1045" loading="lazy" draggable="false">
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <div class="competition-scenes-v2__overlay">
+            <div class="competition-scenes-v2__controls">
+              <p class="competition-scenes-v2__status" id="competitionScenesStatus" aria-live="polite">01 / 05</p>
+              <button class="competition-scenes-v2__play" id="competitionScenesPlay" type="button" aria-label="自動送りを停止" aria-pressed="true">
+                <span class="competition-scenes-v2__pause-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-nav-btn" id="competitionScenesPrev" type="button" aria-label="前の大会写真へ" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg>
+              </button>
+              <button class="carousel-nav-btn" id="competitionScenesNext" type="button" aria-label="次の大会写真へ">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="competition-scenes-v2__timeline" aria-hidden="true">
+            <div class="competition-scenes-v2__progress" aria-hidden="true">
+              <span id="competitionScenesProgress"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- 現行CHAMPIONS冒頭。上下の余白と密度を比較するための表示です。 -->
+    <section class="section preview-champions" id="athletes">
+      <div class="section-head section-head--compact">
+        <h2>2026 CHAMPIONS</h2>
+        <a href="#champions" class="see-all">すべて見る →</a>
+      </div>
+      <div class="athlete-grid">
+        <div class="athlete-card"><img src="../../images/champions/2026/26champMI.webp" alt="" loading="lazy"><div class="athlete-overlay"><h4>タニオカ カケト</h4><p>男子個人総合部門 優勝</p></div></div>
+        <div class="athlete-card"><img src="../../images/champions/2026/26champWI.webp" alt="" loading="lazy"><div class="athlete-overlay"><h4>マツキ リナ</h4><p>女子個人総合部門 優勝</p></div></div>
+        <div class="athlete-card"><img src="../../images/champions/2026/26champMJ.webp" alt="" loading="lazy"><div class="athlete-overlay"><h4>ハタノ ケンゴ</h4><p>男子個人総合ジュニア部門 優勝</p></div></div>
+        <div class="athlete-card"><img src="../../images/champions/2026/26champWJ.webp" alt="" loading="lazy"><div class="athlete-overlay"><h4>ヌマタ ユイネ</h4><p>女子個人総合ジュニア部門 優勝</p></div></div>
+        <div class="athlete-card"><img src="../../images/champions/2026/26champM1DHA.webp" alt="" loading="lazy"><div class="athlete-overlay"><h4>マツマエ ノゾミ</h4><p>男子1ディアボロ水平軸部門 優勝</p></div></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js?v=6"></script>
+</body>
+</html>

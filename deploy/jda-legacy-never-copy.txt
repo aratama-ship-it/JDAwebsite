@@ -1,0 +1,13 @@
+# 旧docrootから新しいJDA本体docrootへコピーしてはいけない既知のパス。
+# 削除指示ではない。旧環境を隔離・保全したまま、移行パッケージから除外するための記録。
+/send.php
+/sitemap.xml
+/test/
+/testfiles/
+/wp/
+/AJDC/wp-config.php
+/OIDC/wp-config.php
+/TIDC/en/send.php
+/TIDC/en_SP/send.php
+/TIDC/jp/send.php
+/TIDC/jp_SP/send.php

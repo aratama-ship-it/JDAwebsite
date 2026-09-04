@@ -1,0 +1,22 @@
+# 検査済みの旧サイトスナップショットから取り込む静的資産。
+# パスは旧docroot基準、glob禁止。PHP・HTML・設定ファイルは対象外。
+PDF/JDA_rule_2013_1.pdf
+PDF/JDA_rule_2013_2.pdf
+PDF/JDA_rule_2013_3.pdf
+PDF/JDA_rule_2014_4.pdf
+PDF/JDA_rule_2015_5.pdf
+PDF/JDA_rule_2016_6.pdf
+PDF/JDA_rule_2020_7.pdf
+PDF/JDA_rule_2026_8.pdf
+certification/advanced.pdf
+certification/grade_1.pdf
+certification/grade_1_list(20260813).pdf
+certification/grade_2.pdf
+certification/grade_2_list(20260813).pdf
+certification/grade_3.pdf
+certification/grade_3_list(20260813).pdf
+certification/grade_4.pdf
+certification/grade_4_list(20260813).pdf
+certification/grade_5.pdf
+certification/grade_6.pdf
+track/1m.mp3

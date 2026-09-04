@@ -39,6 +39,10 @@ REQUIRED_FILES = (
     "external/rule/index.html",
 )
 HIDDEN_OR_TEMP_NAMES = {".DS_Store", "Thumbs.db"}
+# images/champions はフォルダごとコピーされるため、ここに元PNG/PSDを置くと本番へ混入する。
+# 公開しているチャンピオン写真はすべてWebP。
+COPIED_IMAGE_TREES = ("images/champions/",)
+PUBLISHED_IMAGE_SUFFIXES = {".webp"}
 
 
 def is_forbidden_public_name(name: str) -> bool:
@@ -132,6 +136,16 @@ def verify(candidate: Path) -> tuple[list[str], int, set[str], set[str]]:
             errors.append(f"公開対象外ディレクトリを検出: {relative}")
         if path.is_file() and path.suffix.lower() in FORBIDDEN_SUFFIXES:
             errors.append(f"公開対象外ファイルを検出: {relative}")
+        # フォルダごとコピーする画像ツリーに元PNG等を置くと、そのまま本番へ混入する。
+        if (
+            path.is_file()
+            and relative.as_posix().startswith(COPIED_IMAGE_TREES)
+            and path.suffix.lower() not in PUBLISHED_IMAGE_SUFFIXES
+        ):
+            errors.append(
+                f"公開しない画像形式を検出: {relative}"
+                "（元PNG/PSDは archive/unused-assets/ へ置く）"
+            )
 
     html_files = sorted(public.rglob("*.html"))
     readable_html: list[Path] = []

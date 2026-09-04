@@ -36,3 +36,15 @@ docs/meetings/
 
 # 本番反映前に取得する現行ファイルの控え（ロールバック用）。生成スクリプトだけを追跡する
 /backups/
+
+# 制作の実験・生成素材。サイトからは参照されず、容量が大きいので追跡しない。
+# 削除はせずローカルに残す（再生成の手順は各フォルダのメモを参照）。
+/prototypes/champion-card-studio/
+/design-experiments/
+/images/generated/
+
+# 旧公開フローが入力に使う、検査済み旧docrootのスナップショット
+/work/jda-approved-legacy-docroot/
+
+# SuperDesignの作業用データ
+/.superdesign/
