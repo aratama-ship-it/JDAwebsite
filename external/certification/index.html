@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="../../images/logo/final_logo_emblem_v3.png" type="image/png">
 <link rel="apple-touch-icon" href="../../images/logo/final_logo_emblem_v3.png">
-<link rel="stylesheet" href="../../css/style.css?v=74">
+<link rel="stylesheet" href="../../css/style.css?v=75">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -274,7 +274,7 @@
 
   <!-- ===== VIDEO MODAL ===== -->
   <div class="video-modal-overlay" id="videoModalOverlay">
-    <div class="video-modal">
+    <div class="video-modal" role="dialog" aria-modal="true" aria-label="トリック動画">
       <button type="button" class="video-modal-close" id="videoModalClose" aria-label="閉じる">×</button>
       <div class="video-modal-frame">
         <iframe id="videoModalIframe" src="" title="トリック動画" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -284,7 +284,7 @@
 
   <script>const SITE_ROOT = "../../";</script>
 
-  <script src="../../js/main.js?v=40"></script>
+  <script src="../../js/main.js?v=42"></script>
   <script>
     const videoModalOverlay = document.getElementById('videoModalOverlay');
     const videoModalIframe = document.getElementById('videoModalIframe');
@@ -295,13 +295,15 @@
       return match ? match[1] : null;
     }
 
-    function openVideoModal(videoId) {
+    function openVideoModal(videoId, trickName) {
       videoModalIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-      videoModalOverlay.classList.add('is-open');
+      // 動画ごとに技名を読み上げられるよう、iframeのタイトルを差し替える
+      videoModalIframe.title = trickName ? `${trickName} の動画` : 'トリック動画';
+      openModal(videoModalOverlay, videoModalClose);
     }
 
     function closeVideoModal() {
-      videoModalOverlay.classList.remove('is-open');
+      closeModal(videoModalOverlay);
       videoModalIframe.src = '';
     }
 
@@ -310,7 +312,7 @@
         const videoId = extractYouTubeId(link.getAttribute('href'));
         if (!videoId) return;
         e.preventDefault();
-        openVideoModal(videoId);
+        openVideoModal(videoId, link.textContent.trim());
       });
     });
 
@@ -319,7 +321,7 @@
       if (e.target === videoModalOverlay) closeVideoModal();
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeVideoModal();
+      if (e.key === 'Escape' && videoModalOverlay.classList.contains('is-open')) closeVideoModal();
     });
   </script>
 </body>

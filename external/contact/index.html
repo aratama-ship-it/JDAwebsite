@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="../../images/logo/final_logo_emblem_v3.png" type="image/png">
 <link rel="apple-touch-icon" href="../../images/logo/final_logo_emblem_v3.png">
-<link rel="stylesheet" href="../../css/style.css?v=74">
+<link rel="stylesheet" href="../../css/style.css?v=75">
 </head>
 <body>
   <a class="skip-link" href="#main-content">本文へ移動</a>
@@ -196,8 +196,8 @@
 
   <!-- ===== CONFIRM MODAL ===== -->
   <div class="confirm-overlay" id="confirmOverlay">
-    <div class="confirm-modal">
-      <h3 class="confirm-title">本当にこの内容で送信しますか？</h3>
+    <div class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <h3 class="confirm-title" id="confirmTitle">本当にこの内容で送信しますか？</h3>
       <dl class="confirm-summary" id="confirmSummary"></dl>
       <div class="confirm-actions">
         <button type="button" class="btn-ghost" id="confirmCancel">キャンセル</button>
@@ -208,7 +208,7 @@
 
   <script>const SITE_ROOT = "../../";</script>
 
-  <script src="../../js/main.js?v=40"></script>
+  <script src="../../js/main.js?v=42"></script>
   <script>
     // Googleカレンダーの下端をフォームの下端に揃える(2カラム表示の時だけ)。
     // フォームの高さはブラウザ幅やフォント読み込みで微妙に変わるため、固定値ではなく
@@ -298,11 +298,19 @@
       appendSummaryRow('お問い合わせ内容', message, true);
       appendSummaryRow('添付ファイル', fileText);
 
-      confirmOverlay.classList.add('is-open');
+      // 誤操作を避けるため、初期フォーカスは「キャンセル」に置く
+      openModal(confirmOverlay, confirmCancel);
     });
 
     confirmCancel.addEventListener('click', () => {
-      confirmOverlay.classList.remove('is-open');
+      closeModal(confirmOverlay);
+    });
+
+    // Escapeでも取り消せるようにする
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && confirmOverlay.classList.contains('is-open')) {
+        closeModal(confirmOverlay);
+      }
     });
 
     function showFormResult(success) {
@@ -334,7 +342,7 @@
     }
 
     confirmSend.addEventListener('click', () => {
-      confirmOverlay.classList.remove('is-open');
+      closeModal(confirmOverlay);
       cfSubmitBtn.disabled = true;
       cfSubmitBtn.textContent = '送信中…';
       contactForm.submit();
@@ -342,7 +350,7 @@
 
     confirmOverlay.addEventListener('click', (e) => {
       if (e.target === confirmOverlay) {
-        confirmOverlay.classList.remove('is-open');
+        closeModal(confirmOverlay);
       }
     });
   </script>
