@@ -89,7 +89,7 @@ Cyberduckへ渡すのは **`public/` の中身** です。外側のフォルダ�
 1. ロリポップ管理画面で正式なFTPSサーバー名を確認した
 2. Cyberduckの証明書名不一致が解消した、または管理者から明示的な確認を得た
 3. Cyberduckで接続後、まずリモート公開ルートを読み取り確認した
-4. リモートの `.htaccess`、`AJDC/`、`OIDC/`、`TIDC/`、`wp/` の存在を確認した
+4. `server-config/production-state.json` の記録とリモートの `.htaccess` の状態が一致し、`AJDC/`、`OIDC/`、`TIDC/`、`wp/` の存在を確認した（2026-09-03確認時点では公開ルートの `.htaccess` は存在しない）
 5. `./scripts/prepare_release.sh --require-clean` とGitHub ActionsがPASSした
 6. PC・スマートフォン表示を確認した
 7. 本人が対象ファイルを確認し、本番アップロードを明示承認した
@@ -102,6 +102,7 @@ Cyberduckへ渡すのは **`public/` の中身** です。外側のフォルダ�
 - パスワード: 本人がCyberduckへ入力し、Gitやファイルへ保存しない
 
 アップロード対象一覧に `AJDC/`、`OIDC/`、`TIDC/`、`wp/`、`.htaccess` が現れたら中止します。
+`.htaccess` の新設・変更は通常公開に混ぜず、`server-config/README.md` に従う専用作業として扱います。
 
 ## 7. 状態の呼び分け
 
