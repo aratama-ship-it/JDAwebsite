@@ -85,7 +85,28 @@ Cyberduckへ渡すのは **`public/` の中身** です。外側のフォルダ�
 
 `SOURCE_STATE.txt` が `CLEAN` でない候補は本番に使用しません。
 
-## 5. 本番アップロード前の停止条件
+## 5. ロールバック用の控えを取る
+
+**ロリポップのバックアップオプションは未契約です（2026-09-04確認）。**
+サーバー側の自動バックアップが無いため、上書きする前に自分で控えを取ります。
+
+```bash
+python3 scripts/backup_production.py
+```
+
+公開候補と**同じ範囲**のファイルだけを公開URL（`https://www.diabolo.jp`）から取得し、
+`backups/<日時>/` に保存します。FTPの認証情報は使いません。
+`AJDC/`、`OIDC/`、`TIDC/`、`wp/`、`.htaccess` には一切アクセスしません。
+
+生成物:
+
+- `backups/<日時>/site/`: 戻すときにアップロードする現行ファイル
+- `backups/<日時>/ROLLBACK.md`: 戻し方と、削除すべき新規ファイルの一覧
+- `backups/<日時>/FILELIST.sha256`, `state.json`: 取得結果の記録
+
+`backups/` はGit管理対象外です。控えは反映のたびに取り直します。
+
+## 6. 本番アップロード前の停止条件
 
 次をすべて満たすまでは接続・上書きしません。
 
@@ -95,9 +116,10 @@ Cyberduckへ渡すのは **`public/` の中身** です。外側のフォルダ�
 4. `server-config/production-state.json` の記録とリモートの `.htaccess` の状態が一致し、`AJDC/`、`OIDC/`、`TIDC/`、`wp/` の存在を確認した（2026-09-03確認時点では公開ルートの `.htaccess` は存在しない）
 5. `./scripts/prepare_release.sh --require-clean` とGitHub ActionsがPASSした
 6. PC・スマートフォン表示を確認した
-7. 本人が対象ファイルを確認し、本番アップロードを明示承認した
+7. **`scripts/backup_production.py` で控えを取り、`state.json` の `failed` が空であることを確認した**
+8. 本人が対象ファイルを確認し、本番アップロードを明示承認した
 
-## 6. Cyberduckの使い方
+## 7. Cyberduckの使い方
 
 - 接続方式: `FTP-SSL (Explicit AUTH TLS)`
 - 転送方式: 通常の「アップロード」
@@ -107,12 +129,13 @@ Cyberduckへ渡すのは **`public/` の中身** です。外側のフォルダ�
 アップロード対象一覧に `AJDC/`、`OIDC/`、`TIDC/`、`wp/`、`.htaccess` が現れたら中止します。
 `.htaccess` の新設・変更は通常公開に混ぜず、`server-config/README.md` に従う専用作業として扱います。
 
-## 7. 状態の呼び分け
+## 8. 状態の呼び分け
 
 - **Git保存済み**: commit済み
 - **GitHub保存済み**: 作業ブランチへpush済み
 - **ローカル確認済み**: `python3 -m http.server` 経由でPC・スマートフォン表示を確認済み
 - **公開候補生成済み**: `release-candidate/` を生成・検証済み
+- **控え取得済み**: `backups/<日時>/` に現行ファイルとROLLBACK.mdを保存済み
 - **本番反映済み**: Cyberduck転送後、`diabolo.jp`を実機確認済み
 
 これらは別の状態です。GitHubへpushしただけで「本番公開済み」とは扱いません。

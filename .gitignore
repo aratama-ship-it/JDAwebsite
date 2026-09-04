@@ -33,3 +33,6 @@ docs/meetings/
 
 # Cyberduckへ渡すローカル生成物。GitHubにはソースと生成スクリプトだけを保存する
 /release-candidate/
+
+# 本番反映前に取得する現行ファイルの控え（ロールバック用）。生成スクリプトだけを追跡する
+/backups/
