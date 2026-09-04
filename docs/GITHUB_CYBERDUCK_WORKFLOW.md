@@ -10,8 +10,11 @@
 1. **制作工程**: GitHub、Codex、ターミナル、GitHub Actions
 2. **本番工程**: ロリポップ、Cyberduck、本人の明示承認
 
-GitHubへのpushは、本番サーバーへのアップロードを意味しません。ただしGitHub Pagesが`main`から公開されている場合、
-`main`へのマージは確認用Pagesを更新します。制作途中は作業ブランチへpushし、`main`へ直接pushしません。
+GitHubへのpushは、本番サーバーへのアップロードを意味しません。制作途中は作業ブランチへpushし、
+`main`へ直接pushしません。
+
+GitHub Pagesは2026-09-04に停止しました（リポジトリ全体を配信し、内部資料と選手データが公開されていたため）。
+確認はローカルサーバーで行います。再開する場合は `release-candidate/public/` の中身だけを配信する形にします。
 
 ## 1. 最初のGitHub認証
 
@@ -108,7 +111,7 @@ Cyberduckへ渡すのは **`public/` の中身** です。外側のフォルダ�
 
 - **Git保存済み**: commit済み
 - **GitHub保存済み**: 作業ブランチへpush済み
-- **確認用Pages反映済み**: GitHub Pagesで確認済み
+- **ローカル確認済み**: `python3 -m http.server` 経由でPC・スマートフォン表示を確認済み
 - **公開候補生成済み**: `release-candidate/` を生成・検証済み
 - **本番反映済み**: Cyberduck転送後、`diabolo.jp`を実機確認済み
 

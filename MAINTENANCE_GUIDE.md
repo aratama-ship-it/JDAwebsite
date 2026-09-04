@@ -221,13 +221,14 @@ python3 -m http.server 8000
 http://127.0.0.1:8000/index.html
 ```
 
-## GitHubへの保存と確認用Pages
+## GitHubへの保存
 
-現在の公開先:
+**GitHub Pagesは2026-09-04に停止しました。** 公開リポジトリの `main` を丸ごと配信していたため、
+`PROJECT_NOTES.md`、選手別成績CSV、合成用の人物写真まで誰でも読める状態になっていたからです。
+確認は上の「ローカル確認」（`python3 -m http.server`）で行います。
 
-```text
-https://aratama-ship-it.github.io/JDAwebsite/
-```
+共有できる確認用URLが必要になった場合は、リポジトリ全体ではなく
+`./scripts/prepare_release.sh` が作る `release-candidate/public/` の中身だけを配信する形で作り直してください。
 
 制作途中は `main` へ直接pushせず、作業ブランチを使います。
 
@@ -239,7 +240,7 @@ git commit -m "変更内容を短く書く"
 git push -u origin 現在のブランチ名
 ```
 
-Pull Requestの自動検査がPASSした後に `main` へ統合します。`main`への統合後、GitHub Pagesの反映には少し時間がかかります。
+Pull Requestの自動検査がPASSした後に `main` へ統合します。
 GitHubへのpushと、Cyberduckによる `diabolo.jp` 本番アップロードは別工程です。
 
 Cyberduck用候補は次で毎回再生成します。
