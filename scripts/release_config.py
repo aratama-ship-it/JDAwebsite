@@ -8,6 +8,8 @@ ROOT_FILES = (
     "performer.html",
     "workshop.html",
     "marquee-updates.txt",
+    "sitemap.xml",
+    "robots.txt",
 )
 
 COPY_TREES = (
