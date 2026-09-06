@@ -1,0 +1,16 @@
+# diabolo.jp 正規URL統一（302版・2026-09-06）
+# 検証後にR=301へ切り替え予定。詳細は server-config/proposals/canonical-host.conf を参照。
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# (1) www.diabolo.jp → https://diabolo.jp
+RewriteCond %{HTTP_HOST} ^www\.diabolo\.jp$ [NC]
+RewriteRule ^(.*)$ https://diabolo.jp/$1 [R=302,L]
+
+# (2) diabolo.jp の http → https
+RewriteCond %{HTTP_HOST} ^diabolo\.jp$ [NC]
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^(.*)$ https://diabolo.jp/$1 [R=302,L]
+</IfModule>
