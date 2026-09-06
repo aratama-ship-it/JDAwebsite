@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日本ディアボロ協会 公式ブログ アーカイブ 2012–2016</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f6f6f7;
+  --rule: #e3e3e6;
+  --text: #15151a;
+  --muted: #55555d;
+  --red: #db0a40;
+  --red-deep: #c8103a;
+  --font: 'Helvetica Neue', 'Hiragino Sans', 'Yu Gothic', Arial, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.9; }
+a { color: var(--red-deep); }
+.skip-link { position: absolute; left: 16px; top: -100px; z-index: 20; background: var(--red); color: #fff;
+  padding: 12px 20px; border-radius: 0 0 6px 6px; text-decoration: none; font-weight: 700; }
+.skip-link:focus { top: 0; }
+.page { max-width: 1080px; margin: 0 auto; padding: 0 24px 96px; }
+header.hero { padding: 72px 0 40px; border-bottom: 2px solid var(--text); }
+.kicker { font-size: 13px; letter-spacing: .18em; color: var(--red-deep); font-weight: 700; }
+h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.35; margin: 12px 0 20px; letter-spacing: .01em; }
+.lede { color: var(--muted); font-size: 15px; max-width: 62ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 28px; font-size: 14px; }
+.facts div { min-width: 128px; }
+.facts dt { color: var(--muted); font-size: 12px; letter-spacing: .08em; }
+.facts dd { font-weight: 700; font-size: 19px; }
+.layout { display: grid; grid-template-columns: 148px minmax(0, 1fr); gap: 48px; margin-top: 48px; }
+nav.rail { position: sticky; top: 24px; align-self: start; font-size: 14px; }
+nav.rail p { font-size: 12px; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; }
+nav.rail ul { list-style: none; }
+nav.rail a { display: block; padding: 7px 0; border-bottom: 1px solid var(--rule); text-decoration: none;
+  color: var(--text); font-weight: 700; }
+nav.rail a:hover, nav.rail a:focus { color: var(--red-deep); }
+nav.rail span { font-weight: 400; font-size: 12px; color: var(--muted); margin-left: 2px; }
+.year { font-size: 34px; letter-spacing: .02em; margin: 64px 0 8px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--red); }
+.year:first-of-type { margin-top: 0; }
+.year-suffix { font-size: 15px; color: var(--muted); margin-left: 6px; }
+.post { padding: 36px 0; border-bottom: 1px solid var(--rule); }
+.meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.origin { background: var(--bg-soft); padding: 2px 8px; border-radius: 3px; font-size: 12px; }
+.badge { background: var(--red-deep); color: #fff; padding: 2px 8px; border-radius: 3px; font-size: 12px; }
+.post-title { font-size: 22px; line-height: 1.5; margin: 8px 0 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.tag { font-size: 12px; color: var(--red-deep); border: 1px solid var(--rule); border-radius: 999px; padding: 2px 12px; }
+.post-body { font-size: 16px; }
+.post-body p, .post-body div { margin-bottom: 1em; }
+.post-body img { max-width: 100%; height: auto; margin: 12px 0; border: 1px solid var(--rule); }
+.old-version { margin-top: 20px; background: var(--bg-soft); border-left: 3px solid var(--rule); padding: 12px 18px; }
+.old-version summary { cursor: pointer; font-size: 14px; font-weight: 700; }
+.old-version summary span { font-weight: 400; color: var(--muted); margin-left: 6px; }
+.old-version .post-body { margin-top: 16px; font-size: 15px; color: var(--muted); }
+.notes { margin-top: 72px; padding: 28px 32px; background: var(--bg-soft); font-size: 14px; }
+.notes h2 { font-size: 17px; margin-bottom: 14px; }
+.notes h3 { font-size: 14px; margin: 20px 0 6px; }
+.notes ul { margin-left: 20px; }
+.notes table { border-collapse: collapse; margin-top: 8px; width: 100%; font-size: 13px; }
+.notes td { border-bottom: 1px solid var(--rule); padding: 6px 8px; vertical-align: top; }
+.notes code { font-size: 12px; word-break: break-all; }
+footer { margin-top: 40px; font-size: 13px; color: var(--muted); }
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; gap: 24px; }
+  nav.rail { position: static; }
+  nav.rail ul { display: flex; flex-wrap: wrap; gap: 8px; }
+  nav.rail a { border: 1px solid var(--rule); border-radius: 999px; padding: 8px 16px; min-height: 44px;
+    display: flex; align-items: center; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#archive">記事一覧へ移動</a>
+<div class="page">
+  <header class="hero">
+    <p class="kicker">保全アーカイブ・非公開</p>
+    <h1>日本ディアボロ協会 公式ブログ<br>2012–2016</h1>
+    <p class="lede">サーバーからファイルが失われ、データベースにだけ残っていた協会公式ブログの記事を、
+    読める形に復元したものです。大会告知、採点規則の改定、アジアカップの結果報告など、
+    現行サイトの「更新情報」より前の活動記録にあたります。</p>
+    <dl class="facts">
+      <div><dt>記事数</dt><dd>25</dd></div>
+      <div><dt>期間</dt><dd>2012–2016</dd></div>
+      <div><dt>復元した画像</dt><dd>4 / 4</dd></div>
+      <div><dt>作成日</dt><dd>2026年9月6日</dd></div>
+    </dl>
+  </header>
+  <div class="layout">
+    <nav class="rail" aria-label="年で移動">
+      <p>年で移動</p>
+      <ul>
+          <li><a href="#y2012">2012<span aria-hidden="true">年</span></a></li>
+          <li><a href="#y2013">2013<span aria-hidden="true">年</span></a></li>
+          <li><a href="#y2014">2014<span aria-hidden="true">年</span></a></li>
+          <li><a href="#y2015">2015<span aria-hidden="true">年</span></a></li>
+          <li><a href="#y2016">2016<span aria-hidden="true">年</span></a></li>
+      </ul>
+    </nav>
+    <main id="archive">
+      <h2 class="year" id="y2012">2012<span class="year-suffix">年</span></h2>
+      <article class="post" id="post-wp2_6">
+        <div class="meta">
+          <time datetime="2012-12-03">2012年12月3日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">日本ディアボロ協会公式ブログ始まりました！</h3>
+        <div class="tags"><span class="tag">その他</span></div>
+        <div class="post-body"><p>日本ディアボロ協会公式ブログが始まりました。<br />
+<div>より早く皆様に情報を提供するためのブログとなっています。</div><br />
+<div>これからウェブサイト、ツイッター、Facebookとともにご利用をお願いいたします。</div></p></div>
+      </article>
+      <h2 class="year" id="y2013">2013<span class="year-suffix">年</span></h2>
+      <article class="post" id="post-wp2_9">
+        <div class="meta">
+          <time datetime="2013-01-11">2013年1月11日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">ディアボロ競技採点規則の注意点について</h3>
+        <div class="tags"><span class="tag">その他</span></div>
+        <div class="post-body"><p>2013年度全日本ディアボロ競技会を開催するにあたり、採点規則を変更いたしました。<br />
+<div></div><br />
+<div>http://diabolo.jp/PDF/JDA_rule.pdf</div><br />
+<div></div><br />
+<div>競技会は下記のような場になることを目的としています。</div><br />
+<div>・選手の育成</div><br />
+<div>・技の開発、応用を促進する場</div><br />
+<div>・演技の開発、応用を促進する場</div><br />
+<div>・選手、一般観客問わず楽しむことの出来る場</div><br />
+<div></div><br />
+<div>現在、世界各国でいろいろなシステムが採用されています。</div><br />
+<div>そのなか日本ディアボロ協会では競技会において採点規則を試行錯誤を重ね、より目的に沿ったものとしていきたいと思っております。</div><br />
+<div></div><br />
+<div></div><br />
+<div>さて、今回の採点方式についての変更による注意点を簡易的に紹介したいと思います。</div><br />
+<div>詳しくはディアボロ競技採点規則をご覧ください。</div><br />
+<div></div><br />
+<div>・演技時間の過不足に対する減点の明確化</div><br />
+<div>・演技スペースから場外に出ることに対しての減点の明確化</div><br />
+<div>・演技スペースの拡大（オーバーオールクラスのみ）</div><br />
+<div></div><br />
+<div>・演技開始時は静止した状態から始めなければならない。（演技開始時ディアボロに回転をかけてはいけない）</div><br />
+<div>・選手の動きだしを演技開始のタイミングとする。（楽曲再生後20秒間の余裕がある。）</div><br />
+<div>・楽曲が鳴り止むと演技終了とみなされる。(ただし、制限時間を超えている場合減点のみ採点が継続される)</div><br />
+<div></div><br />
+<div>・各部門における採点項目、配分の変更。</div><br />
+<div>・基礎点の要素を満たす例：3ディアボロ（ロウとトス）</div><br />
+<div></div><br />
+<div>・チャレンジクラス、4ディアボロロウ部門において、最後に投入するディアボロの色は他の3個と異なる色にしなければならない。</div><br />
+<div></div><br />
+<div></div><br />
+<div>いかがでしょうか。</div><br />
+<div></div><br />
+<div>不明な点、明確にしておきたい点があれば、全日本ディアボロ競技会ウェブサイトのお問い合わせページよりご連絡ください。</div><br />
+<div></div><br />
+<div>http://diabolo.jp/alljapan/inquiry.html</div><br />
+<div></div><br />
+<div>日本ディアボロ協会　浦和</div></p></div>
+        <details class="old-version">
+          <summary>旧ブログ（/JDA_Weblog）の版を見る<span>— 移行時に本文が書き換えられています</span></summary>
+          <div class="post-body"><p>2013年度全日本ディアボロ競技会を開催するにあたり、採点規則を変更いたしました。</p>
+<p>http://diabolo.jp/PDF/JDA_rule.pdf</p>
+<p>競技会は下記のような場になることを目的としています。<br />
+・選手の育成<br />
+・技の開発、応用を促進する場<br />
+・演技の開発、応用を促進する場<br />
+・選手、一般観客問わず楽しむことの出来る場</p>
+<p>現在、世界各国でいろいろなシステムが採用されています。<br />
+そのなか日本ディアボロ協会では競技会において採点規則を試行錯誤を重ね、より目的に沿ったものとしていきたいと思っております。</p>
+<p>さて、今回の採点方式についての変更による注意点を簡易的に紹介したいと思います。<br />
+詳しくはディアボロ競技採点規則をご覧ください。</p>
+<p>・演技時間の過不足に対する減点の明確化<br />
+・演技スペースから場外に出ることに対しての減点の明確化<br />
+・演技スペースの拡大（オーバーオールクラスのみ）</p>
+<p>・演技開始時は静止した状態から始めなければならない。（演技開始時ディアボロに回転をかけてはいけない）<br />
+・選手の動きだしを演技開始のタイミングとする。（楽曲再生後20秒間の余裕がある。）<br />
+・楽曲が鳴り止むと演技終了とみなされる。(ただし、制限時間を超えている場合減点のみ採点が継続される)</p>
+<p>・各部門における採点項目、配分の変更。<br />
+・基礎点の要素を満たす例：3ディアボロ（ロウとトス）</p>
+<p>・チャレンジクラス、4ディアボロロウ部門において、最後に投入するディアボロの色は他の3個と異なる色にしなければならない。</p>
+<p>いかがでしょうか。</p>
+<p>不明な点、明確にしておきたい点があれば、全日本ディアボロ競技会ウェブサイトのお問い合わせページよりご連絡ください。</p>
+<p>http://diabolo.jp/alljapan/inquiry.html</p>
+<p>日本ディアボロ協会　浦和</p></div>
+        </details>
+      </article>
+      <article class="post" id="post-wp2_13">
+        <div class="meta">
+          <time datetime="2013-01-14">2013年1月14日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">マレーシアオープン</h3>
+        <div class="tags"><span class="tag">国外大会</span></div>
+        <div class="post-body"><p>2012年12月22日、23日に</p>
+<p><b>マレーシア国際ディアボロ大会（Diabolo Malaysia Open Competition）</b></p>
+<p>が開かれ、日本ディアボロ協会も審査員及び選手派遣という形で後援しました。<br />
+日本からは9名の選手が参加しました。（浦和、斎藤、野中の3名は審査員を兼任）</p>
+<p>香港や台湾の選手も出場し、また日本ではまだ少ない小学生の演技やチームの演技等、大会は大盛り上がりでした。</p>
+<p><img alt="DSC_1178.jpg" src="images/20130114_908850.jpg" width="427" height="318"/></p>
+<p>審査員をつとめる浦和、野中<br />
+<img alt="DSC_1196.jpg" src="images/20130114_908851.jpg" width="427" height="318"/></p>
+<p>日本人選手結果<br />
+公開個人部門(シニア)<br />
+1位　亀井 大輝<br />
+3位　野中 葵</p>
+<p>1ディアボロ固定軸部門<br />
+1位　齋藤 哲範</p>
+<p>2ディアボロ部門<br />
+1位　亀井 大輝<br />
+2位　安部 弘紀<br />
+3位　渡邉 隼人</p>
+<p>3ディアボロ部門<br />
+1位　野中 葵</p>
+<p>1ディアボロベアリング部門<br />
+1位　安部 弘紀<br />
+2位　亀井 大輝<br />
+3位　小林 典史</p>
+<p><img alt="DSC_1201.jpg" src="images/20130114_908864.jpg" width="427" height="318"/></p>
+<p>今後も海外大会の開催情報、結果等をブログ上で伝えていきたいと考えています！</p>
+<p>日本ディアボロ協会　齋藤</p></div>
+        <details class="old-version">
+          <summary>旧ブログ（/JDA_Weblog）の版を見る<span>— 移行時に本文が書き換えられています</span></summary>
+          <div class="post-body"><p>2012年12月22日、23日に</p>
+<p><b>マレーシア国際ディアボロ大会（Diabolo Malaysia Open Competition）</b></p>
+<p>が開かれ、日本ディアボロ協会も審査員及び選手派遣という形で後援しました。<br />
+日本からは9名の選手が参加しました。（浦和、斎藤、野中の3名は審査員を兼任）</p>
+<p>香港や台湾の選手も出場し、また日本ではまだ少ない小学生の演技やチームの演技等、大会は大盛り上がりでした。</p>
+<p><img alt="DSC_1178.jpg" src="images/20130114_908850.jpg" width="427" height="318"/></p>
+<p>審査員をつとめる浦和、野中<br />
+<img alt="DSC_1196.jpg" src="images/20130114_908851.jpg" width="427" height="318"/></p>
+<p>日本人選手結果<br />
+公開個人部門(シニア)<br />
+1位　亀井 大輝<br />
+3位　野中 葵</p>
+<p>1ディアボロ固定軸部門<br />
+1位　齋藤 哲範</p>
+<p>2ディアボロ部門<br />
+1位　亀井 大輝<br />
+2位　安部 弘紀<br />
+3位　渡邉 隼人</p>
+<p>3ディアボロ部門<br />
+1位　野中 葵</p>
+<p>1ディアボロベアリング部門<br />
+1位　安部 弘紀<br />
+2位　亀井 大輝<br />
+3位　小林 典史</p>
+<p><img alt="DSC_1201.jpg" src="images/20130114_908864.jpg" width="427" height="318"/></p>
+<p>今後も海外大会の開催情報、結果等をブログ上で伝えていきたいと考えています！</p>
+<p>日本ディアボロ協会　齋藤</p></div>
+        </details>
+      </article>
+      <article class="post" id="post-wp2_18">
+        <div class="meta">
+          <time datetime="2013-01-25">2013年1月25日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">舞鈴劇場　海洋之心 - OceanHeart</h3>
+        <div class="tags"><span class="tag">その他</span></div>
+        <div class="post-body"><p>全日本ディアボロ競技会も近づいてきておりますが、一つ別の話題をさせていただきたいと思います。<br />
+<div></div><br />
+<div>舞鈴劇場をみなさんは知っているでしょうか。</div><br />
+<div>舞鈴劇場とは台湾で活動しているディアボロの劇団です。</div><br />
+<div>台湾といえば学校の体育の授業でディアボロを取り入れているほどのディアボロ大国で、全ての団員が台湾人です。</div><br />
+<div>ショーのほとんどはディアボロの様々な種類のディアボロやスタイルで行われ、ダンスと融合された演技は必見です。</div><br />
+<div></div><br />
+<div>そして昨年度末から公演を行なっている「海洋之心-OceanHeart」が札幌で2月3日から8日まで行われます。また、2月12日～5月5日まで台湾の台北でも同ショーを行なっております。近辺にお住まいの方、また旅行等で近くに行かれる際は是非ご覧になってはいかがでしょうか。</div><br />
+<div></div><br />
+<div>新作「海洋之心-OceanHeart」は以前にも行なっていたショーであり、今年のものはリメイクとなっているようです。</div><br />
+<div></div><br />
+<div>私は前作「飛行楽園 - EntranceⅡ」を見ましたが非常に美しく、感動する作品でした。最新作「海洋之心-OceanHeart」にも期待したいですね。</div><br />
+<div></div><br />
+<div>「海洋之心-OceanHeart」予告</div><br />
+<div>https://www.youtube.com/watch?v=r-i1rpk0ejQ&amp;list=LLLDygKrvcVFU6YijU6IsgGw</div><br />
+<div></div><br />
+<div></div><br />
+<div>前作「飛行楽園 - EntranceⅡ」</div><br />
+<div>http://www.youtube.com/watch?v=HVV0AdMfwY8&amp;feature=player_embedded</div><br />
+<div></div><br />
+<div></div><br />
+<div></div><br />
+<div>日本ディアボロ協会　浦和</div></p></div>
+      </article>
+      <article class="post" id="post-wp2_15">
+        <div class="meta">
+          <time datetime="2013-01-25">2013年1月25日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">開催部門の追加について</h3>
+        
+        <div class="post-body"><div>2013年度全日本ディアボロ競技会にて、</div>
+<div></div>
+<div>スペシャリストクラス「女子1ディアボロ部門」</div>
+<div></div>
+<div>の開催が決定しました。</div>
+<div></div>
+先日の会議にて「女子1ディアボロ部門があったほうが女性も出場しやすく、平等な審査ができるのではないだろうか」という提案があり、協議の末に「女子1ディアボロ部門」を急遽開催することになりました。
+<div></div>
+<div>水平軸、垂直軸は問いません。詳しくは最新版（2013年1月20日版）の採点規則を御覧ください。</div>
+<div>http://diabolo.jp/PDF/JDA_rule_2013_2.pdf
+<div>
+<div></div>
+<div>すでに1ディアボロ水平軸部門もしくは1ディアボロ垂直軸部門に登録を行われた女性に関しては確認の連絡を直接させて頂きます。</div>
+<div>すでに選手登録を行われた男性はそのままとさせて頂きます。</div>
+<div></div>
+<div>また、スペシャリストクラスの「1ディアボロ足周り部門」と「2ディアボロペアパス部門」は日本ディアボロ協会公認の記録とします。</div>
+</div>
+</div>
+<div></div>
+<div>日本ディアボロ協会　浦和</div></div>
+      </article>
+      <article class="post" id="post-wp2_20">
+        <div class="meta">
+          <time datetime="2013-03-07">2013年3月7日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">新採点規則について</h3>
+        <div class="tags"><span class="tag">その他</span></div>
+        <div class="post-body"><p>新採点規則の変更点において混乱が起きているようなので改めて詳しく書かせていただきます。<br />
+<div></div><br />
+<div>スペシャリストクラスにおいて（オーバーオールクラスについては150秒を6分としてお読みください）</div><br />
+<div></div><br />
+<div>・楽曲(1トラック)が150秒以下の場合、楽曲が終了するまで停止はしません。</div><br />
+<div>・150秒以上の楽曲は150秒で強制停止いたします。</div><br />
+<div>※注  選手は自身の楽曲をフェードアウトもしくはカットしておいてください。</div><br />
+<div>・選手は必ずディアボロの回転を止めた状態から演技を開始しなければならない。</div><br />
+<div>・楽曲を再生しても選手は動き出さなければ演技時間に含みません。(20秒まで)</div><br />
+<div></div><br />
+<div>例）スペシャリストクラスの場合</div><br />
+<div>・演技時間90秒で楽曲を停止してその後、10秒間演技を行った場合　10点の減点かつ10秒間の演技は加点対象にならない。</div><br />
+<div>・演技時間100秒の1トラックを90秒で演技を終了しても楽曲は終了するまで流れ続け、演技構成点の減点対象となる。演技終了前に演技スペースから場外に出ると特別減点対象となります。</div><br />
+<div></div><br />
+<div></div><br />
+<div>演技の開始と終了においてパフォーマンス性を求めるため、またスムーズな運営のために、今回はこのような採点規則としています。ご了承ください。</div></p></div>
+      </article>
+      <article class="post" id="post-wp2_23">
+        <div class="meta">
+          <time datetime="2013-05-06">2013年5月6日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">浜松ヨーヨーコンテスト2013</h3>
+        <div class="tags"><span class="tag">国内その他イベント</span></div>
+        <div class="post-body"><p>2013年4月27日、28日に、<wbr/>日本ディアボロ協会が後援している、</p>
+<p><span>浜松ヨーヨーコンテスト2013</span><br />
+が静岡県浜松市で開催されました。<br />
+浜松ヨーヨーコンテスト2013ホームページ<br />
+<a href="http://hamacon2013.web.fc2.com/">http://hamacon2013.web.fc2.<wbr/>com/</a><br />
+ディアボロ部門結果（PDF）<br />
+<a href="http://hamacon2013.web.fc2.com/pdf/d.pdf">http://hamacon2013.web.fc2.<wbr/>com/pdf/d.pdf</a><br />
+国内のヨーヨーの大会では珍しく、ディアボロ部門が存在し、<wbr/>今年で2回目の開催となりました。<br />
+ディアボロ部門には計17名の選手が出場し、<wbr/>日本ディアボロ協会主催の大会では常連の選手から、ヨーヨープレイヤーまで、幅広い層の選手の顔が見られました。</p>
+<p><img alt="hamacon.jpg" src="images/20130506_1177083.jpg" width="480" height="306"/></p>
+<p>ディアボロ部門のジャッジは、日本ディアボロ協会から齋藤、<wbr/>浦和、野中が務めました。</p>
+<p>日本ディアボロ協会　亀井</p></div>
+      </article>
+      <article class="post" id="post-wp2_25">
+        <div class="meta">
+          <time datetime="2013-06-01">2013年6月1日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">8thPEHCUP(體健盃)</h3>
+        <div class="tags"><span class="tag">国外大会</span></div>
+        <div class="post-body"><p>2013年5月25日、現在世界で最も権威のあるディアボロ大会、PEH(體健盃)が台湾の台北市で開催されました。</p>
+<p>日本からは3名の選手が出場しました。</p>
+<p>公開個人男子部門（16歳以上 31名が出場 10位以上が入賞）<br />
+6位 渡邉隼人選手<br />
+7位 亀井大輝選手<br />
+8位 野中葵選手</p>
+<p>バトル部門<br />
+ホライゾン(vertax) 1位 亀井大輝選手<br />
+1ディアボロ 3位 亀井大輝選手<br />
+2ディアボロ 2位 野中葵選手 同率2位 渡邉隼人選手 3位 亀井大輝選手<br />
+3ディアボロ 1位 野中葵選手</p>
+<p>4ディアボロハイトス部門 2位 野中葵選手</p>
+<p>動画は公開男子個人部門（16歳以上）優勝者の吳啟銘選手です。<br />
+http://www.youtube.com/embed/wlJrYqPxLNU</p>
+<p>15歳以下の青少年個人部門では、5名以上の選手が4ディアボロウィンドミルに挑戦するなど、全体的にレベルの向上が感じられました。<br />
+また、今年からバトル部門が開催され、去年までのプロップとは異なる趣きを見せました。</p>
+<p>日本ディアボロ協会　亀井</p></div>
+        <details class="old-version">
+          <summary>旧ブログ（/JDA_Weblog）の版を見る<span>— 移行時に本文が書き換えられています</span></summary>
+          <div class="post-body"><p>2013年5月25日、現在世界で最も権威のあるディアボロ大会、PEH(體健盃)が台湾の台北市で開催されました。</p>
+<p>日本からは3名の選手が出場しました。</p>
+<p>公開個人男子部門（16歳以上 31名が出場 10位以上が入賞）<br />
+6位 渡邉隼人選手<br />
+7位 亀井大輝選手<br />
+8位 野中葵選手</p>
+<p>バトル部門<br />
+ホライゾン(vertax) 1位 亀井大輝選手<br />
+1ディアボロ 3位 亀井大輝選手<br />
+2ディアボロ 2位 野中葵選手 同率2位 渡邉隼人選手 3位 亀井大輝選手<br />
+3ディアボロ 1位 野中葵選手</p>
+<p>4ディアボロハイトス部門 2位 野中葵選手</p>
+<p>動画は公開男子個人部門（16歳以上）優勝者の吳啟銘選手です。</p>
+<p><a href="http://www.youtube.com/watch?v=wlJrYqPxLNU&amp;amp;feature=player_embedded">http://www.youtube.com/watch?v=wlJrYqPxLNU&amp;feature=player_embedded</a></p>
+<p>15歳以下の青少年個人部門では、5名以上の選手が4ディアボロウィンドミルに挑戦するなど、全体的にレベルの向上が感じられました。<br />
+また、今年からバトル部門が開催され、去年までのプロップとは異なる趣きを見せました。</p>
+<p>日本ディアボロ協会　亀井</p></div>
+        </details>
+      </article>
+      <article class="post" id="post-wp2_27">
+        <div class="meta">
+          <time datetime="2013-06-06">2013年6月6日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">東京国際ディアボロ競技会2013決定事項</h3>
+        <div class="tags"><span class="tag">東京国際ディアボロ競技会</span></div>
+        <div class="post-body"><p>昨年行った東京国際ディアボロ競技会を本年度の開催が決定しました。</p>
+<p>それに伴い変更点等の決定事項がいくつかございますのでここに報告させて頂きます。<br />
+<div></div><br />
+<div>・日程・会場について</div><br />
+<div>日程：2013年8月15日,16日(17日は現在交渉中) (※訂正)<br />
+会場：東京都文京区江戸川橋体育館競技場</div><br />
+<div></div><br />
+<div>・採点規則(オーバーオールクラス)の変更について</div><br />
+<div>新設部門：男子個人ジュニア部門(男子15歳以下)</div><br />
+<div>※16歳以上は男子個人部門となります。</div><br />
+<div></div><br />
+<div>基礎点の項の変更：女子個人部門及び男子個人ジュニア部門の2部門の基礎点において以下4要素のうち3要素の実施で満点とする。</div><br />
+<div>(1項目実施で10点、2項目実施で15点、3項目実施で20点、4項目実施で20点)</div><br />
+<div>・1ディアボロ水平軸</div><br />
+<div>・1ディアボロ垂直軸</div><br />
+<div>・2ディアボロ</div><br />
+<div>・3ディアボロ以上</div><br />
+<div>※男子個人部門は変更ありません(すべての要素を実施して満点)。</div><br />
+<div></div><br />
+<div>以上。</div><br />
+<div></div><br />
+<div>以下補足。</div><br />
+<div>基礎点の各要素の実施が完了したか否かの判断基準は変更予定です。</div><br />
+<div>ウェブサイトは近日更新予定です。</div><br />
+<div></div><br />
+<div>決まり次第改めて連絡いたします。</div><br />
+<div><br />
+<div>その他詳細も後日決定次第随時報告予定です。</div><br />
+<div></div><br />
+<div>本年度も海外選手からの問い合わせが多く、たくさんの選手の出場が期待されています。</div><br />
+<div>皆様の出場及びご来場をお待ちしております。</div><br />
+<div></div><br />
+<div>よろしくお願いします。</div><br />
+<div></div><br />
+<div>東京国際ディアボロ競技会ウェブサイト</div><br />
+<div>URL: http://diabolo.jp/TIDC/</div><br />
+<div></div><br />
+<div></div><br />
+<div>日本ディアボロ協会　浦和</div><br />
+</div></p></div>
+        <details class="old-version">
+          <summary>旧ブログ（/JDA_Weblog）の版を見る<span>— 移行時に本文が書き換えられています</span></summary>
+          <div class="post-body"><p>昨年行った東京国際ディアボロ競技会を本年度の開催が決定しました。<br />
+<div>それに伴い変更点等の決定事項がいくつかございますのでここに報告させて頂きます。</div><br />
+<div></div><br />
+<div>・日程・会場について</div><br />
+<div>日程：2013年8月15日,16日(17日は現在交渉中) (※訂正)<br />
+会場：東京都文京区江戸川橋体育館競技場</div><br />
+<div></div><br />
+<div>・採点規則(オーバーオールクラス)の変更について</div><br />
+<div>新設部門：男子個人ジュニア部門(男子15歳以下)</div><br />
+<div>※16歳以上は男子個人部門となります。</div><br />
+<div></div><br />
+<div>基礎点の項の変更：女子個人部門及び男子個人ジュニア部門の2部門の基礎点において以下4要素のうち3要素の実施で満点とする。</div><br />
+<div>(1項目実施で10点、2項目実施で15点、3項目実施で20点、4項目実施で20点)</div><br />
+<div>・1ディアボロ水平軸</div><br />
+<div>・1ディアボロ垂直軸</div><br />
+<div>・2ディアボロ</div><br />
+<div>・3ディアボロ以上</div><br />
+<div>※男子個人部門は変更ありません(すべての要素を実施して満点)。</div><br />
+<div></div><br />
+<div>以上。</div><br />
+<div></div><br />
+<div>以下補足。</div><br />
+<div>基礎点の各要素の実施が完了したか否かの判断基準は変更予定です。</div><br />
+<div>ウェブサイトは近日更新予定です。</div><br />
+<div></div><br />
+<div>決まり次第改めて連絡いたします。</div><br />
+<div><br />
+<div>その他詳細も後日決定次第随時報告予定です。</div><br />
+<div></div><br />
+<div>本年度も海外選手からの問い合わせが多く、たくさんの選手の出場が期待されています。</div><br />
+<div>皆様の出場及びご来場をお待ちしております。</div><br />
+<div></div><br />
+<div>よろしくお願いします。</div><br />
+<div></div><br />
+<div>東京国際ディアボロ競技会ウェブサイト</div><br />
+<div>URL: http://diabolo.jp/TIDC/</div><br />
+<div></div><br />
+<div></div><br />
+<div>日本ディアボロ協会　浦和</div><br />
+</div></p></div>
+        </details>
+      </article>
+      <article class="post" id="post-wp2_30">
+        <div class="meta">
+          <time datetime="2013-06-25">2013年6月25日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">東京国際ディアボロ競技会2013決定事項 その2</h3>
+        <div class="tags"><span class="tag">東京国際ディアボロ競技会</span></div>
+        <div class="post-body"><div>蒸し暑く、練習が辛い時期がやって参りました。みなさま水分補給は怠らず体調管理をしてディアボロを楽しみましょう。</div>
+<div></div>
+<div>さて、8月におこなわれる東京国際ディアボロ競技会2013にも海外選手から連絡をいただき、沢山の参加者が来られることが濃厚です。</div>
+<div></div>
+先日行われた会議にて決まった新たな事項を報告させていただきます。
+<div></div>
+<div>東京国際ディアボロ競技会2013</div>
+<div>・日程・会場について
+<div>日程：2013年8月15日、16日、17日
+会場：東京都文京区江戸川橋体育館競技場（15日、16日）</div>
+</div>
+<div></div>
+<div>・採点規則について</div>
+<div>2013年6月22日 第3版 が公開されました。</div>
+<div></div>
+<div>主な変更点は以下の通りです。</div>
+<div></div>
+<div>・1.1項  オーバーオールクラスに男子個人総合ジュニア部門の新設。またそれに伴う男子個人総合部門の年齢制限。</div>
+<div></div>
+<div>・1.6.1項　基礎点の項目において2つの条件を満たしたときに要素を満たしたと判断する。（技の定義も必ずご確認ください）</div>
+<div>（備考）</div>
+<div>技と認める動きの例</div>
+<div>・3ディアボロウィンドミル</div>
+<div>・ストールに入るためのサンや1up</div>
+<div>・3次元的動き</div>
+<div>技と認めない動きの例</div>
+<div>・ストール（利用している全てのディアボロの位置は移動していない）</div>
+<div>・ホバー加速（利用している全てのディアボロの位置は移動していない）</div>
+<div></div>
+<div>・1.6.2項 男子個人総合ジュニア部門及び女子個人総合部門の配点変更。</div>
+<div>（備考）</div>
+<div>技の習得が早い時期に多彩な技、および安定した実施を評価するために、男子個人総合ジュニア部門多彩性度点および操作安定度点の配点を高くした。</div>
+<div>現段階での女子ディアボロ選手の技術を考慮し、女子個人総合部門の基礎点は3要素で満点とした。ただし4要素を行えば、もちろん多彩性は評価される。また、エンターテイメント性を重視し、演技構成点の配点を高くした。</div>
+<div></div>
+<div></div>
+<div>その他、所々変更点がありますので選手の皆様は必ず以下より採点規則を熟読してください。</div>
+<div>http://diabolo.jp/rule.html</div>
+<div></div>
+<div></div>
+<div></div>
+<div>日本ディアボロ協会　浦和</div></div>
+      </article>
+      <article class="post" id="post-wp1_2">
+        <div class="meta">
+          <time datetime="2013-06-27">2013年6月27日</time>
+          <span class="origin">/JDA_Weblog</span><span class="badge">固定ページ</span>
+        </div>
+        <h3 class="post-title">協会について</h3>
+        
+        <div class="post-body"><p>日本ディアボロ協会は、国内を中心としたディアボロの普及、発展をはかり、並びに国際交流を行うことを目的とします。</p>
+<p>また、この目的を達成するべく、以下の活動を行います。<br />
+(1) ディアボロの競技会、講習会等のイベント開催・後援<br />
+(2) ディアボロの選手、審査員、パフォーマー等の育成・支援<br />
+(3) ディアボロの技、動きおよび競技規則等の制定<br />
+(4) ディアボロに関連する印刷物、教本、ビデオ等の企画・作成・監修<br />
+(5) その他上記目的を達成するべく必要な活動</p>
+<p>該当ウェブサイト及び日本ディアボロ協会が主催するイベントは右サイドバーのリンクより御覧ください。</p></div>
+      </article>
+      <article class="post" id="post-wp2_32">
+        <div class="meta">
+          <time datetime="2013-07-08">2013年7月8日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">ブログを移行しました</h3>
+        <div class="tags"><span class="tag">その他</span></div>
+        <div class="post-body"><p>&nbsp;</p>
+<p>諸事情によりブログが移行されました。</p>
+<p>過去の投稿は全てこちらに移行されます。</p>
+<p>よろしくお願いいたします。</p>
+<p>&nbsp;</p>
+<p>さて、東京国際ディアボロ競技会2013まで残り約1ヶ月と差し迫ってきました。</p>
+<p>選手登録は7月19日金曜日24:00までとなっております。お気をつけください。</p>
+<p>&nbsp;</p>
+<p>日本ディアボロ協会　浦和</p></div>
+      </article>
+      <article class="post" id="post-wp2_48">
+        <div class="meta">
+          <time datetime="2013-10-01">2013年10月1日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">日本ディアボロ協会の野中葵がJJF2013チャンピオンシップ男子個人部門予選通過</h3>
+        
+        <div class="post-body"><p>日本ディアボロ協会の野中葵がJJF2013のチャンピオンシップ男子個人部門の映像予選を通過しました。</p>
+<p>JJF2013 in Shizuoka</p>
+<p><a href="http://www.juggling.jp/jjf/jjf2013/jp/">http://www.juggling.jp/jjf/jjf2013/jp/</a></p>
+<p>Japan Juggling Festival ( JJF ) とは日本ジャグリング協会主催による日本最大のジャグリングのコンベンションです。</p>
+<p>チャンピオンシップ決勝は10月12日～14日の3日間の日程のうちの初日、10月12日(土)に開催されます。</p>
+<p>野中葵といえば2ディアボロ・3ディアボロの独創的かつ高難度な技の数々で有名なディアボロプレイヤーです。</p>
+<p>彼のJJFチャンピオンシップでの活躍に日本中のディアボロプレイヤーの期待が高まっています。</p>
+<p>&nbsp;</p>
+<p>日本ディアボロ協会　亀井</p></div>
+      </article>
+      <article class="post" id="post-wp2_52">
+        <div class="meta">
+          <time datetime="2013-11-11">2013年11月11日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">日本ディアボロ協会公認ディアボロ検定について</h3>
+        <div class="tags"><span class="tag">その他</span></div>
+        <div class="post-body"><p>皆様、ディアボロを楽しんでおられるでしょうか。あっという間に涼しくなり、練習をしやすい時期となりました。存分に練習しましょう。</p>
+<p>さて、日本ディアボロ協会では、以前より企画案にあった、ディアボロ検定を10月より始動しました。</p>
+<p>ディアボロの普及およびプレイヤーの目標となることを趣旨としています。5段階の等級、5級(グリーン)、4級(ブルー)、3級(ブロンズ)、2級(シルバー)、1級(ゴールド)を用意しており、1級を獲得し暁には一人前といえるような検定とする予定です。</p>
+<p>皆様ふるって受験していただきたいと思います。</p>
+<p>合格者には合格証書(希望者)が授与されます。<br />
+検定は日本ディアボロ協会の主催イベントおよび、後援イベント等で行われ、その有無は事前にホームページ、twitter等で告知されます。</p>
+<p>&nbsp;</p>
+<p>日本ディアボロ協会　浦和</p></div>
+      </article>
+      <h2 class="year" id="y2014">2014<span class="year-suffix">年</span></h2>
+      <article class="post" id="post-wp2_61">
+        <div class="meta">
+          <time datetime="2014-01-27">2014年1月27日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">全日本ディアボロ選手権のお知らせ</h3>
+        <div class="tags"><span class="tag">全日本ディアボロ選手権大会</span></div>
+        <div class="post-body"><p>遅まきながら 皆様、新年あけましておめでとうございます。</p>
+<p>本年も日本ディアボロ協会一同、力の限り尽くしたいと思いますゆえ、よろしくお願いいたします。</p>
+<p>2014年 第三回全日本ディアボロ選手権大会の日程および選手登録期間が発表されました。下記ウェブサイトよりご確認ください。</p>
+<p>http://diabolo.jp/alljapan/</p>
+<p>また、本大会より演技順について「オーダーポイント制」を導入することが決定いたしました。オーダーポイント制度は過去の大会の成績を選手の演技順に反映させる制度です。</p>
+<p>日本ディアボロ協会では選手の皆様・お客様により競技をお楽しみいただけるよう様々な試みを行っております。</p>
+<p>詳細はディアボロ競技採点規則 第4版 よりご確認ください。</p>
+<p>http://www.diabolo.jp/rule.html</p>
+<p>日本ディアボロ協会　浦和</p></div>
+      </article>
+      <article class="post" id="post-wp2_66">
+        <div class="meta">
+          <time datetime="2014-04-24">2014年4月24日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">第一回ディアボロアジアカップ</h3>
+        <div class="tags"><span class="tag">国外大会</span></div>
+        <div class="post-body"><p>2014年4月19日、20日に</p>
+<p>第九回體健盃(PEH CUP) 兼 第一回ディアボロアジアカップ</p>
+<p>が台湾の台北市で開催されました。</p>
+<p>日本からは11名の選手が出場しました。<br />
+本大会ではシード権を持つ選手及びビデオ予選を通過した選手によって順位が競われ、前年にも増して激しい戦いとなりました。</p>
+<p>日本人選手結果<br />
+【1ディアボロ部門】<br />
+1位 亀井大輝<br />
+2位 高野勝<br />
+4位 鳥居大幹<br />
+5位 渡邊隼人<br />
+6位 青木直哉<br />
+7位 鳥居岳史</p>
+<p>【2ディアボロ部門】<br />
+1位 野中葵<br />
+3位 渡邊隼人<br />
+5位 鳥居岳史<br />
+7位 亀井大輝<br />
+8位 鳥居大幹</p>
+<p>【3ディアボロバトル部門】<br />
+2位 野中葵</p>
+<p>【4ディアボロハイトス耐久部門】<br />
+3位 齋藤哲範</p>
+<p>【ジュニア男子個人総合部門】<br />
+6位 鳥居大幹</p>
+<p>【男子個人総合部門】<br />
+2位 渡邊隼人<br />
+4位 青木直哉<br />
+5位 齋藤哲範<br />
+10位 亀井大輝<br />
+日本ディアボロ協会　野中</p></div>
+      </article>
+      <article class="post" id="post-wp2_70">
+        <div class="meta">
+          <time datetime="2014-06-01">2014年6月1日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">第三回MOYOSTAGE</h3>
+        <div class="tags"><span class="tag">国外大会</span></div>
+        <div class="post-body"><p>2014年5月24日、25日に</p>
+<p>第三回MOYOSTAGE</p>
+<p>が台湾の最南端、高雄市で開催され、日本からは10名の選手が出場しました。</p>
+<p>MOYOSTAGE2014ホームページ</p>
+<p><a href="http://2014moyostage.blogspot.jp/">http://2014moyostage.blogspot.jp/</a></p>
+<p>MOYOSTAGEはディアボロとヨーヨーの国際大会として2012年に始まり、今年で三回目の開催となりました。本大会では従来の大会とは異なった、クリッカーを用いた採点方式が取り入れられました。<br />
+【1ディアボロ部門】<br />
+1位 齋藤哲範<br />
+4位 磯部拓海<br />
+5位 亀井大輝<br />
+6位 宮澤海輝<br />
+7位 工藤正景</p>
+<p>【2ディアボロ部門】<br />
+2位 野中葵<br />
+6位 工藤正景<br />
+9位 富田輝</p>
+<p>【3ディアボロ部門】<br />
+1位 野中葵</p>
+<p>【vertax（垂直軸）部門】<br />
+1位 亀井大輝<br />
+3位 工藤正景<br />
+5位 富田輝</p>
+<p>【男子個人総合（All Diabolo）部門】<br />
+2位 亀井大輝<br />
+3位 齋藤哲範<br />
+4位 野中葵<br />
+12位 工藤正景</p>
+<p>【女子個人総合（All Diabolo）部門】<br />
+3位 田中玲衣</p>
+<p>【団体部門】<br />
+3位 TATA-BOX (田中玲衣、田久晶子)</p>
+<p>&nbsp;</p>
+<p>動画は男子個人総合部門優勝者の鄭湧蒼選手です。</p>
+<p><a href="https://www.youtube.com/watch?v=gYGawJPhpuM">https://www.youtube.com/watch?v=gYGawJPhpuM</a></p>
+<p>&nbsp;<br />
+日本ディアボロ協会　野中</p>
+<p>&nbsp;</p></div>
+      </article>
+      <article class="post" id="post-wp2_72">
+        <div class="meta">
+          <time datetime="2014-06-13">2014年6月13日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">東京国際ディアボロ競技会2014 開催のお知らせ</h3>
+        <div class="tags"><span class="tag">東京国際ディアボロ競技会</span></div>
+        <div class="post-body"><p>本年度も東京国際ディアボロ競技会2014を開催致します。</p>
+<p>名称：東京国際ディアボロ競技会2014<br />
+日程：2014年8月12〜15日<br />
+会場：文京江戸川橋体育館競技場(12日〜14日)<br />
+BumB 東京スポーツ文化館競技場(15日)<br />
+主催：日本ディアボロ協会<br />
+協賛・後援：未定</p>
+<p>選手登録期間：2014年6月13日 0:00〜2014年7月12日 24:00</p>
+<p>概要及び暫定スケジュールは<a href="http://diabolo.jp/TIDC/next.html">こちら</a>からご確認ください。<br />
+決定事項はホームページに順次更新していきますので、逐次ご確認ください。</p>
+<p>○出場を希望される方は、概要をよくお読みの上、<a href="http://diabolo.jp/TIDC/registration.html">こちら</a>から選手登録をおこなってください。</p>
+<p>本年度も海外選手からの問い合わせが多く、昨年よりもさらに多くの選手の出場が期待されています。</p>
+<p>皆様の出場及びご来場を心よりお待ちしております。</p>
+<p>東京国際ディアボロ競技会ウェブサイト<br />
+URL: http://diabolo.jp/TIDC/</p>
+<p>日本ディアボロ協会　野中</p></div>
+      </article>
+      <h2 class="year" id="y2015">2015<span class="year-suffix">年</span></h2>
+      <article class="post" id="post-wp2_77">
+        <div class="meta">
+          <time datetime="2015-01-25">2015年1月25日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">ディアボロ競技採点規則改定のお知らせ</h3>
+        <div class="tags"><span class="tag">その他</span></div>
+        <div class="post-body"><p>本日2015年1月25日、最新版のディアボロ競技採点規則(第5版)を発行致しました。</p>
+<p>主な変更点は以下の通りです。</p>
+<p>・<em><span>1.1.項 オーバーオールクラスに高校生男子個人総合部門、女子個人総合ジュニア部門を新設。またそれに伴う男子個人総合ジュニア部門、女子個人総合部門の出場資格の変更。</span></em></p>
+<p>18歳以下の男子高校生は男子個人総合部門、高校生男子個人総合部門への出場資格があり、出場部門を選択することが可能です。</p>
+<p>なお、同一人物が男子個人総合部門、高校生男子個人総合部門両部門へ出場することはできませんのでご注意ください。</p>
+<p>また、女子個人総合ジュニア部門の新設により、女子選手はそれぞれ年齢により16歳以上は女子個人総合部門、15歳以下は女子個人総合ジュニア部門へ出場することが可能となります。</p>
+<p>&nbsp;</p>
+<p>・<em><span>2.1.項 スペシャリストクラスにおいて男子1ディアボロ水平軸部門を廃止、男子1ディアボロ水平(固定)軸部門、男子1ディアボロ水平(ベアリング)軸部門を新設。</span></em></p>
+<p>従来の男子1ディアボロ水平軸部門を使用ディアボロにより2つの部門に分割致しました。男子1ディアボロ水平(固定)軸部門では固定軸のディアボロのみを、男子1ディアボロ水平(ベアリング)軸部門ではベアリング軸のディアボロのみを使用可能となります。</p>
+<p>&nbsp;</p>
+<p>・<em><span>3.1.項 チャレンジクラスに男子1ディアボロ縄跳び部門、女子1ディアボロ縄跳び部門を新設。<br />
+</span></em></p>
+<p>東京国際ディアボロ競技会2014で試験的に実施した1ディアボロ縄跳び部門を新設致しました。詳細ルールはディアボロ競技採点規則をご確認ください。</p>
+<p>&nbsp;</p>
+<p>その他細かい変更点がございますので選手の皆様は必ず<a href="http://diabolo.jp/PDF/JDA_rule_2015_5.pdf">最新版採点規則</a>をご熟読ください。</p>
+<p>日本ディアボロ協会　野中</p></div>
+      </article>
+      <article class="post" id="post-wp2_80">
+        <div class="meta">
+          <time datetime="2015-01-25">2015年1月25日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">第四回全日本ディアボロ選手権大会開催のお知らせ</h3>
+        <div class="tags"><span class="tag">全日本ディアボロ選手権大会</span></div>
+        <div class="post-body"><p>本年度も第四回全日本ディアボロ選手権大会を開催致します。</p>
+<p>名称：第四回全日本ディアボロ選手権大会</p>
+<p>日程：2015年3月(29日)30日～31日</p>
+<p>会場：江戸川橋体育館 競技場</p>
+<p>主催：日本ディアボロ協会</p>
+<p>協賛・後援：未定</p>
+<p>選手登録期間：2015年1月30日 0:00～2015年2月28日 23:59</p>
+<p>概要は<a href="http://diabolo.jp/alljapan/next_competition.html">こちら</a>からご確認ください。</p>
+<p>○出場を希望される方は、概要をよくお読みの上、<a href="http://diabolo.jp/alljapan/registration.html">こちら</a>から選手登録をおこなってください。</p>
+<p>◯採点規則は2015年1月25日発行の第5版を採用しますので、出場をご検討の選手は必ずご確認ください。</p>
+<p>皆様の出場及びご来場を心よりお待ちしております。</p>
+<p>全日本ディアボロ選手権大会ウェブサイト</p>
+<p>URL: <a href="http://diabolo.jp/alljapan/">http://diabolo.jp/alljapan/</a></p>
+<p>日本ディアボロ協会　野中</p></div>
+      </article>
+      <article class="post" id="post-wp2_87">
+        <div class="meta">
+          <time datetime="2015-05-30">2015年5月30日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">【結果報告】第二回ディアボロアジアカップ</h3>
+        <div class="tags"><span class="tag">国外大会</span></div>
+        <div class="post-body"><p>2015年5月23日、24日に<br />
+「第十回體健盃(PEH CUP) 兼 第二回ディアボロアジアカップ」<br />
+が台湾の台北市にて開催されました。</p>
+<p>日本からはシード権を持つ選手、ビデオ予選を突破した選手合わせて18名の選手が出場しました。</p>
+<p>以下日本人選手の結果です。</p>
+<p>【男子個人総合部門】<br />
+4位 齋藤哲範<br />
+5位 野中葵<br />
+6位 渡邊隼人<br />
+8位 亀井大輝</p>
+<p>【女子個人総合部門】<br />
+4位 須田恵梨華</p>
+<p>【男子青少年個人部門】<br />
+6位 鳥居大幹<br />
+7位 鳥居岳史</p>
+<p>【1ディアボロ固定軸部門】<br />
+1位 大屋幸長<br />
+5位 齋藤哲範<br />
+7位 渡辺英也</p>
+<p>【1ディアボロベアリング軸部門】<br />
+1位 亀井大輝<br />
+2位 富田亮平<br />
+3位 山田純<br />
+5位 渡邊隼人<br />
+6位 高野勝<br />
+7位 安部弘紀<br />
+9位 田中友康</p>
+<p>【2ディアボロ固定軸部門】<br />
+2位 田中友康<br />
+3位 田多加津輝<br />
+4位 野中葵</p>
+<p>【2ディアボロベアリング軸部門】<br />
+3位 田中俊<br />
+4位 亀井大輝<br />
+6位 渡邊隼人<br />
+8位 安部弘紀<br />
+10位 鳥居大幹</p>
+<p>【3ディアボロバトル部門】<br />
+10位 野中葵</p>
+<p>【4ディアボロハイトス部門】<br />
+4位 齋藤哲範<br />
+5位 野中葵</p>
+<p>動画は1ディアボロベアリング部門優勝者の亀井大輝選手です。<br />
+https://www.youtube.com/watch?v=4fb-nQJpsYQ</p>
+<p>日本ディアボロ協会 野中</p></div>
+      </article>
+      <article class="post" id="post-wp2_94">
+        <div class="meta">
+          <time datetime="2015-06-14">2015年6月14日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">東京国際ディアボロ競技会2015開催のお知らせ</h3>
+        <div class="tags"><span class="tag">東京国際ディアボロ競技会</span></div>
+        <div class="post-body"><p>本年度も東京国際ディアボロ競技会2015を開催致します。</p>
+<p>名称：東京国際ディアボロ競技会2015</p>
+<p>日程：2015年8月7日～11日</p>
+<p>会場：江戸川橋体育館 競技場</p>
+<p>主催：日本ディアボロ協会</p>
+<p>協賛・後援：未定</p>
+<p>選手登録期間：2015年6月16日 0:00～2015年7月7日 23:59</p>
+<p>概要は<a href="http://diabolo.jp/TIDC/next.html">こちら</a>からご確認ください。</p>
+<p>○出場を希望される方は、概要をよくお読みの上、<a href="http://diabolo.jp/TIDC/registration.html">こちら</a>から選手登録をおこなってください。</p>
+<p>◯採点規則は2015年1月25日発行の第5版を採用しますので、出場をご検討の選手は必ずご確認ください。</p>
+<p>皆様の出場及びご来場を心よりお待ちしております。</p>
+<p>東京国際ディアボロ競技会ウェブサイト</p>
+<p>URL: <a href="http://diabolo.jp/TIDC/index.html">http://diabolo.jp/TIDC/index.html</a></p>
+<p>日本ディアボロ協会　野中</p></div>
+      </article>
+      <h2 class="year" id="y2016">2016<span class="year-suffix">年</span></h2>
+      <article class="post" id="post-wp2_100">
+        <div class="meta">
+          <time datetime="2016-02-06">2016年2月6日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">ディアボロ競技採点規則(第六版)発行のお知らせ</h3>
+        <div class="tags"><span class="tag">その他</span></div>
+        <div class="post-body"><p>本日2016年2月6日、最新版のディアボロ競技採点規則(第六版)を発行致しました。</p>
+<p>主な変更点は以下の通りです。</p>
+<p>・<em><span>2.1.項 スペシャリストクラスにおいて2ディアボロ部門を廃止、2ディアボロ(固定)部門、2ディアボロ(ベアリング)部門を新設。</span></em></p>
+<p>従来の2ディアボロ部門を使用ディアボロにより2つの部門に分割致しました。2ディアボロ(固定)部門では固定軸のディアボロのみを、2ディアボロ(ベアリング)部門ではベアリング軸のディアボロのみを使用可能となります。</p>
+<p>また、それに伴い他部門の名称変更を行いました。</p>
+<p>男子1ディアボロ水平(固定)軸部門→<strong>男子1ディアボロ水平軸(固定)部門</strong></p>
+<p>男子1ディアボロ水平(ベアリング)軸部門→<strong>男子1ディアボロ水平軸(ベアリング)部門</strong></p>
+<p>&nbsp;</p>
+<p>その他細かい変更点がございますので選手の皆様は必ず<a href="http://diabolo.jp/PDF/JDA_rule_2016_6.pdf">最新版採点規則</a>をご熟読ください。</p>
+<p>&nbsp;</p>
+<p>日本ディアボロ協会　野中</p></div>
+      </article>
+      <article class="post" id="post-wp2_102">
+        <div class="meta">
+          <time datetime="2016-02-06">2016年2月6日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">第五回全日本ディアボロ選手権大会開催のお知らせ</h3>
+        <div class="tags"><span class="tag">全日本ディアボロ選手権大会</span></div>
+        <div class="post-body"><p>本年度も第五回全日本ディアボロ選手権大会を開催致します。</p>
+<p>&nbsp;</p>
+<p>名称：第五回全日本ディアボロ選手権大会</p>
+<p>日程：2016年3月29日(火)～31日(木)</p>
+<p>会場：江戸川橋体育館競技場(29〜30日)、文京スポーツセンター競技場(31日)</p>
+<p>主催：一般社団法人日本ディアボロ協会</p>
+<p>協賛・後援：未定</p>
+<p>選手登録期間：2016年2月10日 0:00～2016年2月29日 23:59</p>
+<p>&nbsp;</p>
+<p>概要は<a href="http://diabolo.jp/alljapan/next_competition.html">こちら</a>からご確認ください。</p>
+<p>◯出場を希望される方は、概要をよくお読みの上、<a href="http://diabolo.jp/alljapan/registration.html">こちら</a>から選手登録をおこなってください。</p>
+<p>◯本大会では出場費用を申込期間により2段階に分けております。お早めの申込にご協力ください。</p>
+<p><span>◯競技採点規則は2016年2月6日発行の第六版を採用します。出場をご検討の選手は必ずご確認ください。</span></p>
+<p><a href="http://diabolo.jp/PDF/JDA_rule_2016_6.pdf">競技採点規則(第六版)</a></p>
+<p>皆様の出場及びご来場を心よりお待ちしております。</p>
+<p>全日本ディアボロ選手権大会ウェブサイト<a href="http://diabolo.jp/alljapan/">http://diabolo.jp/alljapan/</a></p>
+<p>&nbsp;</p>
+<p>日本ディアボロ協会　野中</p></div>
+      </article>
+      <article class="post" id="post-wp2_110">
+        <div class="meta">
+          <time datetime="2016-06-17">2016年6月17日</time>
+          <span class="origin">/Weblog</span>
+        </div>
+        <h3 class="post-title">東京国際ディアボロ競技会2016開催のお知らせ</h3>
+        <div class="tags"><span class="tag">JDA主催イベント</span><span class="tag">東京国際ディアボロ競技会</span></div>
+        <div class="post-body"><p>本年度も東京国際ディアボロ競技会2016を開催致します。</p>
+<p>名称：東京国際ディアボロ競技会2016</p>
+<p>日程：2016年8月12日～16日</p>
+<p>会場：江戸川橋体育館競技場</p>
+<p>主催：一般社団法人日本ディアボロ協会</p>
+<p>協賛・後援：未定</p>
+<p>選手登録期間：2016年6月18日 0:00～2016年7月11日 23:59</p>
+<p>概要は<a href="http://diabolo.jp/TIDC/pdf/TIDC2016_outline_jpn.pdf">こちら</a>からご確認ください。</p>
+<p>○出場を希望される方は、概要をよくお読みの上、<a href="http://diabolo.jp/TIDC/jp/registration.html">こちら</a>から選手登録をおこなってください。</p>
+<p>◯採点規則は2016年2月6日発行の第六版を採用しますので、出場をご検討の選手は必ずご確認ください。</p>
+<p>ただし、本競技会では以下の点で変更があります。</p>
+<p>① 1.1.6. 団体部門の項について、二名による演技をペア部門、三名から十二名に よる演技を団体部門とする。配点についてはいずれも1.7.2.5. 項に従う。</p>
+<p>皆様の出場及びご来場を心よりお待ちしております。</p>
+<p>東京国際ディアボロ競技会ウェブサイト</p>
+<p>URL : <a href="http://diabolo.jp/TIDC/jp/index.html">http://diabolo.jp/TIDC/jp/index.html</a></p>
+<p>日本ディアボロ協会　野中</p></div>
+      </article>
+      <section class="notes">
+        <h2>このアーカイブについて</h2>
+        <h3>出典</h3>
+        <ul>
+          <li>データベース <code>LAA0217648-test</code> の全体エクスポート（2026年9月6日 01:13 取得）に含まれる
+              <code>wp1_posts</code>・<code>wp2_posts</code> ほかのテーブル。</li>
+          <li>公開状態（<code>publish</code>）の投稿と固定ページだけを収録し、下書き・ゴミ箱・リビジョンは除いた。</li>
+        </ul>
+        <h3>2つのブログの関係（確認済みの事実）</h3>
+        <ul>
+          <li><code>/JDA_Weblog</code>（<code>wp1_</code>／「日本ディアボロ協会公式ブログ」）が最初のブログ。</li>
+          <li>2013年7月8日の記事「ブログを移行しました」により <code>/Weblog</code>（<code>wp2_</code>）へ移り、
+              過去記事も日付を保ったまま取り込まれた。以後2016年6月まで更新されている。</li>
+          <li>移行時に本文が書き直された記事があるため、差分がある場合は旧版も各記事内に併記した。</li>
+        </ul>
+        <h3>画像の状態</h3>
+        <p>本文が参照していた画像は、元のURLではすべて消失していた（404もしくは配信停止）。
+        Wayback Machine に残っていたものを取得して <code>images/</code> に保存し、本文の参照先を差し替えている。</p>
+        <table>
+          <tr><td><code>http://img.blog.diabolo.jp/20130114_908850.jpg</code></td><td>Wayback Machineから復元</td></tr>
+          <tr><td><code>http://img.blog.diabolo.jp/20130114_908851.jpg</code></td><td>Wayback Machineから復元</td></tr>
+          <tr><td><code>http://img.blog.diabolo.jp/20130114_908864.jpg</code></td><td>Wayback Machineから復元</td></tr>
+          <tr><td><code>http://japandiabolo.img.jugem.jp/20130506_1177083.jpg</code></td><td>Wayback Machineから復元</td></tr>
+        </table>
+        <h3>表示のために加えた処理</h3>
+        <ul>
+          <li>本文は実際に使われていたタグ（<code>a, b, div, em, img, span, strong, wbr</code>）だけを通し、
+              <code>style</code> 属性と未知のタグは除いた。内容の文字は変えていない。</li>
+          <li>WordPress と同じく、空行を段落・単独改行を改行タグとして表示している。</li>
+        </ul>
+        <h3>未解決の注意点</h3>
+        <ul>
+          <li><code>wp2_users</code> に <code>wp.service.controller.LNook</code> ・
+              <code>wp.service.controller.AzORp</code> という管理者権限のアカウントが2つある。
+              メールアドレスが空、登録日時が <code>0000-00-00</code> で、通常の作成手順では生まれない。
+              <strong>このブログが第三者に侵入されていた可能性が高い（未確定）。</strong>
+              稼働中の <code>/AJDC/</code>・<code>/OIDC/</code> には同種のアカウントは無いことを確認済み。</li>
+          <li>記事本文には外部への不審なリンクは含まれていなかった（全リンクの宛先を確認済み）。</li>
+        </ul>
+      </section>
+      <footer>
+        <p>このファイルはローカル確認用です。本番サイトへは公開されません。
+        機械可読の正本データは同じフォルダの <code>posts.json</code>、生成手順は
+        <code>scripts/build_blog_archive.py</code>。</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>
