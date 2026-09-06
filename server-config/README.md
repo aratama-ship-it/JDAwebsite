@@ -17,6 +17,20 @@
 - Cyberduckでは同期や一括削除を使わず、承認された列挙ファイルだけをアップロードする。
 - `.htaccess` の新設・変更は、通常ページの公開とは分けた専用作業として本人の明示承認後に行う。
 
+## 正規URL統一の提案（2026-09-06 作成・未適用）
+
+`proposals/canonical-host.conf` は、http/https × www有無 の4通りで開ける状態を
+`https://diabolo.jp/` の1通りへ寄せるための `.htaccess` 案。**そのままアップロードしない。**
+承認後に `.htaccess` という名前で公開ルートへ設置する。
+
+- 正規は **www無し**でなければならない。`/AJDC/`(wp4_)・`/OIDC/`(wp3_) の WordPress は
+  `siteurl`/`home` が `https://diabolo.jp` にDB側で固定されており、www へ寄せると無限ループになる。
+- ホスト判定は**許可リスト方式**。`judgearchive.diabolo.jp` の公開フォルダはアカウント直下の
+  `/judgearchive/` にあり、除外リスト方式で書くとサブドメインが巻き込まれて壊れる。
+- 初回は `R=302` で出し、検証後に `R=301` へ切り替える（301はブラウザに残るため巻き戻せない）。
+- 検証: `python3 scripts/verify_canonical_host.py`（適用前の実測は `measurements/before.json`）
+- 判断用の資料: `web-projects/_reviews/2026-09-06_canonical-host/index.html`
+
 ## 将来のクリーンURL切替案
 
 `proposals/clean-url-cutover.conf` は、以前プロジェクトルートに置かれていた未公開の `.htaccess` 案を、誤アップロード防止のため非アクティブな名前で保存したもの。

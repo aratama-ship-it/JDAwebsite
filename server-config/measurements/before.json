@@ -1,0 +1,298 @@
+{
+  "measured_at": "2026-09-06T15:59:39+0900",
+  "canonical": "https://diabolo.jp",
+  "unification": [
+    {
+      "url": "http://diabolo.jp/",
+      "status": 200,
+      "final": "http://diabolo.jp/",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/",
+      "ok": false
+    },
+    {
+      "url": "https://diabolo.jp/",
+      "status": 200,
+      "final": "https://diabolo.jp/",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/",
+      "ok": true
+    },
+    {
+      "url": "http://www.diabolo.jp/",
+      "status": 200,
+      "final": "http://www.diabolo.jp/",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/",
+      "ok": false
+    },
+    {
+      "url": "https://www.diabolo.jp/",
+      "status": 200,
+      "final": "https://www.diabolo.jp/",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/",
+      "ok": false
+    },
+    {
+      "url": "http://diabolo.jp/external/about/index.html",
+      "status": 200,
+      "final": "http://diabolo.jp/external/about/index.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/external/about/index.html",
+      "ok": false
+    },
+    {
+      "url": "https://diabolo.jp/external/about/index.html",
+      "status": 200,
+      "final": "https://diabolo.jp/external/about/index.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/external/about/index.html",
+      "ok": true
+    },
+    {
+      "url": "http://www.diabolo.jp/external/about/index.html",
+      "status": 200,
+      "final": "http://www.diabolo.jp/external/about/index.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/external/about/index.html",
+      "ok": false
+    },
+    {
+      "url": "https://www.diabolo.jp/external/about/index.html",
+      "status": 200,
+      "final": "https://www.diabolo.jp/external/about/index.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/external/about/index.html",
+      "ok": false
+    },
+    {
+      "url": "http://diabolo.jp/external/contact/index.html",
+      "status": 200,
+      "final": "http://diabolo.jp/external/contact/index.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/external/contact/index.html",
+      "ok": false
+    },
+    {
+      "url": "https://diabolo.jp/external/contact/index.html",
+      "status": 200,
+      "final": "https://diabolo.jp/external/contact/index.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/external/contact/index.html",
+      "ok": true
+    },
+    {
+      "url": "http://www.diabolo.jp/external/contact/index.html",
+      "status": 200,
+      "final": "http://www.diabolo.jp/external/contact/index.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/external/contact/index.html",
+      "ok": false
+    },
+    {
+      "url": "https://www.diabolo.jp/external/contact/index.html",
+      "status": 200,
+      "final": "https://www.diabolo.jp/external/contact/index.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/external/contact/index.html",
+      "ok": false
+    },
+    {
+      "url": "http://diabolo.jp/performer.html",
+      "status": 200,
+      "final": "http://diabolo.jp/performer.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/performer.html",
+      "ok": false
+    },
+    {
+      "url": "https://diabolo.jp/performer.html",
+      "status": 200,
+      "final": "https://diabolo.jp/performer.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/performer.html",
+      "ok": true
+    },
+    {
+      "url": "http://www.diabolo.jp/performer.html",
+      "status": 200,
+      "final": "http://www.diabolo.jp/performer.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/performer.html",
+      "ok": false
+    },
+    {
+      "url": "https://www.diabolo.jp/performer.html",
+      "status": 200,
+      "final": "https://www.diabolo.jp/performer.html",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/performer.html",
+      "ok": false
+    },
+    {
+      "url": "http://diabolo.jp/sitemap.xml",
+      "status": 200,
+      "final": "http://diabolo.jp/sitemap.xml",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/sitemap.xml",
+      "ok": false
+    },
+    {
+      "url": "https://diabolo.jp/sitemap.xml",
+      "status": 200,
+      "final": "https://diabolo.jp/sitemap.xml",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/sitemap.xml",
+      "ok": true
+    },
+    {
+      "url": "http://www.diabolo.jp/sitemap.xml",
+      "status": 200,
+      "final": "http://www.diabolo.jp/sitemap.xml",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/sitemap.xml",
+      "ok": false
+    },
+    {
+      "url": "https://www.diabolo.jp/sitemap.xml",
+      "status": 200,
+      "final": "https://www.diabolo.jp/sitemap.xml",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/sitemap.xml",
+      "ok": false
+    },
+    {
+      "url": "http://diabolo.jp/robots.txt",
+      "status": 200,
+      "final": "http://diabolo.jp/robots.txt",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/robots.txt",
+      "ok": false
+    },
+    {
+      "url": "https://diabolo.jp/robots.txt",
+      "status": 200,
+      "final": "https://diabolo.jp/robots.txt",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/robots.txt",
+      "ok": true
+    },
+    {
+      "url": "http://www.diabolo.jp/robots.txt",
+      "status": 200,
+      "final": "http://www.diabolo.jp/robots.txt",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/robots.txt",
+      "ok": false
+    },
+    {
+      "url": "https://www.diabolo.jp/robots.txt",
+      "status": 200,
+      "final": "https://www.diabolo.jp/robots.txt",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/robots.txt",
+      "ok": false
+    }
+  ],
+  "preserved": [
+    {
+      "url": "https://diabolo.jp/AJDC/",
+      "status": 200,
+      "final": "https://diabolo.jp/AJDC/",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/AJDC/",
+      "ok": true
+    },
+    {
+      "url": "https://diabolo.jp/OIDC/",
+      "status": 200,
+      "final": "https://diabolo.jp/OIDC/",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/OIDC/",
+      "ok": true
+    },
+    {
+      "url": "https://diabolo.jp/TIDC/jp/",
+      "status": 200,
+      "final": "https://diabolo.jp/TIDC/jp/",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://diabolo.jp/TIDC/jp/",
+      "ok": true
+    },
+    {
+      "url": "https://judgearchive.diabolo.jp/",
+      "status": 200,
+      "final": "https://judgearchive.diabolo.jp/",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": "https://judgearchive.diabolo.jp/",
+      "ok": true
+    },
+    {
+      "url": "http://judgearchive.diabolo.jp/",
+      "status": 200,
+      "final": "http://judgearchive.diabolo.jp/",
+      "hops": 0,
+      "chain": [],
+      "error": null,
+      "expected": null,
+      "ok": true
+    }
+  ]
+}
