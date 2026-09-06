@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /AJDC/wp-admin/
+Disallow: /AJDC/wp-login.php
+Disallow: /OIDC/wp-admin/
+Disallow: /OIDC/wp-login.php
+
+Sitemap: https://www.diabolo.jp/sitemap.xml
