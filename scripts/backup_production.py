@@ -2,7 +2,7 @@
 """本番へ上書きする前に、上書き対象と同じ範囲の現行ファイルを取得して控えを作る。
 
 ロリポップのバックアップオプションが未契約のため、ロールバック手段を自前で用意する。
-公開候補に含まれるパスだけを https://www.diabolo.jp から取得するので、
+公開候補に含まれるパスだけを https://diabolo.jp から取得するので、
 AJDC/ OIDC/ TIDC/ wp/ などの触らない領域には一切アクセスしない。
 FTPの認証情報は使わない（公開URLからの取得のみ）。
 """
@@ -20,7 +20,7 @@ from datetime import datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_ORIGIN = "https://www.diabolo.jp"
+DEFAULT_ORIGIN = "https://diabolo.jp"
 USER_AGENT = "JDA-backup-script/1.0 (pre-upload rollback snapshot)"
 REQUEST_INTERVAL = 0.2
 

@@ -149,7 +149,7 @@ class ContactFormConfigurationTests(unittest.TestCase):
         self.assertIn('action="https://formsubmit.co/info@diabolo.jp"', contact_html)
         self.assertIn('method="POST" enctype="multipart/form-data"', contact_html)
         self.assertIn(
-            'name="_next" value="https://www.diabolo.jp/external/contact/?submitted=1"',
+            'name="_next" value="https://diabolo.jp/external/contact/?submitted=1"',
             contact_html,
         )
         self.assertIn('contactForm.submit();', contact_html)
